@@ -52,11 +52,16 @@ public class MyPasswordField extends JPasswordField {
         setEchoChar('\u2022');//hoangvu
     }
 
+    private Color defaultColor = new Color(230, 245, 241);
+    public void setColor(Color customColor) {
+        this.defaultColor = customColor;
+        repaint(); // Khi màu được thay đổi, chúng ta cần vẽ lại component
+    }
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(new Color(230, 245, 241));
+        g2.setColor(defaultColor);
 //        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 5, 5);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);//hoangvu
         paintIcon(g);

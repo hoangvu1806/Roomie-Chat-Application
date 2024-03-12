@@ -1,6 +1,8 @@
 package com.hoangvu.main;
 
 import com.hoangvu.component.PanelCover;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -26,10 +28,10 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         init();
     }
-
     private void init(){
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
+
         loginAndRegister = new PanelLoginAndRegister();
         TimingTarget target = new TimingTargetAdapter() {
             @Override
@@ -45,6 +47,7 @@ public class Main extends javax.swing.JFrame {
                 if(isLogin){
                     fractionCover = 1f - fraction;
                     fractionLogin = fraction;
+
                 } else {
                     fractionCover = fraction;
                     fractionLogin = 1f - fraction;
@@ -90,6 +93,7 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("frame0"); // NOI18N
         setUndecorated(true);
+        setType(java.awt.Window.Type.UTILITY);
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
 

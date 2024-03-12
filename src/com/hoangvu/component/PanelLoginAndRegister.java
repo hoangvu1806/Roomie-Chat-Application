@@ -26,19 +26,23 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         register.add(label);
 
         MyTextField txtUser = new MyTextField();
+        txtUser.setColor(new Color(255, 234, 249, 255));
         txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/user.png")));
-        txtUser.setCustomBackground(new Color(255, 242, 250, 255));
-        txtUser.setCustomForeground(new Color(218, 56, 155, 255));
+        txtUser.setForeground(new Color(218, 56, 155, 255));
         txtUser.setHint("User name");
         register.add(txtUser,"w 60%");
 
         MyTextField txtEmail = new MyTextField();
+        txtEmail.setColor(new Color(255, 234, 249, 255));
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/mail.png")));
+        txtEmail.setForeground(new Color(218, 56, 155, 255));
         txtEmail.setHint("Email");
         register.add(txtEmail,"w 60%");
 
         MyPasswordField txtPass = new MyPasswordField();
+        txtPass.setColor(new Color(255, 234, 249, 255));
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/pass.png")));
+        txtPass.setForeground(new Color(218, 56, 155, 255));
         txtPass.setHint("Password");
         register.add(txtPass,"w 60%");
 
@@ -49,19 +53,23 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         register.add(cmd, "w 40%, h 40");
     }
     private void initLogin(){
-        login.setLayout(new MigLayout("wrap","push[center]push","push[]25[]10[]10[]25[]push"));
+        login.setLayout(new MigLayout("wrap","push[center]push","push[]25[]10[]10[]10[]push"));
         JLabel label = new JLabel("Sign In");
         label.setFont(new Font("sanssarif",1,30));
         label.setForeground(new Color(12,201,226));
         login.add(label);
 
         MyTextField txtEmail = new MyTextField();
+        txtEmail.setColor(new Color(221, 249, 250, 255));
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/mail.png")));
+        txtEmail.setForeground(new Color(13, 143, 164));
         txtEmail.setHint("Email");
         login.add(txtEmail,"w 60%");
 
         MyPasswordField txtPass = new MyPasswordField();
+        txtPass.setColor(new Color(221, 249, 250, 255));
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/pass.png")));
+        txtPass.setForeground(new Color(13, 143, 164));
         txtPass.setHint("Password");
         login.add(txtPass,"w 60%");
 
