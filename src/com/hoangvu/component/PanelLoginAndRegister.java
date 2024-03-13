@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 //honagvu
-
+//12/3/2024
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
     public PanelLoginAndRegister() {
