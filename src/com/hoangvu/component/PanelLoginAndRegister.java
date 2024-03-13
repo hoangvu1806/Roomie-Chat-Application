@@ -25,28 +25,28 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         label.setForeground(new Color(201,1,148));
         register.add(label);
 
-        MyTextField txtUser = new MyTextField();
+        MyTextField txtUser = new MyTextField();// init textbox user name
         txtUser.setColor(new Color(255, 234, 249, 255));
         txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/user.png")));
         txtUser.setForeground(new Color(218, 56, 155, 255));
         txtUser.setHint("User name");
         register.add(txtUser,"w 60%");
 
-        MyTextField txtEmail = new MyTextField();
+        MyTextField txtEmail = new MyTextField();// init textbox Email
         txtEmail.setColor(new Color(255, 234, 249, 255));
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/mail.png")));
         txtEmail.setForeground(new Color(218, 56, 155, 255));
         txtEmail.setHint("Email");
         register.add(txtEmail,"w 60%");
 
-        MyPasswordField txtPass = new MyPasswordField();
+        MyPasswordField txtPass = new MyPasswordField();// init password textbox
         txtPass.setColor(new Color(255, 234, 249, 255));
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/pass.png")));
         txtPass.setForeground(new Color(218, 56, 155, 255));
         txtPass.setHint("Password");
         register.add(txtPass,"w 60%");
 
-        Button cmd = new Button();
+        Button cmd = new Button(); // init sign up button
         cmd.setBackground(new Color(201,1,148));
         cmd.setForeground(new Color(250,250,250));
         cmd.setText("SIGN UP");
@@ -59,14 +59,14 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         label.setForeground(new Color(12,201,226));
         login.add(label);
 
-        MyTextField txtEmail = new MyTextField();
+        MyTextField txtEmail = new MyTextField();// init textbox Email
         txtEmail.setColor(new Color(221, 249, 250, 255));
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/mail.png")));
         txtEmail.setForeground(new Color(13, 143, 164));
         txtEmail.setHint("Email");
         login.add(txtEmail,"w 60%");
 
-        MyPasswordField txtPass = new MyPasswordField();
+        MyPasswordField txtPass = new MyPasswordField();// init password textbox
         txtPass.setColor(new Color(221, 249, 250, 255));
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/pass.png")));
         txtPass.setForeground(new Color(13, 143, 164));
@@ -80,7 +80,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmdForget.setCursor(new Cursor(Cursor.HAND_CURSOR));
         login.add(cmdForget);
 
-        Button cmd = new Button();
+        Button cmd = new Button(); // init sign in button
 //        cmd.setBackground(new Color(7,164,121));
         cmd.setBackground(new Color(12,201,226));//hoangvu
         cmd.setForeground(new Color(250,250,250));
