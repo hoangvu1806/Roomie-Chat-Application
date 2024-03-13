@@ -8,7 +8,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 
-//honagvu
+//Do Hoang Vu
 //12/3/2024
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
