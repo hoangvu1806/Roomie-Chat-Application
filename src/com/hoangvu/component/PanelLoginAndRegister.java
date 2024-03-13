@@ -83,7 +83,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         login.add(cmdForget);
 
         Button cmd = new Button(); // init sign in button
-//        cmd.setBackground(new Color(7,164,121));
+        cmd.setBackground(new Color(7,164,121));
         cmd.setBackground(new Color(12,201,226));//hoangvu
         cmd.setForeground(new Color(250,250,250));
         cmd.setText("SIGN IN");
