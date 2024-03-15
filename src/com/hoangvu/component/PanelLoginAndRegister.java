@@ -7,20 +7,21 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 //Do Hoang Vu
 //12/3/2024
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
-    public PanelLoginAndRegister() {
+    public PanelLoginAndRegister(ActionListener eventRegister) {
         initComponents();
-        initRegister();
+        initRegister(eventRegister);
         initLogin();
         login.setVisible(false);
         register.setVisible(true);
 
     }
-    private void initRegister(){
+    private void initRegister(ActionListener eventRegister){
         register.setLayout(new MigLayout("wrap","push[center]push","push[]25[]10[]10[]25[]push"));
         JLabel label = new JLabel("Create Account");
         label.setFont(new Font("sansserif",1,30));
@@ -51,6 +52,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         Button cmd = new Button(); // init sign up button
         cmd.setBackground(new Color(201,1,148));
         cmd.setForeground(new Color(250,250,250));
+        cmd.addActionListener(eventRegister);
         cmd.setText("SIGN UP");
         register.add(cmd, "w 40%, h 40");
     }
