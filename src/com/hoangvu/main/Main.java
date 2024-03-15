@@ -2,22 +2,29 @@ package com.hoangvu.main;
 
 import com.hoangvu.component.PanelCover;
 
+import com.hoangvu.component.PanelLoading;
 import com.hoangvu.component.PanelLoginAndRegister;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+
+import com.hoangvu.component.PanelVerifyCode;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
+
+import javax.swing.*;
 
 public class Main extends javax.swing.JFrame {
 
     private final DecimalFormat df = new DecimalFormat("##0.###", DecimalFormatSymbols.getInstance(Locale.US));
     private MigLayout layout;
     private PanelCover cover;
+    private PanelLoading loading;
+    private PanelVerifyCode verifyCode;
     private PanelLoginAndRegister loginAndRegister;
     private boolean isLogin = true;
     private final double addSize = 30;
@@ -32,7 +39,15 @@ public class Main extends javax.swing.JFrame {
     private void init() {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
-        loginAndRegister = new PanelLoginAndRegister();
+        loading = new PanelLoading();
+        verifyCode = new PanelVerifyCode();
+        ActionListener eventRegister = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                register();
+            }
+        };
+        loginAndRegister = new PanelLoginAndRegister(eventRegister);
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -81,6 +96,10 @@ public class Main extends javax.swing.JFrame {
         animator.setDeceleration(0.5f);
         animator.setResolution(0);  //  for smooth animation
         bg.setLayout(layout);
+        bg.setLayer(loading, JLayeredPane.POPUP_LAYER);
+        bg.setLayer(verifyCode, JLayeredPane.POPUP_LAYER);
+        bg.add(loading,"pos 0 0 100% 100%");
+        bg.add(verifyCode,"pos 0 0 100% 100%");
         bg.add(cover, "width " + coverSize + "%, pos " + (isLogin ? "1al" : "0al") + " 0 n 100%");
         bg.add(loginAndRegister, "width " + loginSize + "%, pos " + (isLogin ? "0al" : "1al") + " 0 n 100%"); //  1al as 100%
         loginAndRegister.showRegister(!isLogin);
@@ -94,7 +113,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-
+    private void register(){
+//        loading.setVisible(true);
+        verifyCode.setVisible(true);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
