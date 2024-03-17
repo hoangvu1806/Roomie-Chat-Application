@@ -1,16 +1,15 @@
 package com.hoangvu.main;
 
-import com.hoangvu.component.PanelCover;
+import com.hoangvu.component.*;
 
-import com.hoangvu.component.PanelLoading;
-import com.hoangvu.component.PanelLoginAndRegister;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-import com.hoangvu.component.PanelVerifyCode;
+import com.hoangvu.model.BCrypt;
+import com.hoangvu.model.ModelUser;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -98,8 +97,8 @@ public class Main extends javax.swing.JFrame {
         bg.setLayout(layout);
         bg.setLayer(loading, JLayeredPane.POPUP_LAYER);
         bg.setLayer(verifyCode, JLayeredPane.POPUP_LAYER);
-        bg.add(loading,"pos 0 0 100% 100%");
-        bg.add(verifyCode,"pos 0 0 100% 100%");
+        bg.add(loading, "pos 0 0 100% 100%");
+        bg.add(verifyCode, "pos 0 0 100% 100%");
         bg.add(cover, "width " + coverSize + "%, pos " + (isLogin ? "1al" : "0al") + " 0 n 100%");
         bg.add(loginAndRegister, "width " + loginSize + "%, pos " + (isLogin ? "0al" : "1al") + " 0 n 100%"); //  1al as 100%
         loginAndRegister.showRegister(!isLogin);
@@ -113,10 +112,76 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-    private void register(){
-//        loading.setVisible(true);
+
+    private void register() {
+        ModelUser user = loginAndRegister.getUser();
+        System.out.println(user.getUserID());
+        System.out.println(user.getEmail());
+        System.out.println(user.getUserName());
+        String password = user.getPassword();
+        System.out.println(password);
+        if (isValidPassword(password)){
+            String passHashed = BCrypt.hashpw(password, BCrypt.gensalt(4));
+            System.out.println(passHashed);
+        } else {
+            System.out.println("MK Kh hop le");
+        }
+
         verifyCode.setVisible(true);
     }
+
+    public static boolean isValidPassword(String password) {
+        if (password.length() < 8) {
+            return false;
+        }
+        int countLowercase = 0;
+        int countUppercase = 0;
+        int countDigit = 0;
+        int countSpecial = 0;
+        for (char c : password.toCharArray()) {
+            if (c >= 'a' && c <= 'z') {
+                countLowercase++;
+            }
+            if (c >= 'A' && c <= 'Z') {
+                countUppercase++;
+            }
+            if (c >= '0' && c <= '9') {
+                countDigit++;
+            }
+        }
+        return countLowercase >= 1 && countUppercase >= 1 && countDigit >= 1;
+    }
+
+    private void showMessage(Message.MessageType messageType, String message){
+        Message ms = new Message();
+        ms.showMessage(messageType,message);
+        TimingTarget target = new TimingTarget() {
+            @Override
+            public void timingEvent(float v) {
+
+            }
+
+            @Override
+            public void begin() {
+
+            }
+
+            @Override
+            public void end() {
+
+            }
+
+            @Override
+            public void repeat() {
+
+            }
+        };
+//        Animator animator = new Animator(300,target){
+//
+//        }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
