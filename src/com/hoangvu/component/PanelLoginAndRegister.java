@@ -1,5 +1,6 @@
 package com.hoangvu.component;
 
+import com.hoangvu.model.ModelUser;
 import com.hoangvu.swing.Button;
 import com.hoangvu.swing.MyPasswordField;
 import com.hoangvu.swing.MyTextField;
@@ -7,11 +8,17 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //Do Hoang Vu
 //12/3/2024
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
+
+    public ModelUser getUser(){
+        return user;
+    }
+    private ModelUser user;
 
     public PanelLoginAndRegister(ActionListener eventRegister) {
         initComponents();
@@ -55,6 +62,15 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.addActionListener(eventRegister);
         cmd.setText("SIGN UP");
         register.add(cmd, "w 40%, h 40");
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userName = txtUser.getText().trim();
+                String email = txtEmail.getText().trim();
+                String password = txtPass.getText().trim();
+                user = new ModelUser(0, userName, email, password);
+            }
+        });
     }
     private void initLogin(){
         login.setLayout(new MigLayout("wrap","push[center]push","push[]25[]10[]10[]10[]push"));

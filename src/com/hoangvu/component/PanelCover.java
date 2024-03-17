@@ -1,6 +1,7 @@
 package com.hoangvu.component;
 
 import com.hoangvu.swing.ButtonOutLine;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -85,7 +86,7 @@ public class PanelCover extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
-        GradientPaint gra1 = new GradientPaint(0, 0, new Color(32, 217, 243), 0, getHeight(), new Color(201,1,148));
+        GradientPaint gra1 = new GradientPaint(0, 0, new Color(32, 217, 243), 0, getHeight(), new Color(201, 1, 148));
         GradientPaint gra2 = new GradientPaint(0, 150, new Color(255, 100, 100), 0, getHeight(), new Color(255, 255, 255));
         g2.setPaint(gra1);
         g2.fillRect(0, 0, getWidth(), getHeight());

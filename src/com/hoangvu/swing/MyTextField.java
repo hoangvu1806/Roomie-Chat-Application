@@ -39,10 +39,6 @@ public class MyTextField extends JTextField {
         initBorder();
     }
 
-    public void setCustomForeground(Color customForeground) {
-        setForeground(customForeground);
-    }
-
     public void setCustomBackground(Color customBackground) {
         setBackground(customBackground);
     }
@@ -61,10 +57,12 @@ public class MyTextField extends JTextField {
     }
 
     private Color defaultColor = new Color(230, 245, 241);
+
     public void setColor(Color customColor) {
         this.defaultColor = customColor;
         repaint(); // Khi màu được thay đổi, chúng ta cần vẽ lại component
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
