@@ -1,13 +1,51 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.hoangvu.connection;
 
-/**
- *
- * @author Admin
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class DatabaseConnection {
-    
+
+    private static DatabaseConnection instance;
+    private Connection connection;
+
+    public static DatabaseConnection getInstance() {
+        if (instance == null) {
+            instance = new DatabaseConnection();
+        }
+        return instance;
+    }
+
+    private DatabaseConnection() {
+
+    }
+
+    public void connectToDatabase() {
+        String server = "127.0.0.1";
+        String port = "3306";
+        String database = "user";
+        String userName = "root";
+        String password = "1806";
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database, userName, password);
+            System.out.println("Kết nối database thành công!");
+        } catch (SQLException e) {
+            System.out.println("Kết nối không thành công!");
+            e.printStackTrace();
+        }
+    }
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println("Đóng kết nối không thành công!");
+                e.printStackTrace();
+            }
+        }
+    }
 }
