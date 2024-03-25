@@ -2,14 +2,22 @@ package com.hoangvu.main;
 
 import com.hoangvu.component.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import com.hoangvu.connection.DatabaseConnection;
 import com.hoangvu.model.BCrypt;
+import com.hoangvu.model.ModelMessage;
 import com.hoangvu.model.ModelUser;
+import com.hoangvu.service.ServiceSendMail;
+import com.hoangvu.service.ServiceUser;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -17,7 +25,7 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 import javax.swing.*;
 
-public class Main extends javax.swing.JFrame {
+public class Main extends JFrame {
 
     private final DecimalFormat df = new DecimalFormat("##0.###", DecimalFormatSymbols.getInstance(Locale.US));
     private MigLayout layout;
@@ -29,6 +37,7 @@ public class Main extends javax.swing.JFrame {
     private final double addSize = 30;
     private final double coverSize = 40;
     private final double loginSize = 60;
+    private ServiceUser service;
 
     public Main() {
         initComponents();
@@ -36,6 +45,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void init() {
+        service = new ServiceUser();
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
         loading = new PanelLoading();
@@ -94,6 +104,7 @@ public class Main extends javax.swing.JFrame {
         animator.setAcceleration(0.5f);
         animator.setDeceleration(0.5f);
         animator.setResolution(0);  //  for smooth animation
+
         bg.setLayout(layout);
         bg.setLayer(loading, JLayeredPane.POPUP_LAYER);
         bg.setLayer(verifyCode, JLayeredPane.POPUP_LAYER);
@@ -111,64 +122,103 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         });
+
+        verifyCode.addEventButtonOK(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    ModelUser user = loginAndRegister.getUser();
+                    if (service.verifyCodeWithUser(user.getUserID(), verifyCode.getInputCode())) {
+                        service.doneVerify(user.getUserID());
+                        verifyCode.setVisible(false);
+                        showMessage(Message.MessageType.SUCCESS, "Register Success!");
+                    } else {
+                        showMessage(Message.MessageType.ERROR, "Verify code incorrect");
+                    }
+                } catch (Exception e) {
+                    showMessage(Message.MessageType.ERROR, "Error!");
+                }
+            }
+        });
+    }
+
+    private void sendMain(ModelUser user) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loading.setVisible(true);
+                ModelMessage ms = new ServiceSendMail().sendMain(user.getEmail(), user.getUserName(),user.getVerifyCode());
+                if (ms.isSuccess()) {
+                    loading.setVisible(false);
+                    verifyCode.setVisible(true);
+                } else {
+                    loading.setVisible(false);
+                    showMessage(Message.MessageType.ERROR, ms.getMessage());
+                }
+            }
+        }).start();
+
     }
 
     private void register() {
         ModelUser user = loginAndRegister.getUser();
-        System.out.println(user.getUserID());
-        System.out.println(user.getEmail());
-        System.out.println(user.getUserName());
-        String password = user.getPassword();
-        System.out.println(password);
-        if (isValidPassword(password)){
-            String passHashed = BCrypt.hashpw(password, BCrypt.gensalt(4));
-            System.out.println(passHashed);
+        if (!user.isValidUsername()) {
+            showMessage(Message.MessageType.ERROR, "The username is invalid");
+        } else if (!user.isValidEmail()){
+            showMessage(Message.MessageType.ERROR, "The email is invalid");
+        } else if (!user.isValidPassword()) {
+            showMessage(Message.MessageType.ERROR, "Passwords need uppercase, lowercase, and digits");
         } else {
-            System.out.println("MK Kh hop le");
+            try {
+                if (service.checkDuplicateEmail(user.getEmail())) {
+                    showMessage(Message.MessageType.ERROR, "Email already exist");
+                } else if (service.checkDuplicateUser(user.getUserName())) {
+                    showMessage(Message.MessageType.ERROR, "User name already exist");
+                } else {
+                    service.insertUser(user);
+                    sendMain(user);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+                showMessage(Message.MessageType.ERROR, "Error Register");
+            }
         }
-
-        verifyCode.setVisible(true);
     }
 
-    public static boolean isValidPassword(String password) {
-        if (password.length() < 8) {
-            return false;
-        }
-        int countLowercase = 0;
-        int countUppercase = 0;
-        int countDigit = 0;
-        int countSpecial = 0;
-        for (char c : password.toCharArray()) {
-            if (c >= 'a' && c <= 'z') {
-                countLowercase++;
-            }
-            if (c >= 'A' && c <= 'Z') {
-                countUppercase++;
-            }
-            if (c >= '0' && c <= '9') {
-                countDigit++;
-            }
-        }
-        return countLowercase >= 1 && countUppercase >= 1 && countDigit >= 1;
-    }
-
-    private void showMessage(Message.MessageType messageType, String message){
+    private void showMessage(Message.MessageType messageType, String message) {
         Message ms = new Message();
-        ms.showMessage(messageType,message);
+        ms.showMessage(messageType, message);
         TimingTarget target = new TimingTarget() {
             @Override
-            public void timingEvent(float v) {
-
+            public void timingEvent(float fraction) {
+                float f;
+                if (ms.isShow()) {
+                    f = 40 * (1f - fraction);
+                } else {
+                    f = 40 * fraction;
+                }
+                layout.setComponentConstraints(ms, "pos 0.5al " + (int) (f - 30));
+                bg.repaint();
+                bg.revalidate();
             }
 
             @Override
             public void begin() {
-
+                if (!ms.isShow()) {
+                    bg.add(ms, "pos 0.5al -30", 0);
+                    bg.setVisible(true);
+                    bg.repaint();
+                }
             }
 
             @Override
             public void end() {
-
+                if (ms.isShow()) {
+                    bg.remove(ms);
+                    bg.repaint();
+                } else {
+                    ms.setShow(true);
+                }
             }
 
             @Override
@@ -176,43 +226,56 @@ public class Main extends javax.swing.JFrame {
 
             }
         };
-//        Animator animator = new Animator(300,target){
-//
-//        }
+        Animator animator = new Animator(300, target);
+        animator.setResolution(0);
+        animator.setAcceleration(0.5f);
+        animator.setDeceleration(0.5f);
+        animator.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    animator.start();
+                } catch (Exception e) {
+                    System.err.println(e);
 
+                }
+            }
+        }).start();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bg = new javax.swing.JLayeredPane();
+        bg = new JLayeredPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setBackground(new Color(255, 255, 255));
         bg.setOpaque(true);
 
-        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        GroupLayout bgLayout = new GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
-                bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 933, Short.MAX_VALUE)
         );
         bgLayout.setVerticalGroup(
-                bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 537, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(bg, GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(bg)
         );
 
@@ -227,25 +290,27 @@ public class Main extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+
+        DatabaseConnection.getInstance().connectToDatabase();
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
             }
@@ -253,6 +318,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLayeredPane bg;
+    private JLayeredPane bg;
     // End of variables declaration//GEN-END:variables
 }
