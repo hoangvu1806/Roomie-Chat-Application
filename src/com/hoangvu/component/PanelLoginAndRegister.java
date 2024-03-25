@@ -40,6 +40,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/user.png")));
         txtUser.setForeground(new Color(218, 56, 155, 255));
         txtUser.setHint("User name");
+        txtUser.setSelectionColor(new Color(192, 8, 118, 255));
         register.add(txtUser,"w 60%");
 
         MyTextField txtEmail = new MyTextField();// init textbox Email
@@ -47,6 +48,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/mail.png")));
         txtEmail.setForeground(new Color(218, 56, 155, 255));
         txtEmail.setHint("Email");
+        txtEmail.setSelectionColor(new Color(192, 8, 118, 255));
         register.add(txtEmail,"w 60%");
 
         MyPasswordField txtPass = new MyPasswordField();// init password textbox
@@ -54,6 +56,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/pass.png")));
         txtPass.setForeground(new Color(218, 56, 155, 255));
         txtPass.setHint("Password");
+        txtPass.setSelectionColor(new Color(192, 8, 118, 255));
         register.add(txtPass,"w 60%");
 
         Button cmd = new Button(); // init sign up button
@@ -82,14 +85,16 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         MyTextField txtEmail = new MyTextField();// init textbox Email
         txtEmail.setColor(new Color(221, 249, 250, 255));
         txtEmail.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/mail.png")));
-        txtEmail.setForeground(new Color(13, 143, 164));
+        txtEmail.setForeground(new Color(6, 136, 155));
         txtEmail.setHint("Email");
+        txtEmail.setSelectionColor(new Color(8, 169, 192, 255));
         login.add(txtEmail,"w 60%");
 
         MyPasswordField txtPass = new MyPasswordField();// init password textbox
         txtPass.setColor(new Color(221, 249, 250, 255));
         txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/pass.png")));
-        txtPass.setForeground(new Color(13, 143, 164));
+        txtPass.setForeground(new Color(6, 136, 155));
+        txtPass.setSelectionColor(new Color(8, 169, 192, 255));
         txtPass.setHint("Password");
         login.add(txtPass,"w 60%");
 
