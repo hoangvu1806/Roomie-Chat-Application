@@ -1,6 +1,8 @@
 
 package com.hoangvu.component;
 
+import com.hoangvu.swing.MyTextField;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -135,7 +137,7 @@ public class PanelVerifyCode extends javax.swing.JPanel {
         g2.setComposite(AlphaComposite.SrcOver);
         super.paintComponent(grphcs);
     }
-
+    public String getInputCode(){ return this.txtCode.getText(); }
     public String getVerifyCode() {
         return txtCode.getText().trim();
     }
