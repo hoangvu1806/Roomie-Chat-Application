@@ -19,7 +19,8 @@ public class Message extends javax.swing.JPanel {
     public Message() {
         initComponents();
         setOpaque(false);
-        setVisible(false);
+        setVisible(true);
+
     }
 
     public void showMessage(MessageType messageType, String message) {
@@ -38,6 +39,7 @@ public class Message extends javax.swing.JPanel {
 
         lbMessage = new javax.swing.JLabel();
 
+        lbMessage.setBackground(new java.awt.Color(255, 255, 255));
         lbMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMessage.setText("lbMessage");
 
@@ -58,17 +60,19 @@ public class Message extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
+        GradientPaint gra1 = new GradientPaint(0, 0, new Color(43, 228, 255), 0, getHeight(), new Color(1, 154, 201));
+        GradientPaint gra2 = new GradientPaint(0, 0, new Color(255, 65, 175), 0, getHeight(), new Color(168, 13, 96));
         if (messageType == MessageType.SUCCESS) {
-            g2.setColor(new Color(15, 174, 37));
+            g2.setPaint(gra1);
         } else {
-            g2.setColor(new Color(240, 52, 53));
+            g2.setPaint(gra2);
         }
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
-        g2.fillRect(0, 0, getWidth(), getHeight());
+
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(),20,20);
         g2.setComposite(AlphaComposite.SrcOver);
         g2.setColor(new Color(245, 245, 245));
-        g2.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         super.paintComponent(grphcs);
     }
 
