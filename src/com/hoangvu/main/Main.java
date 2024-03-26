@@ -13,15 +13,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.hoangvu.connection.DatabaseConnection;
-import com.hoangvu.model.BCrypt;
+import com.hoangvu.model.ModelLogin;
 import com.hoangvu.model.ModelMessage;
 import com.hoangvu.model.ModelUser;
 import com.hoangvu.service.ServiceSendMail;
 import com.hoangvu.service.ServiceUser;
-import net.miginfocom.swing.MigLayout;
+
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 
@@ -56,7 +57,14 @@ public class Main extends JFrame {
                 register();
             }
         };
-        loginAndRegister = new PanelLoginAndRegister(eventRegister);
+
+        ActionListener eventLogin = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                login();
+            }
+        };
+        loginAndRegister = new PanelLoginAndRegister(eventRegister, eventLogin);
         TimingTarget target = new TimingTargetAdapter() {
             @Override
             public void timingEvent(float fraction) {
@@ -185,6 +193,23 @@ public class Main extends JFrame {
         }
     }
 
+    private void login(){
+        ModelLogin data = loginAndRegister.getDataLogin();
+        try {
+            ModelUser user = service.login(data);
+            if (user != null){
+                System.out.println("Đã đăng nhập thành công");
+                this.dispose();
+                Home.main(user);
+            } else {
+                showMessage(Message.MessageType.ERROR,"Email or password incorrect");
+            }
+        } catch (SQLException e) {
+
+            showMessage(Message.MessageType.ERROR, "Error Login");
+        }
+    }
+
     private void showMessage(Message.MessageType messageType, String message) {
         Message ms = new Message();
         ms.showMessage(messageType, message);
@@ -239,7 +264,6 @@ public class Main extends JFrame {
                     animator.start();
                 } catch (Exception e) {
                     System.err.println(e);
-
                 }
             }
         }).start();
