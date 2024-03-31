@@ -1,5 +1,6 @@
 package com.hoangvu.component;
 
+import com.hoangvu.model.ModelLogin;
 import com.hoangvu.model.ModelUser;
 import com.hoangvu.swing.Button;
 import com.hoangvu.swing.MyPasswordField;
@@ -10,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 //Do Hoang Vu
 //12/3/2024
@@ -18,12 +20,13 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
     public ModelUser getUser(){
         return user;
     }
+    public ModelLogin getDataLogin() { return dataLogin; }
     private ModelUser user;
-
-    public PanelLoginAndRegister(ActionListener eventRegister) {
+    private ModelLogin dataLogin;
+    public PanelLoginAndRegister(ActionListener eventRegister, ActionListener eventLogin) {
         initComponents();
         initRegister(eventRegister);
-        initLogin();
+        initLogin(eventLogin);
         login.setVisible(false);
         register.setVisible(true);
 
@@ -63,6 +66,14 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.setBackground(new Color(201,1,148));
         cmd.setForeground(new Color(250,250,250));
         cmd.addActionListener(eventRegister);
+        cmd.registerKeyboardAction(cmd.getActionForKeyStroke(
+                                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                                JComponent.WHEN_IN_FOCUSED_WINDOW);
+        cmd.registerKeyboardAction(cmd.getActionForKeyStroke(
+                                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                                JComponent.WHEN_IN_FOCUSED_WINDOW);
         cmd.setText("SIGN UP");
         register.add(cmd, "w 40%, h 40");
         cmd.addActionListener(new ActionListener() {
@@ -75,7 +86,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
             }
         });
     }
-    private void initLogin(){
+    private void initLogin(ActionListener eventLogin){
         login.setLayout(new MigLayout("wrap","push[center]push","push[]25[]10[]10[]10[]push"));
         JLabel label = new JLabel("Sign In");
         label.setFont(new Font("sanssarif",1,30));
@@ -106,11 +117,28 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         login.add(cmdForget);
 
         Button cmd = new Button(); // init sign in button
-        cmd.setBackground(new Color(7,164,121));
         cmd.setBackground(new Color(12,201,226));//hoangvu
         cmd.setForeground(new Color(250,250,250));
+        cmd.addActionListener(eventLogin);
         cmd.setText("SIGN IN");
+        cmd.registerKeyboardAction(cmd.getActionForKeyStroke(
+                                    KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                                    KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                                    JComponent.WHEN_IN_FOCUSED_WINDOW);
+        cmd.registerKeyboardAction(cmd.getActionForKeyStroke(
+                                    KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                                    KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                                    JComponent.WHEN_IN_FOCUSED_WINDOW);
         login.add(cmd, "w 40%, h 40");
+
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String email = txtEmail.getText().trim();
+                String password = txtPass.getText().trim();
+                dataLogin = new ModelLogin(email, password);
+            }
+        });
     }
 
     public void showLogin(boolean show){
