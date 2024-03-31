@@ -2,6 +2,7 @@ package com.hoangvu.service;
 
 import com.hoangvu.connection.DatabaseConnection;
 import com.hoangvu.model.BCrypt;
+import com.hoangvu.model.ModelLogin;
 import com.hoangvu.model.ModelUser;
 
 import java.sql.Connection;
@@ -17,21 +18,41 @@ public class ServiceUser {
     public ServiceUser() {
         con = DatabaseConnection.getInstance().getConnection();
     }
+    public ModelUser login(ModelLogin login) throws SQLException {
+        ModelUser data = null;
+        try {
+            PreparedStatement p = con.prepareStatement("SELECT UserId, UserName, Email, Password FROM `usermanager` WHERE BINARY(Email)=? AND `Status`='Verified' limit 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            p.setString(1, login.getEmail());
+            ResultSet r = p.executeQuery();
+            if (r.first()) {
+                int userID = r.getInt(1);
+                String userName = r.getString(2);
+                String email = r.getString(3);
+                String hashedPassword = r.getString(4);
+                if ((login.getPassword() == hashedPassword) || (BCrypt.checkpw(login.getPassword(), hashedPassword))) {
+                    data = new ModelUser(userID, userName, email, "");
+                }
+            }
+            r.close();
+            p.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return data;
+    }
 
     public void insertUser(ModelUser user) throws SQLException {
 
         PreparedStatement p = con.prepareStatement(" insert into `usermanager` (UserName, Email, Password, VerifyCode, Permission) values(?,?,?,?,?)"
                 , PreparedStatement.RETURN_GENERATED_KEYS);
         String verifycode = generateVerifyCode();
-        System.out.println("Verify code of " + user.getUserName() + ": " + verifycode);
+//        System.out.println("Verify code of " + user.getUserName() + ": " + verifycode);
         String passHashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(4));
         p.setString(1, user.getUserName());
         p.setString(2, user.getEmail());
         p.setString(3, passHashed);
         p.setString(4, verifycode);
         p.setString(5, "user");
-
-
         p.execute();
         ResultSet r = p.getGeneratedKeys();
         r.first();
@@ -40,7 +61,6 @@ public class ServiceUser {
         p.close();
         user.setUserID(userID);
         user.setVerifyCode(verifycode);
-
     }
 
     public String generateVerifyCode() throws SQLException {
@@ -65,7 +85,7 @@ public class ServiceUser {
         try (PreparedStatement p = con.prepareStatement("SELECT UserID FROM `usermanager` WHERE VerifyCode=? LIMIT 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             p.setString(1, verifyCode);
             try (ResultSet r = p.executeQuery()) {
-                if (r.next()) { // Kiểm tra xem tập kết quả có ít nhất một bản ghi không
+                if (r.next()) {
                     duplicate = true;
                 }
             }
