@@ -15,15 +15,14 @@ public class DatabaseConnection {
         }
         return instance;
     }
-
+    
     private DatabaseConnection() {
-
     }
 
     public void connectToDatabase() {
         String server = "127.0.0.1";
         String port = "3306";
-        String database = "user";
+        String database = "roomiedb";
         String userName = "root";
         String password = "1806";
         try {
@@ -31,7 +30,6 @@ public class DatabaseConnection {
             System.out.println("Kết nối database thành công!");
         } catch (SQLException e) {
             System.out.println("Kết nối không thành công!");
-            e.printStackTrace();
         }
     }
     public Connection getConnection() {
