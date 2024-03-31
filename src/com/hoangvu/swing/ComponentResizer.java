@@ -7,13 +7,12 @@ import java.util.*;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
-public class ComponentResizer extends MouseAdapter
-{
+public class ComponentResizer extends MouseAdapter {
 	private final static Dimension MINIMUM_SIZE = new Dimension(10, 10);
 	private final static Dimension MAXIMUM_SIZE =
 		new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
-
 	private static Map<Integer, Integer> cursors = new HashMap<Integer, Integer>();
+
 	{
 		cursors.put(1, Cursor.N_RESIZE_CURSOR);
 		cursors.put(2, Cursor.W_RESIZE_CURSOR);
@@ -40,7 +39,6 @@ public class ComponentResizer extends MouseAdapter
 	private Point pressed;
 	private boolean autoscrolls;
 	private boolean autoLayout;
-
 	private Dimension minimumSize = MINIMUM_SIZE;
 	private Dimension maximumSize = MAXIMUM_SIZE;
 
