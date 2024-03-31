@@ -43,6 +43,7 @@ public class Main extends JFrame {
     public Main() {
         initComponents();
         init();
+
     }
 
     private void init() {
@@ -51,6 +52,8 @@ public class Main extends JFrame {
         cover = new PanelCover();
         loading = new PanelLoading();
         verifyCode = new PanelVerifyCode();
+        ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logo.png");
+        setIconImage(icon.getImage());
         ActionListener eventRegister = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,7 +146,8 @@ public class Main extends JFrame {
                     } else {
                         showMessage(Message.MessageType.ERROR, "Verify code incorrect");
                     }
-                } catch (Exception e) {
+                } catch (SQLException e) {
+                    System.out.println(e);
                     showMessage(Message.MessageType.ERROR, "Error!");
                 }
             }
@@ -200,7 +204,7 @@ public class Main extends JFrame {
             if (user != null){
                 System.out.println("Đã đăng nhập thành công");
                 this.dispose();
-                Home.main(user);
+                Client.main(user);
             } else {
                 showMessage(Message.MessageType.ERROR,"Email or password incorrect");
             }
@@ -248,7 +252,6 @@ public class Main extends JFrame {
 
             @Override
             public void repeat() {
-
             }
         };
         Animator animator = new Animator(300, target);
