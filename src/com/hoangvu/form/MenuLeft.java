@@ -35,7 +35,7 @@ public class MenuLeft extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(80, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -44,7 +44,7 @@ public class MenuLeft extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(243, 243, 243)
                 .addComponent(jLabel1)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
