@@ -142,13 +142,13 @@ public class Main extends JFrame {
                     if (service.verifyCodeWithUser(user.getUserID(), verifyCode.getInputCode())) {
                         service.doneVerify(user.getUserID());
                         verifyCode.setVisible(false);
-                        showMessage(Message.MessageType.SUCCESS, "Register Success!");
+                        showMessage(Notification.MessageType.SUCCESS, "Register Success!");
                     } else {
-                        showMessage(Message.MessageType.ERROR, "Verify code incorrect");
+                        showMessage(Notification.MessageType.ERROR, "Verify code incorrect");
                     }
                 } catch (SQLException e) {
                     System.out.println(e);
-                    showMessage(Message.MessageType.ERROR, "Error!");
+                    showMessage(Notification.MessageType.ERROR, "Error!");
                 }
             }
         });
@@ -165,7 +165,7 @@ public class Main extends JFrame {
                     verifyCode.setVisible(true);
                 } else {
                     loading.setVisible(false);
-                    showMessage(Message.MessageType.ERROR, ms.getMessage());
+                    showMessage(Notification.MessageType.ERROR, ms.getMessage());
                 }
             }
         }).start();
@@ -175,24 +175,24 @@ public class Main extends JFrame {
     private void register() {
         ModelUser user = loginAndRegister.getUser();
         if (!user.isValidUsername()) {
-            showMessage(Message.MessageType.ERROR, "The username is invalid");
+            showMessage(Notification.MessageType.ERROR, "The username is invalid");
         } else if (!user.isValidEmail()){
-            showMessage(Message.MessageType.ERROR, "The email is invalid");
+            showMessage(Notification.MessageType.ERROR, "The email is invalid");
         } else if (!user.isValidPassword()) {
-            showMessage(Message.MessageType.ERROR, "Passwords need uppercase, lowercase, and digits");
+            showMessage(Notification.MessageType.ERROR, "Passwords need uppercase, lowercase, and digits");
         } else {
             try {
                 if (service.checkDuplicateEmail(user.getEmail())) {
-                    showMessage(Message.MessageType.ERROR, "Email already exist");
+                    showMessage(Notification.MessageType.ERROR, "Email already exist");
                 } else if (service.checkDuplicateUser(user.getUserName())) {
-                    showMessage(Message.MessageType.ERROR, "User name already exist");
+                    showMessage(Notification.MessageType.ERROR, "User name already exist");
                 } else {
                     service.insertUser(user);
                     sendMain(user);
                 }
             } catch (SQLException e) {
                 System.out.println(e);
-                showMessage(Message.MessageType.ERROR, "Error Register");
+                showMessage(Notification.MessageType.ERROR, "Error Register");
             }
         }
     }
@@ -206,16 +206,16 @@ public class Main extends JFrame {
                 this.dispose();
                 Client.main(user);
             } else {
-                showMessage(Message.MessageType.ERROR,"Email or password incorrect");
+                showMessage(Notification.MessageType.ERROR,"Email or password incorrect");
             }
         } catch (SQLException e) {
 
-            showMessage(Message.MessageType.ERROR, "Error Login");
+            showMessage(Notification.MessageType.ERROR, "Error Login");
         }
     }
 
-    private void showMessage(Message.MessageType messageType, String message) {
-        Message ms = new Message();
+    private void showMessage(Notification.MessageType messageType, String message) {
+        Notification ms = new Notification();
         ms.showMessage(messageType, message);
         TimingTarget target = new TimingTarget() {
             @Override
