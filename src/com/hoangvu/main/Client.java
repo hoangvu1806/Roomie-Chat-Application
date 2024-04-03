@@ -132,11 +132,9 @@ public class Client extends javax.swing.JFrame {
         tittlePanelLayout.setVerticalGroup(
             tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(tittlePanelLayout.createSequentialGroup()
-                .addGroup(tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(closeBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(closeBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout borderLayout = new javax.swing.GroupLayout(border);
@@ -184,16 +182,6 @@ public class Client extends javax.swing.JFrame {
 
     private int pX;
     private int pY;
-    private void tittlePanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tittlePanelMouseDragged
-        this.setLocation(this.getLocation().x + evt.getX() - this.pX,
-                this.getLocation().y + evt.getY() - this.pY);
-    }//GEN-LAST:event_tittlePanelMouseDragged
-
-    private void tittlePanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tittlePanelMousePressed
-        this.pX = evt.getX();
-        this.pY = evt.getY();
-    }//GEN-LAST:event_tittlePanelMousePressed
-
     private void closeBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtMouseEntered
         closeBt.setBackground(new Color(253, 71, 71));
         closeBt.setOpaque(true);
@@ -212,6 +200,16 @@ public class Client extends javax.swing.JFrame {
         minimizeBt.setBackground(this.tittlePanel.getBackground());
         minimizeBt.setOpaque(true);
     }//GEN-LAST:event_minimizeBtMouseExited
+
+    private void tittlePanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tittlePanelMousePressed
+        this.pX = evt.getX();
+        this.pY = evt.getY();
+    }//GEN-LAST:event_tittlePanelMousePressed
+
+    private void tittlePanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tittlePanelMouseDragged
+        this.setLocation(this.getLocation().x + evt.getX() - this.pX,
+            this.getLocation().y + evt.getY() - this.pY);
+    }//GEN-LAST:event_tittlePanelMouseDragged
                                 
 
     /**
