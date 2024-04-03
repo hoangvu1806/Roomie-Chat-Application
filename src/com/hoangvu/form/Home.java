@@ -9,7 +9,8 @@ public class Home extends javax.swing.JLayeredPane {
         init();
     }
     private void init(){
-        setLayout(new MigLayout("fillx, filly", "0[200!]5[fill, 100%]5[200!]0", "0[fill]0"));
+        setLayout(new MigLayout("fillx, filly", "0[44!]5[200!]5[fill, 100%]5[200!]5", "0[fill]0"));
+        this.add(new ToolBar());
         this.add(new MenuLeft());
         this.chat = new Chat();
         this.add(this.chat);
@@ -24,11 +25,11 @@ public class Home extends javax.swing.JLayeredPane {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 702, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 411, Short.MAX_VALUE)
+            .addGap(0, 512, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
