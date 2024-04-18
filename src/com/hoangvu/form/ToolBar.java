@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.hoangvu.form;
-
+import java.awt.*;
+import javax.swing.*;
 /**
  *
  * @author Admin
@@ -26,27 +27,160 @@ public class ToolBar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        menu = new javax.swing.JLayeredPane();
+        chatBT = new javax.swing.JButton();
+        chatBT1 = new javax.swing.JButton();
+        chatBT2 = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        menu.setOpaque(true);
+
+        chatBT.setBackground(new java.awt.Color(102, 102, 102));
+        chatBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        chatBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/chat.png"))); // NOI18N
+        chatBT.setBorder(null);
+        chatBT.setBorderPainted(false);
+        chatBT.setContentAreaFilled(false);
+        chatBT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chatBT.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        chatBT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                chatBTMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                chatBTMouseExited(evt);
+            }
+        });
+        chatBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chatBTActionPerformed(evt);
+            }
+        });
+
+        chatBT1.setBackground(new java.awt.Color(102, 102, 102));
+        chatBT1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        chatBT1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/friends.png"))); // NOI18N
+        chatBT1.setBorder(null);
+        chatBT1.setBorderPainted(false);
+        chatBT1.setContentAreaFilled(false);
+        chatBT1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chatBT1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        chatBT1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                chatBT1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                chatBT1MouseExited(evt);
+            }
+        });
+        chatBT1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chatBT1ActionPerformed(evt);
+            }
+        });
+
+        chatBT2.setBackground(new java.awt.Color(102, 102, 102));
+        chatBT2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        chatBT2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/email.png"))); // NOI18N
+        chatBT2.setBorder(null);
+        chatBT2.setBorderPainted(false);
+        chatBT2.setContentAreaFilled(false);
+        chatBT2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chatBT2.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        chatBT2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                chatBT2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                chatBT2MouseExited(evt);
+            }
+        });
+        chatBT2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chatBT2ActionPerformed(evt);
+            }
+        });
+
+        menu.setLayer(chatBT, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        menu.setLayer(chatBT1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        menu.setLayer(chatBT2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
+        menu.setLayout(menuLayout);
+        menuLayout.setHorizontalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(chatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(chatBT1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(chatBT2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        menuLayout.setVerticalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addComponent(chatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(chatBT1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(chatBT2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 43, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(462, Short.MAX_VALUE))
+                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 377, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void chatBTMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBTMouseEntered
+
+    }//GEN-LAST:event_chatBTMouseEntered
+
+    private void chatBTMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBTMouseExited
+
+    }//GEN-LAST:event_chatBTMouseExited
+
+    private void chatBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBTActionPerformed
+        
+    }//GEN-LAST:event_chatBTActionPerformed
+
+    private void chatBT1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBT1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatBT1MouseEntered
+
+    private void chatBT1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBT1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatBT1MouseExited
+
+    private void chatBT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBT1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatBT1ActionPerformed
+
+    private void chatBT2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBT2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatBT2MouseEntered
+
+    private void chatBT2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBT2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatBT2MouseExited
+
+    private void chatBT2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBT2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chatBT2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton chatBT;
+    private javax.swing.JButton chatBT1;
+    private javax.swing.JButton chatBT2;
+    private javax.swing.JLayeredPane menu;
     // End of variables declaration//GEN-END:variables
 }
