@@ -40,11 +40,11 @@ public class Client extends javax.swing.JFrame {
 
         lbUserName = new javax.swing.JLabel();
         border = new javax.swing.JPanel();
+        home2 = new com.hoangvu.form.Home();
         tittlePanel = new javax.swing.JPanel();
         minimizeBt = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         closeBt = new javax.swing.JButton();
-        home1 = new com.hoangvu.form.Home();
 
         lbUserName.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lbUserName.setForeground(new java.awt.Color(204, 204, 204));
@@ -55,9 +55,9 @@ public class Client extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 51, 0));
         setUndecorated(true);
 
-        border.setBackground(new java.awt.Color(102, 102, 102));
+        border.setBackground(new java.awt.Color(255, 255, 255));
 
-        tittlePanel.setBackground(new java.awt.Color(91, 85, 90));
+        tittlePanel.setBackground(new java.awt.Color(204, 204, 204));
         tittlePanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 tittlePanelMouseDragged(evt);
@@ -124,8 +124,8 @@ public class Client extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittlePanelLayout.createSequentialGroup()
                 .addGap(294, 294, 294)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                .addGap(239, 239, 239)
-                .addComponent(minimizeBt, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addGap(246, 246, 246)
+                .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(closeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -142,17 +142,14 @@ public class Client extends javax.swing.JFrame {
         borderLayout.setHorizontalGroup(
             borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tittlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(borderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(home1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addComponent(home2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         borderLayout.setVerticalGroup(
             borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(borderLayout.createSequentialGroup()
                 .addComponent(tittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(home1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(home2, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -251,7 +248,7 @@ public class Client extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel border;
     private javax.swing.JButton closeBt;
-    private com.hoangvu.form.Home home1;
+    private com.hoangvu.form.Home home2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbUserName;
     private javax.swing.JButton minimizeBt;
