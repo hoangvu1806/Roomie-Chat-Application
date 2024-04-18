@@ -1,4 +1,4 @@
-=
+
 package com.hoangvu.swing;
 
 import java.awt.AlphaComposite;

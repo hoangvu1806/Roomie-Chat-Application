@@ -55,7 +55,7 @@ public class MyPasswordField extends JPasswordField {
     private Color defaultColor = new Color(230, 245, 241);
     public void setColor(Color customColor) {
         this.defaultColor = customColor;
-        repaint(); // Khi màu được thay đổi, chúng ta cần vẽ lại component
+        repaint();
     }
     @Override
     protected void paintComponent(Graphics g) {
