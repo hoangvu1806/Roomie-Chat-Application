@@ -4,6 +4,8 @@
  */
 package com.hoangvu.form;
 
+import net.miginfocom.swing.MigLayout;
+
 /**
  *
  * @author Admin
@@ -15,8 +17,19 @@ public class MenuLeft extends javax.swing.JPanel {
      */
     public MenuLeft() {
         initComponents();
-    }
+        init();
 
+    }
+    private void init(){
+        menuList.setLayout(new MigLayout("fillx","0[]0","0[]0"));
+        showObjects();
+    }
+    private void showObjects(){
+        // test data
+        for(int i = 0; i < 30; i++){
+            menuList.add(new ItemObject("User "+ (i+1)),"wrap");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,29 +40,50 @@ public class MenuLeft extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        sp = new javax.swing.JScrollPane();
+        menuList = new javax.swing.JLayeredPane();
 
-        jLabel1.setText("Menu Left");
+        jLabel1.setFont(new java.awt.Font("JetBrains Mono", 1, 16)); // NOI18N
+        jLabel1.setText("Chats");
+
+        sp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        javax.swing.GroupLayout menuListLayout = new javax.swing.GroupLayout(menuList);
+        menuList.setLayout(menuListLayout);
+        menuListLayout.setHorizontalGroup(
+            menuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        menuListLayout.setVerticalGroup(
+            menuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 525, Short.MAX_VALUE)
+        );
+
+        sp.setViewportView(menuList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(114, Short.MAX_VALUE))
+            .addComponent(sp)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(243, 243, 243)
-                .addComponent(jLabel1)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(sp))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane menuList;
+    private javax.swing.JScrollPane sp;
     // End of variables declaration//GEN-END:variables
 }
