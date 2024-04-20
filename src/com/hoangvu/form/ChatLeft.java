@@ -7,12 +7,14 @@ public class ChatLeft extends javax.swing.JLayeredPane {
 
     public ChatLeft() {
         initComponents();
-        txt.setBackground(new Color(242, 242, 242));
+        txt.setBackground(new Color(203, 20, 122));
+        txt.setForeground(new Color(255,255,255));
+        txt.setSelectionColor(new Color(49, 170, 224));
     }
 
     public void setText(String text) {
         txt.setText(text);
-        txt.setTime("10:30 PM");    //  Testing
+        txt.setTime("11:05 PM", new Color(98, 0, 56));    //  Testing
     }
 
     @SuppressWarnings("unchecked")
@@ -29,14 +31,14 @@ public class ChatLeft extends javax.swing.JLayeredPane {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 48, Short.MAX_VALUE)
+                .addComponent(txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+                .addComponent(txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
