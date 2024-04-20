@@ -4,18 +4,18 @@
  */
 package com.hoangvu.form;
 import java.awt.*;
-import javax.swing.*;
-/**
- *
- * @author Admin
- */
+
+
 public class ToolBar extends javax.swing.JPanel {
+
 
     /**
      * Creates new form ToolBar
      */
-    public ToolBar() {
+    public ToolBar(MenuLeft menuLeft) {
         initComponents();
+        messageBt.setSelected(true);
+        this.menuLeft = menuLeft;
     }
 
     /**
@@ -28,102 +28,105 @@ public class ToolBar extends javax.swing.JPanel {
     private void initComponents() {
 
         menu = new javax.swing.JLayeredPane();
-        chatBT = new javax.swing.JButton();
-        chatBT1 = new javax.swing.JButton();
-        chatBT2 = new javax.swing.JButton();
+        messageBt = new javax.swing.JButton();
+        groupBt = new javax.swing.JButton();
+        settingBt = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         menu.setOpaque(true);
 
-        chatBT.setBackground(new java.awt.Color(102, 102, 102));
-        chatBT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        chatBT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/chat.png"))); // NOI18N
-        chatBT.setBorder(null);
-        chatBT.setBorderPainted(false);
-        chatBT.setContentAreaFilled(false);
-        chatBT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chatBT.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        chatBT.addMouseListener(new java.awt.event.MouseAdapter() {
+        messageBt.setBackground(new java.awt.Color(102, 102, 102));
+        messageBt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        messageBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/chat_unselect.png"))); // NOI18N
+        messageBt.setBorder(null);
+        messageBt.setBorderPainted(false);
+        messageBt.setContentAreaFilled(false);
+        messageBt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        messageBt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        messageBt.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/chat.png"))); // NOI18N
+        messageBt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                chatBTMouseEntered(evt);
+                messageBtMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                chatBTMouseExited(evt);
+                messageBtMouseExited(evt);
             }
         });
-        chatBT.addActionListener(new java.awt.event.ActionListener() {
+        messageBt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chatBTActionPerformed(evt);
+                messageBtActionPerformed(evt);
             }
         });
 
-        chatBT1.setBackground(new java.awt.Color(102, 102, 102));
-        chatBT1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        chatBT1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/friends.png"))); // NOI18N
-        chatBT1.setBorder(null);
-        chatBT1.setBorderPainted(false);
-        chatBT1.setContentAreaFilled(false);
-        chatBT1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chatBT1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        chatBT1.addMouseListener(new java.awt.event.MouseAdapter() {
+        groupBt.setBackground(new java.awt.Color(102, 102, 102));
+        groupBt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        groupBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/group_unselect.png"))); // NOI18N
+        groupBt.setBorder(null);
+        groupBt.setBorderPainted(false);
+        groupBt.setContentAreaFilled(false);
+        groupBt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        groupBt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        groupBt.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/group.png"))); // NOI18N
+        groupBt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                chatBT1MouseEntered(evt);
+                groupBtMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                chatBT1MouseExited(evt);
+                groupBtMouseExited(evt);
             }
         });
-        chatBT1.addActionListener(new java.awt.event.ActionListener() {
+        groupBt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chatBT1ActionPerformed(evt);
+                groupBtActionPerformed(evt);
             }
         });
 
-        chatBT2.setBackground(new java.awt.Color(102, 102, 102));
-        chatBT2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        chatBT2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/email.png"))); // NOI18N
-        chatBT2.setBorder(null);
-        chatBT2.setBorderPainted(false);
-        chatBT2.setContentAreaFilled(false);
-        chatBT2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        chatBT2.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        chatBT2.addMouseListener(new java.awt.event.MouseAdapter() {
+        settingBt.setBackground(new java.awt.Color(102, 102, 102));
+        settingBt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        settingBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/setting_unselect.png"))); // NOI18N
+        settingBt.setBorder(null);
+        settingBt.setBorderPainted(false);
+        settingBt.setContentAreaFilled(false);
+        settingBt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        settingBt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        settingBt.setHideActionText(true);
+        settingBt.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/setting.png"))); // NOI18N
+        settingBt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                chatBT2MouseEntered(evt);
+                settingBtMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                chatBT2MouseExited(evt);
+                settingBtMouseExited(evt);
             }
         });
-        chatBT2.addActionListener(new java.awt.event.ActionListener() {
+        settingBt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chatBT2ActionPerformed(evt);
+                settingBtActionPerformed(evt);
             }
         });
 
-        menu.setLayer(chatBT, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        menu.setLayer(chatBT1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        menu.setLayer(chatBT2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        menu.setLayer(messageBt, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        menu.setLayer(groupBt, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        menu.setLayer(settingBt, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(chatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(chatBT1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(chatBT2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(messageBt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(groupBt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(settingBt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addComponent(chatBT, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(messageBt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(chatBT1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(groupBt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(chatBT2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addComponent(settingBt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 419, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -134,53 +137,82 @@ public class ToolBar extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 377, Short.MAX_VALUE))
+            .addComponent(menu)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chatBTMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBTMouseEntered
+    private void messageBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_messageBtMouseEntered
+        messageBt.setBackground(new Color(234, 234, 234, 255));
+        messageBt.setOpaque(true);
+    }//GEN-LAST:event_messageBtMouseEntered
 
-    }//GEN-LAST:event_chatBTMouseEntered
+    private void messageBtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_messageBtMouseExited
+        messageBt.setBackground(new Color(255, 255, 255, 255));
+        messageBt.setOpaque(true);
+    }//GEN-LAST:event_messageBtMouseExited
 
-    private void chatBTMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBTMouseExited
+    private void messageBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageBtActionPerformed
+        if ( !messageBt.isSelected()){
+            messageBt.setSelected(true);
+            groupBt.setSelected(false);
+            settingBt.setSelected(false);
+        }
+        if (menuLeft != null) {
+            menuLeft.showGroup(100);
+        }
+    }//GEN-LAST:event_messageBtActionPerformed
 
-    }//GEN-LAST:event_chatBTMouseExited
+    private void groupBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_groupBtMouseEntered
+        groupBt.setBackground(new Color(234, 234, 234, 255));
+        groupBt.setOpaque(true);
+    }//GEN-LAST:event_groupBtMouseEntered
 
-    private void chatBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBTActionPerformed
-        
-    }//GEN-LAST:event_chatBTActionPerformed
+    private void groupBtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_groupBtMouseExited
+        groupBt.setBackground(new Color(255, 255, 255, 255));
+        groupBt.setOpaque(true);
+    }//GEN-LAST:event_groupBtMouseExited
 
-    private void chatBT1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBT1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chatBT1MouseEntered
+    private void groupBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupBtActionPerformed
+        if ( !groupBt.isSelected()){
+            messageBt.setSelected(false);
+            groupBt.setSelected(true);
+            settingBt.setSelected(false);
+        }
+        if (menuLeft != null) {
+            menuLeft.showGroup(5);
+        }
+    }//GEN-LAST:event_groupBtActionPerformed
 
-    private void chatBT1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBT1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chatBT1MouseExited
+    private void settingBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingBtMouseEntered
+        settingBt.setBackground(new Color(234, 234, 234, 255));
+        settingBt.setOpaque(true);
+    }//GEN-LAST:event_settingBtMouseEntered
 
-    private void chatBT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBT1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chatBT1ActionPerformed
+    private void settingBtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingBtMouseExited
+        settingBt.setBackground(new Color(255, 255, 255, 255));
+        settingBt.setOpaque(true);
+    }//GEN-LAST:event_settingBtMouseExited
 
-    private void chatBT2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBT2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chatBT2MouseEntered
-
-    private void chatBT2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBT2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chatBT2MouseExited
-
-    private void chatBT2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBT2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chatBT2ActionPerformed
-
+    private void settingBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingBtActionPerformed
+        if ( !settingBt.isSelected()){
+            messageBt.setSelected(false);
+            groupBt.setSelected(false);
+            settingBt.setSelected(true);
+        }
+        if (menuLeft != null) {
+            menuLeft.showGroup(7);
+        }
+    }//GEN-LAST:event_settingBtActionPerformed
+    public void setMenuLeft(MenuLeft menuLeft) {
+        this.menuLeft = menuLeft;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton chatBT;
-    private javax.swing.JButton chatBT1;
-    private javax.swing.JButton chatBT2;
+    private javax.swing.JButton groupBt;
     private javax.swing.JLayeredPane menu;
+    private javax.swing.JButton messageBt;
+    private javax.swing.JButton settingBt;
     // End of variables declaration//GEN-END:variables
+    private MenuLeft menuLeft ;
+
 }
