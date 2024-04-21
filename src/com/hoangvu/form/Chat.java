@@ -27,6 +27,7 @@ public class Chat extends javax.swing.JPanel {
     private void initComponents() {
 
         chatTittle = new com.hoangvu.form.ChatTittle();
+        chatTittle1 = new com.hoangvu.form.ChatTittle();
         chatBottom = new com.hoangvu.form.ChatBottom();
         chatBody = new com.hoangvu.form.ChatBody();
 
@@ -34,11 +35,13 @@ public class Chat extends javax.swing.JPanel {
         chatTittle.setLayout(chatTittleLayout);
         chatTittleLayout.setHorizontalGroup(
             chatTittleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(chatTittle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         chatTittleLayout.setVerticalGroup(
             chatTittleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chatTittleLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(chatTittle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout chatBottomLayout = new javax.swing.GroupLayout(chatBottom);
@@ -76,5 +79,6 @@ public class Chat extends javax.swing.JPanel {
     private com.hoangvu.form.ChatBody chatBody;
     private com.hoangvu.form.ChatBottom chatBottom;
     private com.hoangvu.form.ChatTittle chatTittle;
+    private com.hoangvu.form.ChatTittle chatTittle1;
     // End of variables declaration//GEN-END:variables
 }
