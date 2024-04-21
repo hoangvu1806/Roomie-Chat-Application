@@ -29,22 +29,22 @@ public class ChatItem extends javax.swing.JLayeredPane {
         JLayeredPane layer = new JLayeredPane();
         layer.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         layer.setBorder(new EmptyBorder(0, 5, 10, 5));
-        label = new JLabel(time);
-        label.setForeground(color);
-        label.setHorizontalTextPosition(JLabel.LEFT);
-        layer.add(label);
+        this.label = new JLabel(time);
+        this.label.setForeground(color);
+        this.label.setHorizontalTextPosition(JLabel.LEFT);
+        layer.add(this.label);
         add(layer);
     }
 
     public void sendSuccess() {
-        if (label != null) {
-            label.setIcon(new ImageIcon(getClass().getResource("/com/raven/icon/tick.png")));
+        if (this.label != null) {
+            this.label.setIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/tick.png")));
         }
     }
 
     public void seen() {
-        if (label != null) {
-            label.setIcon(new ImageIcon(getClass().getResource("/com/raven/icon/double_tick.png")));
+        if (this.label != null) {
+            this.label.setIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/double_tick.png")));
         }
     }
 
