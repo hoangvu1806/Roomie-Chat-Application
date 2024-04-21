@@ -10,11 +10,13 @@ public class ChatLeft extends javax.swing.JLayeredPane {
         txt.setBackground(new Color(203, 20, 122));
         txt.setForeground(new Color(255,255,255));
         txt.setSelectionColor(new Color(49, 170, 224));
+
     }
 
     public void setText(String text) {
         txt.setText(text);
         txt.setTime("11:05 PM", new Color(98, 0, 56));    //  Testing
+        txt.sendSuccess();
     }
 
     @SuppressWarnings("unchecked")
