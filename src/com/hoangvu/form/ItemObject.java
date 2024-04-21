@@ -4,6 +4,10 @@
  */
 package com.hoangvu.form;
 
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author Admin
@@ -16,6 +20,22 @@ public class ItemObject extends javax.swing.JPanel {
     public ItemObject(String name) {
         initComponents();
         lbUserName.setText(name);
+        init();
+    }
+
+    private void init() {
+        this.setBackground(new Color(242,242,242));
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                setBackground(new Color(230, 230, 230));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                setBackground(new Color(242, 242, 242));
+            }
+        });
     }
 
     /**
@@ -29,8 +49,6 @@ public class ItemObject extends javax.swing.JPanel {
 
         imageAvatar1 = new com.hoangvu.swing.ImageAvatar();
         lbUserName = new javax.swing.JLabel();
-
-        setBackground(new java.awt.Color(204, 204, 204));
 
         imageAvatar1.setBorderSize(0);
         imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/avatar-45.png"))); // NOI18N
