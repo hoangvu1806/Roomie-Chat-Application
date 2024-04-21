@@ -4,10 +4,9 @@
  */
 package com.hoangvu.form;
 
-/**
- *
- * @author Admin
- */
+
+import com.hoangvu.model.ModelUser;
+
 public class ChatTittle extends javax.swing.JPanel {
 
     /**
@@ -15,6 +14,14 @@ public class ChatTittle extends javax.swing.JPanel {
      */
     public ChatTittle() {
         initComponents();
+
+    }
+    public void setUsername(String username) {
+        this.userName.setText(username);
+    }
+
+    public void setStatus(String status) {
+        this.status.setText(status);
     }
 
     /**
@@ -26,19 +33,75 @@ public class ChatTittle extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        layer = new javax.swing.JLayeredPane();
+        userName = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
+        callLayer = new javax.swing.JLayeredPane();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        layer.setLayout(new java.awt.GridLayout(2, 0));
+
+        userName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        userName.setText("User Name");
+        layer.add(userName);
+
+        status.setForeground(new java.awt.Color(11, 171, 91));
+        status.setText("Activate now");
+        layer.add(status);
+
+        callLayer.setLayout(new java.awt.GridLayout(0, 2));
+
+        jButton1.setBackground(new java.awt.Color(242, 242, 242));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/video-camera.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        callLayer.add(jButton1);
+
+        jButton2.setBackground(new java.awt.Color(242, 242, 242));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/telephone-call.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        callLayer.add(jButton2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(layer, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                .addComponent(callLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addComponent(callLayer)
+            .addComponent(layer)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane callLayer;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLayeredPane layer;
+    private javax.swing.JLabel status;
+    private javax.swing.JLabel userName;
     // End of variables declaration//GEN-END:variables
 }
