@@ -23,7 +23,8 @@ public class Client extends javax.swing.JFrame {
         setTitle("Roomie - " + user.getUserName());
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logoBase.png");
         setIconImage(icon.getImage());
-        lbUserName.setText(user.getUserName());
+        jLabel1.setText("Roomie - "+user.getUserName());
+
     }
     public void init(){
         ComponentResizer comr = new ComponentResizer();
@@ -38,18 +39,13 @@ public class Client extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbUserName = new javax.swing.JLabel();
         border = new javax.swing.JPanel();
-        home2 = new com.hoangvu.form.Home();
+        home = new com.hoangvu.form.Home();
         tittlePanel = new javax.swing.JPanel();
         minimizeBt = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         closeBt = new javax.swing.JButton();
 
-        lbUserName.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        lbUserName.setForeground(new java.awt.Color(204, 204, 204));
-        lbUserName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUserName.setText("User Name");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 51, 0));
@@ -122,19 +118,19 @@ public class Client extends javax.swing.JFrame {
         tittlePanelLayout.setHorizontalGroup(
             tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittlePanelLayout.createSequentialGroup()
-                .addGap(294, 294, 294)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                .addGap(246, 246, 246)
+                .addGap(307, 307, 307)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addGap(233, 233, 233)
                 .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(closeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         tittlePanelLayout.setVerticalGroup(
             tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(closeBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(closeBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout borderLayout = new javax.swing.GroupLayout(border);
@@ -142,14 +138,14 @@ public class Client extends javax.swing.JFrame {
         borderLayout.setHorizontalGroup(
             borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tittlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(home2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         borderLayout.setVerticalGroup(
             borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(borderLayout.createSequentialGroup()
                 .addComponent(tittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(home2, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
+                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,9 +244,8 @@ public class Client extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel border;
     private javax.swing.JButton closeBt;
-    private com.hoangvu.form.Home home2;
+    private com.hoangvu.form.Home home;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lbUserName;
     private javax.swing.JButton minimizeBt;
     private javax.swing.JPanel tittlePanel;
     // End of variables declaration//GEN-END:variables
