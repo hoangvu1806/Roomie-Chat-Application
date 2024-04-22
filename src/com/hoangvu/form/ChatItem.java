@@ -1,13 +1,10 @@
 
 package com.hoangvu.form;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.border.EmptyBorder;
 
@@ -19,6 +16,21 @@ public class ChatItem extends javax.swing.JLayeredPane {
         txt.setEditable(false);
         txt.setBackground(new Color(0, 0, 0, 0));
         txt.setOpaque(false);
+    }
+    public void setUserProfile(String user) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        layer.setBorder(new EmptyBorder(10, 10, 0, 10));
+        JButton cmd = new JButton(user);
+        cmd.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cmd.setBorder(null);
+        cmd.setContentAreaFilled(false);
+        cmd.setFocusable(false);
+        cmd.setForeground(new Color(255, 255, 255));
+        cmd.setFont(new java.awt.Font("sansserif", 1, 13));
+        txt.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        layer.add(cmd);
+        add(layer, 0);
     }
 
     public void setText(String text) {
