@@ -13,30 +13,42 @@ public class ChatBody extends javax.swing.JPanel {
     }
 
     private void init(){
-        body.setLayout(new MigLayout("fillx","","0[]0"));
+        body.setLayout(new MigLayout("fillx","5[]5"));
         sp.setVerticalScrollBar(new ScrollBar());
         sp.getVerticalScrollBar().setBackground(new Color(255,255,255));
-        addItemRight("qưueyhsbasadnjas");
-        addItemLeft("adwaiwbawjwna");
-        addItemRight("qưueyhsbasadnjas");
-        addItemRight("qưueyhsbasadnjas");
-        addItemLeft("adwaiwbawjwna");
-        addItemLeft("adwaiwbawdaibbbbbbbbbbbbbbbbbbbbbbbwydgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajwna");
-
-
+        addItemRight("qưueyhsbasadnjas","Vũ Hoàng");
+        addDate("-- 04/12/2024 --");
+        addItemLeft("adwaiwbawjwna","Thanh Trà");
+        addItemRight("qưueyhsbasadnjas","Vũ Hoàng");
+        addItemRight("qưueyhsbasadnjas","Vũ Hoàng");
+        addDate("Today");
+        addItemLeft("adwaiwbawjwna","Thanh Trà");
+        addItemLeft("  ","Thanh Trà");
+        addDate("-- 04/12/2024 --");
+        addItemLeft("adwaiwbawdaibbbbbbbbbbbbbbbbbbbbbbbwydgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajwna","Thanh Trà");
     }
 
-    public void addItemLeft(String text){
-        ChatLeft itemLeft = new ChatLeft();
+    public void addItemLeft(String text,String user){
+        ChatLeftInfo itemLeft = new ChatLeftInfo();
         itemLeft.setText(text);
+        itemLeft.setUserProfile(user);
         body.add(itemLeft,"wrap, w ::75%");
         body.repaint();
         body.revalidate();
     }
-    public void addItemRight(String text){
-        ChatRight itemRight = new ChatRight();
+    public void addItemRight(String text, String user){
+        ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
+        itemRight.setUserProfile(user);
         body.add(itemRight,"wrap, al right,w ::75%");
+        body.repaint();
+        body.revalidate();
+    }
+
+    public void addDate(String date){
+        ChatDate dateItem = new ChatDate();
+        dateItem.setDate(date);
+        body.add(dateItem,"wrap, al center");
         body.repaint();
         body.revalidate();
     }
