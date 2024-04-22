@@ -3,12 +3,15 @@ package com.hoangvu.form;
 
 import java.awt.Color;
 
-public class ChatRight extends javax.swing.JLayeredPane {
+public class ChatRightInfo extends javax.swing.JLayeredPane {
 
-    public ChatRight() {
+    public ChatRightInfo() {
         initComponents();
         txt.setBackground(new Color(160, 214, 248, 255));
         txt.setSelectionColor(new Color(166, 1, 80));
+    }
+    public void setUserProfile(String user){
+        txt.setUserProfile(user);
     }
 
     public void setText(String text) {
