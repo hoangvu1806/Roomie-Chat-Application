@@ -3,7 +3,7 @@ package com.hoangvu.component;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
-public class Message extends javax.swing.JPanel {
+public class Notification extends javax.swing.JPanel {
 
     public boolean isShow() {
         return show;
@@ -16,7 +16,7 @@ public class Message extends javax.swing.JPanel {
     private MessageType messageType = MessageType.SUCCESS;
     private boolean show;
 
-    public Message() {
+    public Notification() {
         initComponents();
         setOpaque(false);
         setVisible(true);
@@ -59,7 +59,7 @@ public class Message extends javax.swing.JPanel {
 
     @Override
     protected void paintComponent(Graphics grphcs) {
-        Graphics2D g2 = (Graphics2D) grphcs;
+        Graphics2D g2 = (Graphics2D) grphcs.create();
         GradientPaint gra1 = new GradientPaint(0, 0, new Color(43, 228, 255), 0, getHeight(), new Color(1, 154, 201));
         GradientPaint gra2 = new GradientPaint(0, 0, new Color(255, 65, 175), 0, getHeight(), new Color(168, 13, 96));
         if (messageType == MessageType.SUCCESS) {
