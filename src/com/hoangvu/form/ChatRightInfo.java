@@ -25,6 +25,9 @@ public class ChatRightInfo extends javax.swing.JLayeredPane {
     public void setImage(Icon... image) {
         txt.setImage(false, image);
     }
+
+
+
     public void setText(String text) {
         if (text.trim().isEmpty()) {
             txt.hideText();
