@@ -1,6 +1,8 @@
 
 package com.hoangvu.main;
 
+import com.hoangvu.event.EventImageView;
+import com.hoangvu.event.PublicEvent;
 import com.hoangvu.model.ModelUser;
 import com.hoangvu.swing.ComponentResizer;
 import java.awt.*;
@@ -33,25 +35,51 @@ public class Client extends javax.swing.JFrame {
         comr.setMaximumSize(Toolkit.getDefaultToolkit().getScreenSize());
         comr.setSnapSize(new Dimension(10,10));
         GradientPaint gradient = new GradientPaint(0, 0, Color.RED, getWidth(), getHeight(), Color.BLUE);
+        viewImage.setVisible(false);
+        home.setVisible(true);
+        initEvent();
     }
 
+    public void initEvent() {
+        PublicEvent.getInstance().addEventImageView(new EventImageView() {
+            @Override
+            public void viewImage(Icon image) {
+                viewImage.viewImage(image);
+                System.out.println("Event running...");
+            }
+
+            @Override
+            public void saveImage(Icon image) {
+                System.out.println("Save Image next update");
+            }
+
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        border = new javax.swing.JPanel();
-        home = new com.hoangvu.form.Home();
+        lbUserName = new javax.swing.JLabel();
+        background = new javax.swing.JPanel();
         tittlePanel = new javax.swing.JPanel();
         minimizeBt = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         closeBt = new javax.swing.JButton();
+        body = new javax.swing.JLayeredPane();
+        home = new com.hoangvu.form.Home();
+        viewImage = new com.hoangvu.form.ViewImage();
 
+        lbUserName.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lbUserName.setForeground(new java.awt.Color(204, 204, 204));
+        lbUserName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbUserName.setText("User Name");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 51, 0));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(900, 600));
         setUndecorated(true);
 
-        border.setBackground(new java.awt.Color(255, 255, 255));
+        background.setBackground(new java.awt.Color(255, 255, 255));
 
         tittlePanel.setBackground(new java.awt.Color(204, 204, 204));
         tittlePanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -119,7 +147,7 @@ public class Client extends javax.swing.JFrame {
             tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittlePanelLayout.createSequentialGroup()
                 .addGap(307, 307, 307)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                 .addGap(233, 233, 233)
                 .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -133,30 +161,40 @@ public class Client extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout borderLayout = new javax.swing.GroupLayout(border);
-        border.setLayout(borderLayout);
-        borderLayout.setHorizontalGroup(
-            borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        body.setPreferredSize(new java.awt.Dimension(900, 600));
+        body.setLayout(new java.awt.CardLayout());
+        body.add(home, "card2");
+        body.setLayer(viewImage, javax.swing.JLayeredPane.POPUP_LAYER);
+        body.add(viewImage, "card2");
+
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tittlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        borderLayout.setVerticalGroup(
-            borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(borderLayout.createSequentialGroup()
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(tittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
+                .addGap(533, 533, 533))
+            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                    .addGap(27, 27, 27)
+                    .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(border, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(border, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -242,11 +280,14 @@ public class Client extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel border;
+    private javax.swing.JPanel background;
+    private javax.swing.JLayeredPane body;
     private javax.swing.JButton closeBt;
     private com.hoangvu.form.Home home;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbUserName;
     private javax.swing.JButton minimizeBt;
     private javax.swing.JPanel tittlePanel;
+    private com.hoangvu.form.ViewImage viewImage;
     // End of variables declaration//GEN-END:variables
 }
