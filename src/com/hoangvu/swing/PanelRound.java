@@ -10,7 +10,6 @@ import java.awt.RenderingHints;
 public class PanelRound extends JPanel {
     public PanelRound() {
         setOpaque(false);
-
     }
 
     @Override

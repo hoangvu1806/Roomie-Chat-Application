@@ -2,6 +2,7 @@
 package com.hoangvu.form;
 
 import java.awt.*;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -47,7 +48,25 @@ public class ChatItem extends javax.swing.JLayeredPane {
         layer.add(this.label);
         add(layer);
     }
-
+    
+    public void setImage(boolean right, Icon... image) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
+        layer.setBorder(new EmptyBorder(0, 5, 0, 5));
+        ChatImage chatImage = new ChatImage(right);
+        chatImage.addImage(image);
+        layer.add(chatImage);
+        add(layer);
+    }
+    public void setImage(boolean right, String [] image) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
+        layer.setBorder(new EmptyBorder(0, 5, 0, 5));
+        ChatImage chatImage = new ChatImage(right);
+        chatImage.addImage(image);
+        layer.add(chatImage);
+        add(layer);
+    }
     public void sendSuccess() {
         if (this.label != null) {
             this.label.setIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/tick.png")));
@@ -58,6 +77,9 @@ public class ChatItem extends javax.swing.JLayeredPane {
         if (this.label != null) {
             this.label.setIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/double_tick.png")));
         }
+    }
+    public void hideText() {
+        txt.setVisible(false);
     }
 
     public void setSelectionColor(Color color) {

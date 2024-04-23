@@ -59,11 +59,8 @@ public class ModelUser {
 
     public ModelUser() {
     }
-    public  boolean isValidEmail() {
-        if (email == null) {
-            return false;
-        }
-        if (email.length() < 5) {
+    public boolean isValidEmail() {
+        if (email == null || email.length() < 5) {
             return false;
         }
         int atIndex = email.indexOf('@');
@@ -74,24 +71,20 @@ public class ModelUser {
         if (dotIndex == -1 || dotIndex < atIndex + 2 || dotIndex == email.length() - 1) {
             return false;
         }
-        for (int i = atIndex + 1; i < dotIndex; i++) {
+        for (int i = dotIndex + 1; i < email.length(); i++) {
             char ch = email.charAt(i);
-            if (!Character.isLetterOrDigit(ch) && ch != '-') {
+            if (!Character.isLetterOrDigit(ch)) {
                 return false;
             }
-        }
-        char lastDomainChar = email.charAt(dotIndex + 1);
-        if (!Character.isLetter(lastDomainChar)) {
-            return false;
         }
         return true;
     }
     public boolean isValidUsername() {
-        if (userName.length() < 6) {
+        if (userName.length() < 6 || userName.length() > 40) {
             return false;
         }
         for (char ch : userName.toCharArray()) {
-            if (!(Character.isLetter(ch) || ch == '.' || ch == '_' || Character.isDigit(ch))) {
+            if (ch == '@' || ch == '%' || ch == '^' || ch == '$' || ch == '#' || ch == '*' || ch == '!' || ch == ')' || ch == '(' || ch == '+' || ch == '=') {
                 return false;
             }
         }

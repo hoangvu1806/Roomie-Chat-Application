@@ -20,12 +20,25 @@ public class ChatLeftInfo extends javax.swing.JLayeredPane {
     public void setImageProfile(Icon img){
         this.image.setImage(img);
     }
+    public void setTime(String time, Color color) {
+        txt.setTime(time,color);
+    }
+    public void setImage(Icon... image) {
+        txt.setImage(false, image);
+    }
+
+    public void setImage(String [] image) {
+        txt.setImage(false, image);
+    }
 
     public void setText(String text) {
-        txt.setText(text);
-        txt.setTime("11:05 PM", new Color(98, 0, 56));    //  Testing
-        txt.sendSuccess();
+        if (text.trim().isEmpty()) {
+            txt.hideText();
+        } else {
+            txt.setText(text);
+        }
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -56,7 +69,7 @@ public class ChatLeftInfo extends javax.swing.JLayeredPane {
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

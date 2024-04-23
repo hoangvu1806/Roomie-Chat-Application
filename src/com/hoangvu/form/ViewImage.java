@@ -4,8 +4,7 @@ import com.hoangvu.event.PublicEvent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.Icon;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 public class ViewImage extends javax.swing.JComponent {
 
@@ -26,16 +25,36 @@ public class ViewImage extends javax.swing.JComponent {
     private void initComponents() {
 
         pic = new com.hoangvu.swing.PictureBox();
+        cmdSave = new javax.swing.JButton();
+
+        pic.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                picMousePressed(evt);
+            }
+        });
+
+        cmdSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/download.png"))); // NOI18N
+        cmdSave.setBorder(null);
+        cmdSave.setBorderPainted(false);
+        cmdSave.setContentAreaFilled(false);
+        cmdSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmdSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSaveActionPerformed(evt);
+            }
+        });
+        pic.add(cmdSave);
+        cmdSave.setBounds(800, 550, 75, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -44,6 +63,12 @@ public class ViewImage extends javax.swing.JComponent {
             setVisible(false);
         }
     }//GEN-LAST:event_picMousePressed
+
+    private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSaveActionPerformed
+//        PublicEvent.getInstance().getEventImageView().saveImage(image);
+        JFrame frame = new JFrame("Dialog Example");
+        JOptionPane.showMessageDialog(frame, "Pay $ 10 to download photos");
+    }//GEN-LAST:event_cmdSaveActionPerformed
 
     @Override
     protected void paintComponent(Graphics grphcs) {
@@ -55,6 +80,7 @@ public class ViewImage extends javax.swing.JComponent {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdSave;
     private com.hoangvu.swing.PictureBox pic;
     // End of variables declaration//GEN-END:variables
 }

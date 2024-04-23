@@ -19,26 +19,31 @@ public class ChatBody extends javax.swing.JPanel {
         addItemRight("qưueyhsbasadnjas","Vũ Hoàng");
         addDate("-- 04/12/2024 --");
         addItemLeft("adwaiwbawjwna","Thanh Trà");
-        addItemRight("qưueyhsbasadnjas","Vũ Hoàng");
+        addItemRight("qưueyhsbasadnjas","Vũ Hoàng",new ImageIcon(getClass().getResource("/com/hoangvu/icon/logoAI.png")));
         addItemRight("qưueyhsbasadnjas","Vũ Hoàng");
         addDate("Today");
         addItemLeft("adwaiwbawjwna","Thanh Trà");
-        addItemLeft("  ","Thanh Trà");
+        addItemLeft("  ","Thanh Trà",new ImageIcon(getClass().getResource("/com/hoangvu/icon/bb.png")));
         addDate("-- 04/12/2024 --");
+        addItemLeft("\t\n\t\n  ","Thanh Trà");
         addItemLeft("adwaiwbawdaibbbbbbbbbbbbbbbbbbbbbbbwydgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajwna","Thanh Trà");
     }
 
-    public void addItemLeft(String text,String user){
+    public void addItemLeft(String text,String user, Icon... image){
         ChatLeftInfo itemLeft = new ChatLeftInfo();
         itemLeft.setText(text);
+        itemLeft.setImage(image);
+        itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
         itemLeft.setUserProfile(user);
         body.add(itemLeft,"wrap, w ::75%");
         body.repaint();
         body.revalidate();
     }
-    public void addItemRight(String text, String user){
+    public void addItemRight(String text, String user, Icon ... image){
         ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
+        itemRight.setImage(image);
+        itemRight.setTime("10:00 PM",new Color(0, 79, 131, 255));
         itemRight.setUserProfile(user);
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
@@ -73,6 +78,7 @@ public class ChatBody extends javax.swing.JPanel {
 
         sp.setBorder(null);
         sp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setName(""); // NOI18N
 
         body.setBackground(new java.awt.Color(255, 255, 255));
 

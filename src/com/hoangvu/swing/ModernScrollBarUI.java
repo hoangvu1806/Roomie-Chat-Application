@@ -1,8 +1,5 @@
 package com.hoangvu.swing;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -49,7 +46,10 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
 
         Graphics2D graphics2D = (Graphics2D) g.create();
         graphics2D.setColor(new Color(THUMB_COLOR.getRed(), THUMB_COLOR.getGreen(), THUMB_COLOR.getBlue(), alpha));
-        graphics2D.fillRect(x, y, width, height);
+        GradientPaint gra2 = new GradientPaint(0, 0, new Color(255, 65, 175), 0, height, new Color(168, 13, 96));
+
+//        graphics2D.setPaint(gr2);
+        graphics2D.fillRoundRect(x,y,width,height,5,5);
         graphics2D.dispose();
     }
 

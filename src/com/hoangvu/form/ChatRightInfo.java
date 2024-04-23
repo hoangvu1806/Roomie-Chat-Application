@@ -1,6 +1,7 @@
 
 package com.hoangvu.form;
 
+import javax.swing.*;
 import java.awt.Color;
 
 public class ChatRightInfo extends javax.swing.JLayeredPane {
@@ -14,10 +15,22 @@ public class ChatRightInfo extends javax.swing.JLayeredPane {
         txt.setUserProfile(user);
     }
 
+    public void setTime(String time, Color color) {
+        txt.setTime(time,color);
+    }
+    public void setImage(String [] image) {
+        txt.setImage(false, image);
+    }
+
+    public void setImage(Icon... image) {
+        txt.setImage(false, image);
+    }
     public void setText(String text) {
-        txt.setText(text);
-        txt.setTime("11:05 PM", new Color(0, 79, 131, 255));    //  Testing
-        txt.seen();
+        if (text.trim().isEmpty()) {
+            txt.hideText();
+        } else {
+            txt.setText(text);
+        }
     }
 
     @SuppressWarnings("unchecked")
