@@ -4,6 +4,11 @@ public class ChatFile extends javax.swing.JPanel {
 
     public ChatFile() {
         initComponents();
+        setOpaque(false);
+    }
+    public void setFileInfo(String fileName, String fileSize){
+        lbFileName.setText(fileName);
+        lbFileSize.setText(fileSize);
     }
 
     @SuppressWarnings("checked")
@@ -14,6 +19,8 @@ public class ChatFile extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         lbFileName = new javax.swing.JLabel();
         lbFileSize = new javax.swing.JLabel();
+
+        progress1.setProgressType(com.hoangvu.swing.Progress.ProgressType.FILE);
 
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.GridLayout(2, 1));
