@@ -5,6 +5,7 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class ChatBody extends javax.swing.JPanel {
     public ChatBody() {
@@ -16,19 +17,23 @@ public class ChatBody extends javax.swing.JPanel {
         body.setLayout(new MigLayout("fillx","5[]5"));
         sp.setVerticalScrollBar(new ScrollBar());
         sp.getVerticalScrollBar().setBackground(new Color(255,255,255));
-        addItemRight("qưueyhsbasadnjas","Vũ Hoàng");
+        addItemRight("qưueyhsbasadnjas");
         addDate("-- 04/12/2024 --");
         addItemLeft("adwaiwbawjwna","Thanh Trà");
         String img[] = {"LRMj,K-:?G9G_JIon}WqD~ITRPs,", "LCGlO@00.R~o.9DOO[%L02?aJ7D*"};
         addItemLeft("hello\nerererew\newewe", "Dara", img);
-        addItemRight("qưueyhsbasadnjas","Vũ Hoàng",new ImageIcon(getClass().getResource("/com/hoangvu/icon/logoAI.png")));
-        addItemRight("qưueyhsbasadnjas","Vũ Hoàng");
+        addItemRight("qưueyhsbasadnjas",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/logoAI.png"))));
+        addItemRight("qưueyhsbasadnjas");
         addDate("Today");
         addItemLeft("adwaiwbawjwna","Thanh Trà");
-        addItemLeft("  ","Thanh Trà",new ImageIcon(getClass().getResource("/com/hoangvu/icon/bb.png")));
+        addItemLeft("  ","Thanh Trà",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/bb.png"))));
         addDate("-- 04/12/2024 --");
         addItemLeft("\t\n\t\n  ","Thanh Trà");
         addItemLeft("adwaiwbawdaibbbbbbbbbbbbbbbbbbbbbbbwydgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajwna","Thanh Trà");
+        addItemFile("","Thanh Trà","game.exe","10 MB");
+        addItemFile("Tải về mà sài","Máy lạnh.exe","2 GB");
+        addItemFile(" ","Bếp Từ.exe","1.2 GB");
+
     }
 
     public void addItemLeft(String text,String user, Icon... image){
@@ -52,12 +57,11 @@ public class ChatBody extends javax.swing.JPanel {
         body.repaint();
         body.revalidate();
     }
-    public void addItemRight(String text, String user, Icon ... image){
+    public void addItemRight(String text, Icon ... image){
         ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
         itemRight.setImage(image);
         itemRight.setTime("10:00 PM",new Color(0, 79, 131, 255));
-        itemRight.setUserProfile(user);
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
         body.revalidate();
@@ -73,6 +77,26 @@ public class ChatBody extends javax.swing.JPanel {
         body.revalidate();
     }
 
+    public void addItemFile(String text, String user, String fileName,String fileSize){
+        ChatLeftInfo itemLeft = new ChatLeftInfo();
+        itemLeft.setText(text);
+        itemLeft.setFile(fileName,fileSize);
+        itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
+        itemLeft.setUserProfile(user);
+        body.add(itemLeft,"wrap, w 100::75%");
+        body.repaint();
+        body.revalidate();
+    }
+
+    public void addItemFile(String text, String fileName,String fileSize){
+        ChatRightInfo itemRight = new ChatRightInfo();
+        itemRight.setText(text);
+        itemRight.setFile(fileName,fileSize);
+        itemRight.setTime("10:00 PM",new Color(0, 79, 131, 255));
+        body.add(itemRight,"wrap, al right,w ::75%");
+        body.repaint();
+        body.revalidate();
+    }
     public void addDate(String date){
         ChatDate dateItem = new ChatDate();
         dateItem.setDate(date);
