@@ -5,6 +5,8 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.util.Objects;
 
 public class ChatBody extends javax.swing.JPanel {
@@ -18,21 +20,21 @@ public class ChatBody extends javax.swing.JPanel {
         sp.setVerticalScrollBar(new ScrollBar());
         sp.getVerticalScrollBar().setBackground(new Color(255,255,255));
         addItemRight("qưueyhsbasadnjas");
-        addDate("-- 04/12/2024 --");
-        addItemLeft("adwaiwbawjwna","Thanh Trà");
-        String img[] = {"LRMj,K-:?G9G_JIon}WqD~ITRPs,", "LCGlO@00.R~o.9DOO[%L02?aJ7D*"};
-        addItemLeft("hello\nerererew\newewe", "Dara", img);
-        addItemRight("qưueyhsbasadnjas",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/logoAI.png"))));
-        addItemRight("qưueyhsbasadnjas");
-        addDate("Today");
-        addItemLeft("adwaiwbawjwna","Thanh Trà");
-        addItemLeft("  ","Thanh Trà",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/bb.png"))));
-        addDate("-- 04/12/2024 --");
-        addItemLeft("\t\n\t\n  ","Thanh Trà");
-        addItemLeft("adwaiwbawdaibbbbbbbbbbbbbbbbbbbbbbbwydgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajwna","Thanh Trà");
-        addItemFile("","Thanh Trà","game.exe","10 MB");
-        addItemFile("Tải về mà sài","Máy lạnh.exe","2 GB");
-        addItemFile(" ","Bếp Từ.exe","1.2 GB");
+//        addDate("-- 04/12/2024 --");
+//        addItemLeft("adwaiwbawjwna","Thanh Trà");
+//        String img[] = {"LRMj,K-:?G9G_JIon}WqD~ITRPs,", "LCGlO@00.R~o.9DOO[%L02?aJ7D*"};
+//        addItemLeft("hello\nerererew\newewe", "Dara", img);
+//        addItemRight("qưueyhsbasadnjas",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/logoAI.png"))));
+//        addItemRight("qưueyhsbasadnjas");
+//        addDate("Today");
+//        addItemLeft("adwaiwbawjwna","Thanh Trà");
+//        addItemLeft("  ","Thanh Trà",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/bb.png"))));
+//        addDate("-- 04/12/2024 --");
+//        addItemLeft("\t\n\t\n  ","Thanh Trà");
+//        addItemLeft("adwaiwbawdaibbbbbbbbbbbbbbbbbbbbbbbwydgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajwna","Thanh Trà");
+//        addItemFile("","Thanh Trà","game.exe","10 MB");
+//        addItemFile("Tải về mà sài","Máy lạnh.exe","2 GB");
+//        addItemFile(" ","Bếp Từ.exe","1.2 GB");
 
     }
 
@@ -45,6 +47,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(itemLeft,"wrap, w ::75%");
         body.repaint();
         body.revalidate();
+        scrollToBottom();
     }
 
     public void addItemLeft(String text,String user, String [] image){
@@ -56,6 +59,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(itemLeft,"wrap, w ::75%");
         body.repaint();
         body.revalidate();
+        scrollToBottom();
     }
     public void addItemRight(String text, Icon ... image){
         ChatRightInfo itemRight = new ChatRightInfo();
@@ -65,6 +69,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
         body.revalidate();
+        scrollToBottom();
     }
     public void addItemRight(String text, String user, String [] image){
         ChatRightInfo itemRight = new ChatRightInfo();
@@ -75,6 +80,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
         body.revalidate();
+        scrollToBottom();
     }
 
     public void addItemFile(String text, String user, String fileName,String fileSize){
@@ -86,6 +92,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(itemLeft,"wrap, w 100::75%");
         body.repaint();
         body.revalidate();
+        scrollToBottom();
     }
 
     public void addItemFile(String text, String fileName,String fileSize){
@@ -96,6 +103,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
         body.revalidate();
+        scrollToBottom();
     }
     public void addDate(String date){
         ChatDate dateItem = new ChatDate();
@@ -103,6 +111,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(dateItem,"wrap, al center");
         body.repaint();
         body.revalidate();
+        scrollToBottom();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -154,6 +163,18 @@ public class ChatBody extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void scrollToBottom() {
+        JScrollBar verticalBar = sp.getVerticalScrollBar();
+        AdjustmentListener downScroller = new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                Adjustable adjustable = e.getAdjustable();
+                adjustable.setValue(adjustable.getMaximum());
+                verticalBar.removeAdjustmentListener(this);
+            }
+        };
+        verticalBar.addAdjustmentListener(downScroller);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
