@@ -4,6 +4,7 @@ package com.hoangvu.main;
 import com.hoangvu.event.EventImageView;
 import com.hoangvu.event.PublicEvent;
 import com.hoangvu.model.ModelUser;
+import com.hoangvu.service.Service;
 import com.hoangvu.swing.ComponentResizer;
 import java.awt.*;
 import javax.swing.*;
@@ -38,6 +39,8 @@ public class Client extends javax.swing.JFrame {
         viewImage.setVisible(false);
         home.setVisible(true);
         initEvent();
+        Service.getInstance().startServer();
+
     }
 
     public void initEvent() {
@@ -54,6 +57,7 @@ public class Client extends javax.swing.JFrame {
             }
 
         });
+
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
