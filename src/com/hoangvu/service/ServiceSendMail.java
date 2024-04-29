@@ -1,6 +1,8 @@
 package com.hoangvu.service;
 
 import com.hoangvu.model.ModelMessage;
+
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -29,7 +31,7 @@ public class ServiceSendMail {
         });
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(from,"Roomie", "UTF-8"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
             message.setSubject("Verify Your Roomie Account");
             String emailContent = "<html>"
@@ -50,7 +52,7 @@ public class ServiceSendMail {
                     + "<p>If you encounter any issues, please don't hesitate to <a href='https://www.facebook.com/hoangvu.nt1806/'>contact me</a> via Facebook.</p>" // Thêm liên kết đến trang Facebook của bạn
                     + "</body>"
                     + "</html>";
-            message.setContent(emailContent, "text/html");
+            message.setContent(emailContent, "text/html;charset=UTF-8");
             Transport.send(message);
             ms.setSuccess(true);
         } catch (MessagingException e) {
@@ -62,6 +64,8 @@ public class ServiceSendMail {
                 System.out.println(e);
                 ms.setMessage("Error");
             }
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
         return ms;
     }
