@@ -202,7 +202,7 @@ public class Main extends JFrame {
         try {
             ModelUser user = service.login(data);
             if (user != null){
-                System.out.println("Đã đăng nhập thành công");
+                System.out.println("Signed in successfully!");
                 this.dispose();
                 Client.main(user);
             } else {
