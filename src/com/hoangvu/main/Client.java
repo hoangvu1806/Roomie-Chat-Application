@@ -40,7 +40,6 @@ public class Client extends javax.swing.JFrame {
         home.setVisible(true);
         initEvent();
         Service.getInstance().startServer();
-
     }
 
     public void initEvent() {
