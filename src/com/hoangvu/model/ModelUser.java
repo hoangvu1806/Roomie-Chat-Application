@@ -1,5 +1,9 @@
 package com.hoangvu.model;
 
+import com.hoangvu.component.PanelLoginAndRegister;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ModelUser {
 
     public int getUserID() {
@@ -41,6 +45,8 @@ public class ModelUser {
     public void setVerifyCode(String verifyCode) {
         this.verifyCode = verifyCode;
     }
+
+    public String avatarImage;
 
     public ModelUser(int userID, String userName, String email, String password, String verifyCode) {
         this.userID = userID;
@@ -112,7 +118,19 @@ public class ModelUser {
         return countLowercase >= 1 && countUppercase >= 1 && countDigit >= 1;
     }
 
-
+    public JSONObject toJsonObject() throws JSONException {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("userID", userID);
+            jsonObject.put("userName", userName);
+            jsonObject.put("email", email);
+            jsonObject.put("password", BCrypt.hashpw(password, BCrypt.gensalt(4)));
+            return jsonObject;
+        } catch (JSONException je){
+            System.out.println(je);
+            return null;
+        }
+    }
 
     private int userID;
     private String userName;
