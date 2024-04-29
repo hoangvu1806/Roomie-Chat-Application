@@ -27,9 +27,9 @@ public class DatabaseConnection {
         String password = "1806";
         try {
             connection = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database, userName, password);
-            System.out.println("Kết nối database thành công!");
+            System.out.println("Connected to the database successfully!");
         } catch (SQLException e) {
-            System.out.println("Kết nối không thành công!");
+            System.out.println("Connection failed!");
         }
     }
     public Connection getConnection() {
