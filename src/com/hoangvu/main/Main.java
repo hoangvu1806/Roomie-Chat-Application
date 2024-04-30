@@ -16,13 +16,16 @@ import com.hoangvu.connection.DatabaseConnection;
 import com.hoangvu.model.ModelLogin;
 import com.hoangvu.model.ModelMessage;
 import com.hoangvu.model.ModelUser;
+import com.hoangvu.service.Service;
 import com.hoangvu.service.ServiceSendMail;
 import com.hoangvu.service.ServiceUser;
 
+import io.socket.client.Ack;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 import net.miginfocom.swing.MigLayout;
+import org.json.JSONException;
 
 import javax.swing.*;
 
@@ -54,6 +57,8 @@ public class Main extends JFrame {
         verifyCode = new PanelVerifyCode();
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logo.png");
         setIconImage(icon.getImage());
+        Service.getInstance().startServer();
+
         ActionListener eventRegister = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,7 +159,7 @@ public class Main extends JFrame {
         });
     }
 
-    private void sendMain(ModelUser user) {
+    private void sendMail(ModelUser user) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -188,11 +193,19 @@ public class Main extends JFrame {
                     showMessage(Notification.MessageType.ERROR, "User name already exist");
                 } else {
                     service.insertUser(user);
-                    sendMain(user);
+                    sendMail(user);
+                    Service.getInstance().getClient().emit("register", user.toJsonObject(), new Ack() {
+                        @Override
+                        public void call(Object... objects) {
+
+                        }
+                    });
                 }
             } catch (SQLException e) {
                 System.out.println(e);
                 showMessage(Notification.MessageType.ERROR, "Error Register");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -203,14 +216,21 @@ public class Main extends JFrame {
             ModelUser user = service.login(data);
             if (user != null){
                 System.out.println("Signed in successfully!");
+                Service.getInstance().getClient().emit("login", user.toJsonObject(),new Ack() {
+                    @Override
+                    public void call(Object... objects) {
+
+                    }
+                });
                 this.dispose();
                 Client.main(user);
             } else {
                 showMessage(Notification.MessageType.ERROR,"Email or password incorrect");
             }
         } catch (SQLException e) {
-
             showMessage(Notification.MessageType.ERROR, "Error Login");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
     }
 
