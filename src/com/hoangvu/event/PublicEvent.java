@@ -8,6 +8,7 @@ package com.hoangvu.event;
 public class PublicEvent {
     
     private static PublicEvent instance;
+    public EventLogin eventLogin;
     private EventImageView eventImageView;
     private EventChat eventChat;
 
@@ -34,5 +35,9 @@ public class PublicEvent {
     }
     public EventChat getEventChat(){
         return this.eventChat;
+    }
+
+    public EventLogin getEventLogin() {
+        return eventLogin;
     }
 }
