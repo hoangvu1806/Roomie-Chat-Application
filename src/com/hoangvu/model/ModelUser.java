@@ -63,6 +63,20 @@ public class ModelUser {
         this.password = password;
     }
 
+    public ModelUser(Object json) throws JSONException {
+        JSONObject js = new JSONObject(json);
+        try{
+            userID = js.getInt("UserID");
+            userName = js.getString("UserName");
+            email = js.getString("Email");
+            password = js.getString("Password");
+
+        } catch (JSONException je){
+            System.err.println(je);
+        }
+    }
+
+
     public ModelUser() {
     }
     public boolean isValidEmail() {
@@ -121,10 +135,10 @@ public class ModelUser {
     public JSONObject toJsonObject() throws JSONException {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("userID", userID);
-            jsonObject.put("userName", userName);
-            jsonObject.put("email", email);
-            jsonObject.put("password", BCrypt.hashpw(password, BCrypt.gensalt(4)));
+            jsonObject.put("UserID", userID);
+            jsonObject.put("UserName", userName);
+            jsonObject.put("Email", email);
+            jsonObject.put("Password", BCrypt.hashpw(password, BCrypt.gensalt(4)));
             return jsonObject;
         } catch (JSONException je){
             System.out.println(je);
