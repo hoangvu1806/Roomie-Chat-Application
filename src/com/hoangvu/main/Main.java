@@ -199,7 +199,6 @@ public class Main extends JFrame {
                         public void call(Object... objects) {
                         }
                     });
-
                 }
             } catch (SQLException e) {
                 System.out.println(e);
