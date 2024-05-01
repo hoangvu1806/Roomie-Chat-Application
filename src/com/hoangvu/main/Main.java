@@ -219,7 +219,6 @@ public class Main extends JFrame {
                 Service.getInstance().getClient().emit("login", user.toJsonObject(),new Ack() {
                     @Override
                     public void call(Object... objects) {
-
                     }
                 });
                 this.dispose();
