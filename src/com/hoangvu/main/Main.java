@@ -197,9 +197,9 @@ public class Main extends JFrame {
                     Service.getInstance().getClient().emit("register", user.toJsonObject(), new Ack() {
                         @Override
                         public void call(Object... objects) {
-
                         }
                     });
+
                 }
             } catch (SQLException e) {
                 System.out.println(e);
