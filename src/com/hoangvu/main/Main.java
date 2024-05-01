@@ -185,7 +185,7 @@ public class Main extends JFrame {
         } else if (!user.isValidEmail()){
             showMessage(Notification.MessageType.ERROR, "The email is invalid");
         } else if (!user.isValidPassword()) {
-            showMessage(Notification.MessageType.ERROR, "Passwords need uppercase, lowercase, and digits");
+            showMessage(Notification.MessageType.ERROR, "Passwords need uppercase, lowercase, and digits!");
         } else {
             try {
                 if (service.checkDuplicateEmail(user.getEmail())) {
@@ -198,7 +198,7 @@ public class Main extends JFrame {
                     Service.getInstance().getClient().emit("register", user.toJsonObject(), new Ack() {
                         @Override
                         public void call(Object... objects) {
-                            
+
                         }
                     });
                 }
