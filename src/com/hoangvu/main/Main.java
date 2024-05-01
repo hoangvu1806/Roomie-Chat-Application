@@ -165,6 +165,7 @@ public class Main extends JFrame {
             public void run() {
                 loading.setVisible(true);
                 ModelMessage ms = new ServiceSendMail().sendMain(user.getEmail(), user.getUserName(),user.getVerifyCode());
+
                 if (ms.isSuccess()) {
                     loading.setVisible(false);
                     verifyCode.setVisible(true);
