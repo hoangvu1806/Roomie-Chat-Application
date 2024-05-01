@@ -234,6 +234,7 @@ public class Main extends JFrame {
         }
     }
 
+
     private void showMessage(Notification.MessageType messageType, String message) {
         Notification ms = new Notification();
         ms.showMessage(messageType, message);
