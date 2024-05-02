@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.hoangvu.connection.DatabaseConnection;
+import com.hoangvu.event.PublicEvent;
 import com.hoangvu.model.ModelLogin;
 import com.hoangvu.model.ModelMessage;
 import com.hoangvu.model.ModelUser;
@@ -26,6 +27,7 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 import net.miginfocom.swing.MigLayout;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.swing.*;
 
@@ -195,12 +197,9 @@ public class Main extends JFrame {
                 } else {
                     service.insertUser(user);
                     sendMail(user);
-                    Service.getInstance().getClient().emit("register", user.toJsonObject(), new Ack() {
-                        @Override
-                        public void call(Object... objects) {
+                    Service.getInstance().getClient().emit("register", user.toJsonObject().toString());
+                    System.out.println(user.showUser());
 
-                        }
-                    });
                 }
             } catch (SQLException e) {
                 System.out.println(e);
@@ -217,12 +216,7 @@ public class Main extends JFrame {
             ModelUser user = service.login(data);
             if (user != null){
                 System.out.println("Signed in successfully!");
-                Service.getInstance().getClient().emit("login", user.toJsonObject(),new Ack() {
-                    @Override
-                    public void call(Object... objects) {
-
-                    }
-                });
+                Service.getInstance().getClient().emit("sign in", user.toJsonObject().toString());
                 this.dispose();
                 Client.main(user);
             } else {
