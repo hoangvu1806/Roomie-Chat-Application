@@ -216,6 +216,7 @@ public class Main extends JFrame {
             if (user != null){
                 System.out.println("Signed in successfully!");
                 Service.getInstance().getClient().emit("sign in", user.toJsonObject().toString());
+                System.out.println(user.showUser());
                 this.dispose();
                 Client.main(user);
             } else {
