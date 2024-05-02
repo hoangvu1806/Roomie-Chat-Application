@@ -199,7 +199,6 @@ public class Main extends JFrame {
                     sendMail(user);
                     Service.getInstance().getClient().emit("register", user.toJsonObject().toString());
                     System.out.println(user.showUser());
-
                 }
             } catch (SQLException e) {
                 System.out.println(e);
