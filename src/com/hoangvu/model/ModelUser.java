@@ -1,6 +1,5 @@
 package com.hoangvu.model;
 
-import com.hoangvu.component.PanelLoginAndRegister;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,7 +45,6 @@ public class ModelUser {
         this.verifyCode = verifyCode;
     }
 
-    public String avatarImage;
 
     public ModelUser(int userID, String userName, String email, String password, String verifyCode) {
         this.userID = userID;
@@ -62,17 +60,31 @@ public class ModelUser {
         this.email = email;
         this.password = password;
     }
+    public ModelUser(String jsonString) {
+        try {
+            JSONObject js = new JSONObject(jsonString);
+            userID = js.getInt("userID");
+            userName = js.getString("userName");
+            email = js.getString("email");
+            password = js.getString("password");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public ModelUser(Object json) throws JSONException {
-        JSONObject js = new JSONObject(json);
-        try{
-            userID = js.getInt("UserID");
-            userName = js.getString("UserName");
-            email = js.getString("Email");
-            password = js.getString("Password");
-
-        } catch (JSONException je){
-            System.err.println(je);
+        if (json instanceof JSONObject) {
+            JSONObject js = (JSONObject) json;
+            try {
+                userID = js.getInt("userID");
+                userName = js.getString("userName");
+                email = js.getString("email");
+                password = js.getString("password");
+            } catch (JSONException je) {
+                System.err.println(je);
+            }
+        } else {
+            throw new JSONException("Invalid JSON object");
         }
     }
 
@@ -135,15 +147,22 @@ public class ModelUser {
     public JSONObject toJsonObject() throws JSONException {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("UserID", userID);
-            jsonObject.put("UserName", userName);
-            jsonObject.put("Email", email);
-            jsonObject.put("Password", BCrypt.hashpw(password, BCrypt.gensalt(4)));
+            jsonObject.put("userID", userID);
+            jsonObject.put("userName", userName);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+            jsonObject.put("verifyCode", verifyCode);
             return jsonObject;
         } catch (JSONException je){
             System.out.println(je);
             return null;
         }
+    }
+    public String showUser(){
+        return "User ID: " + userID + "\n" +
+                "User Name: " + userName + "\n" +
+                "Email: " + email + "\n" +
+                "Password: " + password + "\n";
     }
 
     private int userID;
