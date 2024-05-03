@@ -71,7 +71,11 @@ public class Main extends JFrame {
         ActionListener eventLogin = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                login();
+                try {
+                    login();
+                } catch (JSONException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         };
         loginAndRegister = new PanelLoginAndRegister(eventRegister, eventLogin);
@@ -134,11 +138,11 @@ public class Main extends JFrame {
         cover.login(isLogin);
         cover.addEvent(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (!animator.isRunning()) {
-                    animator.start();
-                }
+        public void actionPerformed(ActionEvent ae) {
+            if (!animator.isRunning()) {
+                animator.start();
             }
+        }
         });
 
         verifyCode.addEventButtonOK(new ActionListener() {
@@ -197,7 +201,7 @@ public class Main extends JFrame {
                 } else {
                     service.insertUser(user);
                     sendMail(user);
-                    Service.getInstance().getClient().emit("register", user.toJsonObject().toString());
+                    Service.getInstance().getClient().emit("register", user.toJsonObject());
                     System.out.println(user.showUser());
                 }
             } catch (SQLException e) {
@@ -209,24 +213,33 @@ public class Main extends JFrame {
         }
     }
 
-    private void login(){
+    private void login() throws JSONException {
         ModelLogin data = loginAndRegister.getDataLogin();
-        try {
-            ModelUser user = service.login(data);
-            if (user != null){
-                System.out.println("Signed in successfully!");
-                Service.getInstance().getClient().emit("sign in", user.toJsonObject().toString());
-//                System.out.println(user.showUser());
-                this.dispose();
-                Client.main(user);
-            } else {
-                showMessage(Notification.MessageType.ERROR,"Email or password incorrect");
+        System.out.println(data.toJsonObject());
+        Service.getInstance().getClient().emit("login", data.toJsonObject(), new Ack() {
+            @Override
+            public void call(Object... objects) {
+                if (objects.length > 0) {
+                    String objectJs = (String) objects[0];
+                    String message = (String) objects[1];
+                    System.out.println(message);
+                    System.out.println("Server response: " + objectJs);
+                    try {
+                        ModelUser user = new ModelUser(objectJs);
+                        if (message.equals("valid account")){
+                            System.out.println("Signed in successfully!");
+                            System.out.println(user.showUser());
+                            dispose();
+                            Client.main(user);
+                        }
+                    } catch (Exception e) {
+                        showMessage(Notification.MessageType.ERROR,"Email or password incorrect");
+                    }
+                } else {
+                    System.out.println("No response from server");
+                }
             }
-        } catch (SQLException e) {
-            showMessage(Notification.MessageType.ERROR, "Error Login");
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
 
 
