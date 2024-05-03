@@ -21,7 +21,7 @@ public class ServiceUser {
     public ModelUser login(ModelLogin login) throws SQLException {
         ModelUser data = null;
         try {
-            PreparedStatement p = con.prepareStatement("SELECT UserId, UserName, Email, Password FROM `usermanager` WHERE BINARY(Email)=? AND `Status`='Verified' limit 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            PreparedStatement p = con.prepareStatement("SELECT UserID, UserName, Email, Password FROM `usermanager` WHERE BINARY(Email)=? AND `Status`='verified' limit 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             p.setString(1, login.getEmail());
             ResultSet r = p.executeQuery();
             if (r.first()) {
@@ -132,4 +132,73 @@ public class ServiceUser {
         }
         return verify;
     }
+
+    public ModelUser getUserByEmail(String email) throws SQLException {
+        ModelUser user = null;
+        try {
+            PreparedStatement p = con.prepareStatement("SELECT UserID, UserName, Email, Password FROM `usermanager` WHERE BINARY(Email)=? AND `Status`='verified' LIMIT 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            p.setString(1, email);
+            ResultSet r = p.executeQuery();
+            if (r.next()) {
+                int userID = r.getInt("UserID");
+                String userName = r.getString("UserName");
+                String userEmail = r.getString("Email");
+                String password = r.getString("Password");
+                user = new ModelUser(userID, userName, userEmail, password);
+            }
+            r.close();
+            p.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return user;
+    }
+    public ModelUser getUserByID(int userID) throws SQLException {
+        ModelUser user = null;
+        try {
+            PreparedStatement p = con.prepareStatement("SELECT UserName, Email, Password FROM `usermanager` WHERE UserID=? AND `Status`='verified' LIMIT 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            p.setInt(1, userID);
+            ResultSet r = p.executeQuery();
+            if (r.next()) {
+                String userName = r.getString("UserName");
+                String email = r.getString("Email");
+                String password = r.getString("Password");
+                user = new ModelUser(userID, userName, email, password);
+            }
+            r.close();
+            p.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return user;
+    }
+
+
+    public ModelUser getUserByUsername(String username) throws SQLException {
+        ModelUser user = null;
+        try {
+            PreparedStatement p = con.prepareStatement("SELECT UserID, Email, Password FROM `usermanager` WHERE UserName=? AND `Status`='verified' LIMIT 1", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            p.setString(1, username);
+            ResultSet r = p.executeQuery();
+            if (r.next()) {
+                int userID = r.getInt("UserID");
+                String email = r.getString("Email");
+                String password = r.getString("Password");
+                // Tạo một đối tượng ModelUser mới từ dữ liệu truy vấn
+                user = new ModelUser(userID, username, email, password);
+            }
+            r.close();
+            p.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return user;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        ServiceUser user = new ServiceUser();
+        System.out.println(user.con);
+        System.out.println(user.getUserByEmail("1"));
+    }
+
 }
