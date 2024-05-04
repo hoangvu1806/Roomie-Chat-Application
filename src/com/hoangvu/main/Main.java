@@ -53,8 +53,7 @@ public class Main extends JFrame {
         loading = new PanelLoading();
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logo.png");
         setIconImage(icon.getImage());
-        Service.getInstance().startServer();
-
+        Service.getInstance().connectToServer();
         ActionListener eventRegister = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -150,6 +149,7 @@ public class Main extends JFrame {
             @Override
             public void run() {
                 loading.setVisible(true);
+
                 ModelMessage ms = new ServiceSendMail().sendMain(user.getEmail(), user.getUserName(),user.getVerifyCode());
 
                 if (ms.isSuccess()) {
@@ -239,18 +239,22 @@ public class Main extends JFrame {
                     System.out.println("Server response: " + objectJs);
                     try {
                         switch (message) {
-                            case "valid account" -> {
+                            case "valid account":
                                 ModelUser user = new ModelUser(objectJs);
                                 System.out.println("Signed in successfully!");
                                 System.out.println(user.showUser());
                                 dispose();
                                 Client.main(user);
-                            }
-                            case "server is at fault" ->
-                                    showMessage(Notification.MessageType.ERROR, "Server is at fault");
-                            case "invalid account" ->
-                                    showMessage(Notification.MessageType.ERROR, "Email or password incorrect");
-                            default -> showMessage(Notification.MessageType.SUCCESS, "Login successful");
+                                break;
+                            case "server is at fault":
+                                showMessage(Notification.MessageType.ERROR, "Server is at fault");
+                                break;
+                            case "invalid account":
+                                showMessage(Notification.MessageType.ERROR, "Email or password incorrect");
+                                break;
+                            default:
+                                showMessage(Notification.MessageType.SUCCESS, "Login successful");
+                                break;
                         }
                     } catch (Exception e) {
                         System.out.println(e);
