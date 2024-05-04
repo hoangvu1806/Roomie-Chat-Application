@@ -5,15 +5,12 @@ import com.hoangvu.component.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.hoangvu.connection.DatabaseConnection;
-import com.hoangvu.event.PublicEvent;
 import com.hoangvu.model.ModelLogin;
 import com.hoangvu.model.ModelMessage;
 import com.hoangvu.model.ModelUser;
@@ -43,7 +40,6 @@ public class Main extends JFrame {
     private final double addSize = 30;
     private final double coverSize = 40;
     private final double loginSize = 60;
-    private ServiceUser service;
 
     public Main() {
         initComponents();
@@ -52,11 +48,9 @@ public class Main extends JFrame {
     }
 
     private void init() {
-        service = new ServiceUser();
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
         loading = new PanelLoading();
-        verifyCode = new PanelVerifyCode();
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logo.png");
         setIconImage(icon.getImage());
         Service.getInstance().startServer();
@@ -64,7 +58,11 @@ public class Main extends JFrame {
         ActionListener eventRegister = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                register();
+                try {
+                    register();
+                } catch (JSONException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         };
 
@@ -129,9 +127,7 @@ public class Main extends JFrame {
 
         bg.setLayout(layout);
         bg.setLayer(loading, JLayeredPane.POPUP_LAYER);
-        bg.setLayer(verifyCode, JLayeredPane.POPUP_LAYER);
         bg.add(loading, "pos 0 0 100% 100%");
-        bg.add(verifyCode, "pos 0 0 100% 100%");
         bg.add(cover, "width " + coverSize + "%, pos " + (isLogin ? "1al" : "0al") + " 0 n 100%");
         bg.add(loginAndRegister, "width " + loginSize + "%, pos " + (isLogin ? "0al" : "1al") + " 0 n 100%"); //  1al as 100%
         loginAndRegister.showRegister(!isLogin);
@@ -144,32 +140,18 @@ public class Main extends JFrame {
             }
         }
         });
-
-        verifyCode.addEventButtonOK(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    ModelUser user = loginAndRegister.getUser();
-                    if (service.verifyCodeWithUser(user.getUserID(), verifyCode.getInputCode())) {
-                        service.doneVerify(user.getUserID());
-                        verifyCode.setVisible(false);
-                        showMessage(Notification.MessageType.SUCCESS, "Register Success!");
-                    } else {
-                        showMessage(Notification.MessageType.ERROR, "Verify code incorrect");
-                    }
-                } catch (SQLException e) {
-                    System.out.println(e);
-                    showMessage(Notification.MessageType.ERROR, "Error!");
-                }
-            }
-        });
     }
 
     private void sendMail(ModelUser user) {
+        verifyCode = new PanelVerifyCode(user.getUserID());
+        bg.setLayer(verifyCode, JLayeredPane.POPUP_LAYER);
+        bg.add(verifyCode, "pos 0 0 100% 100%");
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 loading.setVisible(true);
+                System.out.println("----------"+user.getVerifyCode());
                 ModelMessage ms = new ServiceSendMail().sendMain(user.getEmail(), user.getUserName(),user.getVerifyCode());
 
                 if (ms.isSuccess()) {
@@ -181,10 +163,34 @@ public class Main extends JFrame {
                 }
             }
         }).start();
-
+        verifyCode.addEventButtonOK(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    JSONObject data = new JSONObject();
+                    data.put("userID", verifyCode.getUserID());
+                    data.put("verifyCode", verifyCode.getInputCode());
+                    System.out.println(data);
+                    Service.getInstance().getClient().emit("authentication", data.toString(),new Ack(){
+                        @Override
+                        public void call(Object... args) {
+                            if (args[0].equals("success")) {
+                                verifyCode.setVisible(false);
+                                showMessage(Notification.MessageType.SUCCESS, "Register Success!");
+                            } else {
+                                showMessage(Notification.MessageType.ERROR, "Verify code incorrect");
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
-    private void register() {
+    private void register() throws JSONException {
+
         ModelUser user = loginAndRegister.getUser();
         if (!user.isValidUsername()) {
             showMessage(Notification.MessageType.ERROR, "The username is invalid");
@@ -193,23 +199,33 @@ public class Main extends JFrame {
         } else if (!user.isValidPassword()) {
             showMessage(Notification.MessageType.ERROR, "Passwords need uppercase, lowercase, and digits!");
         } else {
-            try {
-                if (service.checkDuplicateEmail(user.getEmail())) {
-                    showMessage(Notification.MessageType.ERROR, "Email already exist");
-                } else if (service.checkDuplicateUser(user.getUserName())) {
-                    showMessage(Notification.MessageType.ERROR, "User name already exist");
-                } else {
-                    service.insertUser(user);
-                    sendMail(user);
-                    Service.getInstance().getClient().emit("register", user.toJsonObject());
-                    System.out.println(user.showUser());
+            Service.getInstance().getClient().emit("register", user.toJsonObject(), new Ack() {
+                @Override
+                public void call(Object... objects) {
+                    if (objects.length > 0) {
+                        String objectJs = (String) objects[0];
+                        String message = (String) objects[1];
+                        System.out.println(message);
+                        System.out.println("Server response: " + objectJs);
+                        try {
+                            ModelUser user = new ModelUser(objectJs);
+                            if (message.equals("duplicate email")) {
+                                showMessage(Notification.MessageType.ERROR, "Email already exist");
+                            } else if (message.equals("duplicate user")) {
+                                showMessage(Notification.MessageType.ERROR, "User name already exist");
+                            } else if (message.equals("success")) {
+                                sendMail(user);
+                                System.out.println(user.showUser());
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e);
+                            showMessage(Notification.MessageType.ERROR,"Error Register!");
+                        }
+                    } else {
+                        System.out.println("No response from server");
+                    }
                 }
-            } catch (SQLException e) {
-                System.out.println(e);
-                showMessage(Notification.MessageType.ERROR, "Error Register");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+            });
         }
     }
 
@@ -278,7 +294,6 @@ public class Main extends JFrame {
                     ms.setShow(true);
                 }
             }
-
             @Override
             public void repeat() {
             }
@@ -364,8 +379,6 @@ public class Main extends JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-
-        DatabaseConnection.getInstance().connectToDatabase();
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
