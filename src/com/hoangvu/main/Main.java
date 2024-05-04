@@ -149,9 +149,7 @@ public class Main extends JFrame {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 loading.setVisible(true);
-                System.out.println("----------"+user.getVerifyCode());
                 ModelMessage ms = new ServiceSendMail().sendMain(user.getEmail(), user.getUserName(),user.getVerifyCode());
 
                 if (ms.isSuccess()) {
@@ -190,7 +188,6 @@ public class Main extends JFrame {
     }
 
     private void register() throws JSONException {
-
         ModelUser user = loginAndRegister.getUser();
         if (!user.isValidUsername()) {
             showMessage(Notification.MessageType.ERROR, "The username is invalid");
@@ -208,12 +205,12 @@ public class Main extends JFrame {
                         System.out.println(message);
                         System.out.println("Server response: " + objectJs);
                         try {
-                            ModelUser user = new ModelUser(objectJs);
                             if (message.equals("duplicate email")) {
                                 showMessage(Notification.MessageType.ERROR, "Email already exist");
                             } else if (message.equals("duplicate user")) {
                                 showMessage(Notification.MessageType.ERROR, "User name already exist");
                             } else if (message.equals("success")) {
+                                ModelUser user = new ModelUser(objectJs);
                                 sendMail(user);
                                 System.out.println(user.showUser());
                             }
@@ -241,15 +238,22 @@ public class Main extends JFrame {
                     System.out.println(message);
                     System.out.println("Server response: " + objectJs);
                     try {
-                        ModelUser user = new ModelUser(objectJs);
-                        if (message.equals("valid account")){
-                            System.out.println("Signed in successfully!");
-                            System.out.println(user.showUser());
-                            dispose();
-                            Client.main(user);
+                        switch (message) {
+                            case "valid account" -> {
+                                ModelUser user = new ModelUser(objectJs);
+                                System.out.println("Signed in successfully!");
+                                System.out.println(user.showUser());
+                                dispose();
+                                Client.main(user);
+                            }
+                            case "server is at fault" ->
+                                    showMessage(Notification.MessageType.ERROR, "Server is at fault");
+                            case "invalid account" ->
+                                    showMessage(Notification.MessageType.ERROR, "Email or password incorrect");
+                            default -> showMessage(Notification.MessageType.SUCCESS, "Login successful");
                         }
                     } catch (Exception e) {
-                        showMessage(Notification.MessageType.ERROR,"Email or password incorrect");
+                        System.out.println(e);
                     }
                 } else {
                     System.out.println("No response from server");
