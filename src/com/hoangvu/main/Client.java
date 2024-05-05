@@ -214,7 +214,7 @@ public class Client extends javax.swing.JFrame {
 
     private void closeBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtMouseEntered
         closeBt.setBackground(new Color(253, 71, 71));
-//        closeBt.setOpaque(true);
+        closeBt.setOpaque(true);
     }//GEN-LAST:event_closeBtMouseEntered
 
     private void minimizeBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeBtActionPerformed
