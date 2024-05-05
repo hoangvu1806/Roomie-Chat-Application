@@ -284,7 +284,7 @@ public class Main extends JFrame {
                     System.out.println(message);
                     System.out.println("Server response: " + objectJs);
                 } else {
-                    System.out.println("No response from server");
+                    System.out.println("Not response from server");
                 }
             }
         });
