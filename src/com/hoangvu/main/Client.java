@@ -4,9 +4,9 @@ package com.hoangvu.main;
 import com.hoangvu.event.EventImageView;
 import com.hoangvu.event.PublicEvent;
 import com.hoangvu.model.ModelUser;
-import com.hoangvu.service.Service;
 import com.hoangvu.swing.ComponentResizer;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -15,12 +15,13 @@ import javax.swing.*;
  */
 public class Client extends javax.swing.JFrame {
     private final ModelUser user;
+    private static ArrayList<ModelUser> listUsers;
     /**
      * Creates new form Home
      */
-    public Client(ModelUser user) {
+    public Client(ModelUser user, ArrayList<ModelUser> listUsers) {
 
-        initComponents();
+        initComponents(listUsers);
         init();
         this.user = user;
         setTitle("Roomie - " + user.getUserName());
@@ -59,7 +60,7 @@ public class Client extends javax.swing.JFrame {
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(ArrayList<ModelUser> listUsers) {
 
         lbUserName = new javax.swing.JLabel();
         background = new javax.swing.JPanel();
@@ -68,7 +69,7 @@ public class Client extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         closeBt = new javax.swing.JButton();
         body = new javax.swing.JLayeredPane();
-        home = new com.hoangvu.form.Home();
+        home = new com.hoangvu.form.Home(listUsers);
         viewImage = new com.hoangvu.form.ViewImage();
 
         lbUserName.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -83,7 +84,7 @@ public class Client extends javax.swing.JFrame {
 
         background.setBackground(new java.awt.Color(255, 255, 255));
 
-        tittlePanel.setBackground(new java.awt.Color(204, 204, 204));
+        tittlePanel.setBackground(new java.awt.Color(255, 255, 255));
         tittlePanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 tittlePanelMouseDragged(evt);
@@ -117,8 +118,7 @@ public class Client extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setLabelFor(tittlePanel);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Roomie");
 
         closeBt.setBackground(new java.awt.Color(102, 102, 102));
@@ -148,9 +148,9 @@ public class Client extends javax.swing.JFrame {
         tittlePanelLayout.setHorizontalGroup(
             tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittlePanelLayout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                .addGap(233, 233, 233)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
                 .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(closeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -180,8 +180,8 @@ public class Client extends javax.swing.JFrame {
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addComponent(tittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(533, 533, 533))
+                .addComponent(tittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 591, Short.MAX_VALUE))
             .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                     .addGap(27, 27, 27)
@@ -203,36 +203,33 @@ public class Client extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void minimizeBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeBtActionPerformed
-        this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_minimizeBtActionPerformed
-
     private void closeBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtActionPerformed
         System.exit(0);
     }//GEN-LAST:event_closeBtActionPerformed
 
-
-
-    private int pX;
-    private int pY;
-    private void closeBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtMouseEntered
-        closeBt.setBackground(new Color(253, 71, 71));
-        closeBt.setOpaque(true);
-    }//GEN-LAST:event_closeBtMouseEntered
     private void closeBtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtMouseExited
         closeBt.setBackground(this.tittlePanel.getBackground());
         closeBt.setOpaque(true);
     }//GEN-LAST:event_closeBtMouseExited
 
-    private void minimizeBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtMouseEntered
-        minimizeBt.setBackground(new Color(114, 114, 114));
-        minimizeBt.setOpaque(true);
-    }//GEN-LAST:event_minimizeBtMouseEntered
+    private void closeBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtMouseEntered
+        closeBt.setBackground(new Color(253, 71, 71));
+        closeBt.setOpaque(true);
+    }//GEN-LAST:event_closeBtMouseEntered
+
+    private void minimizeBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimizeBtActionPerformed
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_minimizeBtActionPerformed
 
     private void minimizeBtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtMouseExited
         minimizeBt.setBackground(this.tittlePanel.getBackground());
         minimizeBt.setOpaque(true);
     }//GEN-LAST:event_minimizeBtMouseExited
+
+    private void minimizeBtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtMouseEntered
+        minimizeBt.setBackground(new Color(114, 114, 114));
+        minimizeBt.setOpaque(true);
+    }//GEN-LAST:event_minimizeBtMouseEntered
 
     private void tittlePanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tittlePanelMousePressed
         this.pX = evt.getX();
@@ -243,12 +240,17 @@ public class Client extends javax.swing.JFrame {
         this.setLocation(this.getLocation().x + evt.getX() - this.pX,
             this.getLocation().y + evt.getY() - this.pY);
     }//GEN-LAST:event_tittlePanelMouseDragged
-                                
+
+
+
+    private int pX;
+    private int pY;                                
 
     /**
-     * @param args the command line arguments
+     * @param args      the command line arguments
+     * @param listUsers
      */
-    public static void main(ModelUser user) {
+    public static void main(ModelUser user, ArrayList<ModelUser> listUsers) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -276,7 +278,7 @@ public class Client extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Client(user).setVisible(true);
+                new Client(user, Client.listUsers).setVisible(true);
             }
         });
     }
