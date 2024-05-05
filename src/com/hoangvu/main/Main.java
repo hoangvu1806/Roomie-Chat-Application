@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -244,7 +245,14 @@ public class Main extends JFrame {
                                 System.out.println("Signed in successfully!");
                                 System.out.println(user.showUser());
                                 dispose();
-                                Client.main(user);
+                                ArrayList<ModelUser> listUsers= new ArrayList<>();
+                                Service.getInstance().getClient().emit("list-Users", new Ack() {
+                                    @Override
+                                    public void call(Object... objects) {
+
+                                    }
+                                });
+                                Client.main(user,listUsers);
                                 break;
                             case "server is at fault":
                                 showMessage(Notification.MessageType.ERROR, "Server is at fault");
@@ -266,6 +274,21 @@ public class Main extends JFrame {
         });
     }
 
+    private void sendRequestListUser(){
+        Service.getInstance().getClient().emit("list-user", new Ack() {
+            @Override
+            public void call(Object... objects) {
+                if (objects.length > 0) {
+                    String objectJs = (String) objects[0];
+                    String message = (String) objects[1];
+                    System.out.println(message);
+                    System.out.println("Server response: " + objectJs);
+                } else {
+                    System.out.println("No response from server");
+                }
+            }
+        });
+    }
 
     private void showMessage(Notification.MessageType messageType, String message) {
         Notification ms = new Notification();
