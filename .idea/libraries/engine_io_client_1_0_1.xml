@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="engine.io-client-1.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/engine.io-client-1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

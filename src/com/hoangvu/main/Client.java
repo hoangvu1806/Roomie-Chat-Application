@@ -20,7 +20,7 @@ public class Client extends javax.swing.JFrame {
      * Creates new form Home
      */
     public Client(ModelUser user, ArrayList<ModelUser> listUsers) {
-
+        System.out.println("Starting");
         initComponents(listUsers);
         init();
         this.user = user;
@@ -49,12 +49,10 @@ public class Client extends javax.swing.JFrame {
                 viewImage.viewImage(image);
                 System.out.println("Event running...");
             }
-
             @Override
             public void saveImage(Icon image) {
                 System.out.println("Save Image next update");
             }
-
         });
 
     }
@@ -278,7 +276,7 @@ public class Client extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Client(user, Client.listUsers).setVisible(true);
+                new Client(user, listUsers).setVisible(true);
             }
         });
     }

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="okhttp-3.12.12">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/okhttp-3.12.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/okio-1.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/socket.io-client-1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
