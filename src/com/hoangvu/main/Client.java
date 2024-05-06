@@ -1,10 +1,13 @@
 
 package com.hoangvu.main;
 
+import com.hoangvu.connection.ServerConnection;
 import com.hoangvu.event.EventImageView;
 import com.hoangvu.event.PublicEvent;
 import com.hoangvu.model.ModelUser;
 import com.hoangvu.swing.ComponentResizer;
+import io.socket.client.Socket;
+
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -16,14 +19,15 @@ import javax.swing.*;
 public class Client extends javax.swing.JFrame {
     private final ModelUser user;
     private static ArrayList<ModelUser> listUsers;
+    private ServerConnection serverConnection;
     /**
      * Creates new form Home
      */
     public Client(ModelUser user, ArrayList<ModelUser> listUsers) {
         System.out.println("Starting");
         initComponents(listUsers);
-        init();
         this.user = user;
+        init();
         setTitle("Roomie - " + user.getUserName());
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logoBase.png");
         setIconImage(icon.getImage());
@@ -31,6 +35,9 @@ public class Client extends javax.swing.JFrame {
 
     }
     public void init(){
+        serverConnection = ServerConnection.getInstance();
+        Socket client = serverConnection.getClient();
+        client.emit("connect","Hello server, From: " + user.getUserName());
         ComponentResizer comr = new ComponentResizer();
         comr.registerComponent(this);
         comr.setMinimumSize(new Dimension(800,500));
