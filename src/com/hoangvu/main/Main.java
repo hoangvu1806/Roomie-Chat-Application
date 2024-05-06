@@ -1,10 +1,13 @@
 package com.hoangvu.main;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hoangvu.component.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -12,14 +15,14 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.hoangvu.connection.ServerConnection;
 import com.hoangvu.model.ModelLogin;
 import com.hoangvu.model.ModelMessage;
 import com.hoangvu.model.ModelUser;
-import com.hoangvu.service.Service;
 import com.hoangvu.service.ServiceSendMail;
-import com.hoangvu.service.ServiceUser;
 
 import io.socket.client.Ack;
+
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -37,6 +40,7 @@ public class Main extends JFrame {
     private PanelLoading loading;
     private PanelVerifyCode verifyCode;
     private PanelLoginAndRegister loginAndRegister;
+    private ServerConnection serverConnection;
     private boolean isLogin = true;
     private final double addSize = 30;
     private final double coverSize = 40;
@@ -52,9 +56,10 @@ public class Main extends JFrame {
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
         loading = new PanelLoading();
+        serverConnection = ServerConnection.getInstance();
+        serverConnection.connect();
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logo.png");
         setIconImage(icon.getImage());
-        Service.getInstance().connectToServer();
         ActionListener eventRegister = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,7 +175,7 @@ public class Main extends JFrame {
                     data.put("userID", verifyCode.getUserID());
                     data.put("verifyCode", verifyCode.getInputCode());
                     System.out.println(data);
-                    Service.getInstance().getClient().emit("authentication", data.toString(),new Ack(){
+                    serverConnection.getClient().emit("authentication", data.toString(),new Ack(){
                         @Override
                         public void call(Object... args) {
                             if (args[0].equals("success")) {
@@ -197,7 +202,7 @@ public class Main extends JFrame {
         } else if (!user.isValidPassword()) {
             showMessage(Notification.MessageType.ERROR, "Passwords need uppercase, lowercase, and digits!");
         } else {
-            Service.getInstance().getClient().emit("register", user.toJsonObject(), new Ack() {
+            serverConnection.getClient().emit("register", user.toJsonObject(), new Ack() {
                 @Override
                 public void call(Object... objects) {
                     if (objects.length > 0) {
@@ -230,7 +235,7 @@ public class Main extends JFrame {
     private void login() throws JSONException {
         ModelLogin data = loginAndRegister.getDataLogin();
         System.out.println(data.toJsonObject());
-        Service.getInstance().getClient().emit("login", data.toJsonObject(), new Ack() {
+        serverConnection.getClient().emit("login", data.toJsonObject(), new Ack() {
             @Override
             public void call(Object... objects) {
                 if (objects.length > 0) {
@@ -244,15 +249,7 @@ public class Main extends JFrame {
                                 ModelUser user = new ModelUser(objectJs);
                                 System.out.println("Signed in successfully!");
                                 System.out.println(user.showUser());
-                                dispose();
-                                ArrayList<ModelUser> listUsers= new ArrayList<>();
-                                Service.getInstance().getClient().emit("list-Users", new Ack() {
-                                    @Override
-                                    public void call(Object... objects) {
-
-                                    }
-                                });
-                                Client.main(user,listUsers);
+                                getListUser(user);
                                 break;
                             case "server is at fault":
                                 showMessage(Notification.MessageType.ERROR, "Server is at fault");
@@ -274,17 +271,25 @@ public class Main extends JFrame {
         });
     }
 
-    private void sendRequestListUser(){
-        Service.getInstance().getClient().emit("list-user", new Ack() {
+    private void getListUser(ModelUser user) throws JSONException {
+        serverConnection.getClient().emit("list-user", user.toJsonObject(), new Ack() {
             @Override
             public void call(Object... objects) {
-                if (objects.length > 0) {
-                    String objectJs = (String) objects[0];
-                    String message = (String) objects[1];
-                    System.out.println(message);
-                    System.out.println("Server response: " + objectJs);
+                String jsonUserList = (String) objects[0];
+                ArrayList<ModelUser> listUser = null;
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    listUser = mapper.readValue(jsonUserList, new TypeReference<ArrayList<ModelUser>>() {});
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (listUser != null && !listUser.isEmpty()) {
+                    System.out.println("list-user ON");
+                    System.out.println("list-user-response: " + listUser.get(0).getUserName());
+                    dispose();
+                    Client.main(user, listUser);
                 } else {
-                    System.out.println("No response from server");
+                    System.out.println("Empty user list received");
                 }
             }
         });
