@@ -2,7 +2,9 @@ package com.hoangvu.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ModelUser {
 
     public int getUserID() {
@@ -45,6 +47,15 @@ public class ModelUser {
         this.verifyCode = verifyCode;
     }
 
+    public String getAvatarImage() {
+        return avatarImage;
+    }
+
+    public void setAvatarImage(String avatarImage) {
+        this.avatarImage = avatarImage;
+    }
+
+
 
     public ModelUser(int userID, String userName, String email, String password, String verifyCode) {
         this.userID = userID;
@@ -67,6 +78,11 @@ public class ModelUser {
             userName = js.getString("userName");
             email = js.getString("email");
             password = js.getString("password");
+            if (js.has("verifyCode")) {
+                verifyCode = js.getString("verifyCode");
+            } else {
+                verifyCode = null;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -170,4 +186,5 @@ public class ModelUser {
     private String email;
     private String password;
     private String verifyCode;
+    private String avatarImage;
 }
