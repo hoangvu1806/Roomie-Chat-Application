@@ -3,6 +3,7 @@ package com.hoangvu.main;
 
 import com.hoangvu.connection.ServerConnection;
 import com.hoangvu.event.EventImageView;
+import com.hoangvu.event.EventMain;
 import com.hoangvu.event.PublicEvent;
 import com.hoangvu.model.ModelUser;
 import com.hoangvu.swing.ComponentResizer;
@@ -50,6 +51,23 @@ public class Client extends javax.swing.JFrame {
     }
 
     public void initEvent() {
+        PublicEvent.getInstance().addEventMain(new EventMain() {
+            @Override
+            public void showLoading(boolean show) {}
+            @Override
+            public void initChat() {}
+
+            @Override
+            public void selectUser(ModelUser user) {
+                home.setUser(user);
+
+            }
+
+            @Override
+            public void updataUser(ModelUser user) {
+                home.updataUser(user);
+            }
+        });
         PublicEvent.getInstance().addEventImageView(new EventImageView() {
             @Override
             public void viewImage(Icon image) {
