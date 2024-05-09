@@ -4,17 +4,82 @@
  */
 package com.hoangvu.form;
 
+import com.hoangvu.event.EventMenuLeft;
+import com.hoangvu.event.PublicEvent;
+import com.hoangvu.model.ModelUser;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Objects;
+
 /**
  *
  * @author Admin
  */
 public class LeftToolBar extends javax.swing.JPanel {
-
-    /**
-     * Creates new form LeftToolBar
-     */
-    public LeftToolBar() {
+    private MenuLeft menuLeft ;
+    private ArrayList<ModelUser> listUsers;
+    public LeftToolBar(MenuLeft menuLeft, ArrayList<ModelUser> listUsers) {
         initComponents();
+        init(menuLeft);
+        this.listUsers = listUsers;
+    }
+    private void init(MenuLeft menuLeft){
+        this.menuLeft = menuLeft;
+        messageBt.setSelected(true);
+        gradientPanel.setColor1(new Color(255, 255, 255));
+        gradientPanel.setColor2(new Color(121, 0, 0));
+        myProfile.setImage(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/bb.png"))));
+        myProfile.setBorderSize(0);
+        myProfile.setMinimumSize(new java.awt.Dimension(32, 32));
+        PublicEvent.getInstance().addEventMenuLeft(new EventMenuLeft() {
+            @Override
+            public void newUser(ArrayList<ModelUser> users) {
+                for(ModelUser user : listUsers){
+                    menuLeft.menuList.add(new ItemObject(user), "wrap");
+                    menuLeft.refreshMenuList();
+                }
+            }
+
+            @Override
+            public void userConnect(int userID) {
+                for(ModelUser user : listUsers){
+                    if(user.getUserID() == userID){
+                        user.setActivateStatus(true);
+                        break;
+                    }
+                }
+                if (messageBt.isSelected()) {
+                    for (Component com : menuLeft.menuList.getComponents()) {
+                        ItemObject item = (ItemObject) com;
+                        if (item.getUser().getUserID() == userID) {
+                            item.updataStatus();
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void userDisconnect(int userID) {
+                for (ModelUser user : listUsers){
+                    if(user.getUserID() == userID){
+                        user.setActivateStatus(false);
+                        break;
+                    }
+                }
+                if (messageBt.isSelected()) {
+                    for (Component com : menuLeft.menuList.getComponents()) {
+                        ItemObject item = (ItemObject) com;
+                        if (item.getUser().getUserID() == userID) {
+                            item.updataStatus();
+                            break;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -26,19 +91,165 @@ public class LeftToolBar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        gradientPanel = new com.hoangvu.swing.GradientPanel();
+        menu = new javax.swing.JLayeredPane();
+        messageBt = new javax.swing.JButton();
+        groupBt = new javax.swing.JButton();
+        settingBt = new javax.swing.JButton();
+        myProfile = new com.hoangvu.swing.ImageAvatar();
+
+        messageBt.setBackground(new java.awt.Color(102, 102, 102));
+        messageBt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        messageBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/chat_unselect.png"))); // NOI18N
+        messageBt.setBorder(null);
+        messageBt.setBorderPainted(false);
+        messageBt.setContentAreaFilled(false);
+        messageBt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        messageBt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        messageBt.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/chat.png"))); // NOI18N
+        messageBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                messageBtActionPerformed(evt);
+            }
+        });
+
+        groupBt.setBackground(new java.awt.Color(102, 102, 102));
+        groupBt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        groupBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/group_unselect.png"))); // NOI18N
+        groupBt.setBorder(null);
+        groupBt.setBorderPainted(false);
+        groupBt.setContentAreaFilled(false);
+        groupBt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        groupBt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        groupBt.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/group.png"))); // NOI18N
+        groupBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                groupBtActionPerformed(evt);
+            }
+        });
+
+        settingBt.setBackground(new java.awt.Color(102, 102, 102));
+        settingBt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        settingBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/setting_unselect.png"))); // NOI18N
+        settingBt.setBorder(null);
+        settingBt.setBorderPainted(false);
+        settingBt.setContentAreaFilled(false);
+        settingBt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        settingBt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        settingBt.setHideActionText(true);
+        settingBt.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/setting.png"))); // NOI18N
+        settingBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingBtActionPerformed(evt);
+            }
+        });
+
+        myProfile.setImage(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/bb.png"))); // NOI18N
+        myProfile.setMaximumSize(new java.awt.Dimension(32, 32));
+        myProfile.setMinimumSize(new java.awt.Dimension(32, 32));
+
+        menu.setLayer(messageBt, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        menu.setLayer(groupBt, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        menu.setLayer(settingBt, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        menu.setLayer(myProfile, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
+        menu.setLayout(menuLayout);
+        menuLayout.setHorizontalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(messageBt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(groupBt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(settingBt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(menuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(myProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        menuLayout.setVerticalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addComponent(messageBt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(groupBt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(settingBt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
+                .addComponent(myProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout gradientPanelLayout = new javax.swing.GroupLayout(gradientPanel);
+        gradientPanel.setLayout(gradientPanelLayout);
+        gradientPanelLayout.setHorizontalGroup(
+            gradientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 42, Short.MAX_VALUE)
+            .addGroup(gradientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(menu, javax.swing.GroupLayout.Alignment.TRAILING))
+        );
+        gradientPanelLayout.setVerticalGroup(
+            gradientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 546, Short.MAX_VALUE)
+            .addGroup(gradientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(menu))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(gradientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(gradientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void messageBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageBtActionPerformed
+        if ( !messageBt.isSelected()){
+            messageBt.setSelected(true);
+            groupBt.setSelected(false);
+            settingBt.setSelected(false);
+        }
+        if (menuLeft != null) {
+            menuLeft.showUser(listUsers);
+        }
+    }//GEN-LAST:event_messageBtActionPerformed
+
+    private void groupBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupBtActionPerformed
+        System.out.println("groupBtActionPerformed");
+        System.out.println(menuLeft);
+        if ( !groupBt.isSelected()){
+            messageBt.setSelected(false);
+            groupBt.setSelected(true);
+            settingBt.setSelected(false);
+        }
+        if (menuLeft != null) {
+            menuLeft.showGroup(5);
+        }
+    }//GEN-LAST:event_groupBtActionPerformed
+
+    private void settingBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingBtActionPerformed
+        if ( !settingBt.isSelected()){
+            messageBt.setSelected(false);
+            groupBt.setSelected(false);
+            settingBt.setSelected(true);
+        }
+        if (menuLeft != null) {
+            menuLeft.showGroup(7);
+        }
+    }//GEN-LAST:event_settingBtActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hoangvu.swing.GradientPanel gradientPanel;
+    private javax.swing.JButton groupBt;
+    private javax.swing.JLayeredPane menu;
+    private javax.swing.JButton messageBt;
+    private com.hoangvu.swing.ImageAvatar myProfile;
+    private javax.swing.JButton settingBt;
     // End of variables declaration//GEN-END:variables
 }
