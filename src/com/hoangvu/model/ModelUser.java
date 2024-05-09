@@ -55,6 +55,16 @@ public class ModelUser {
         this.avatarImage = avatarImage;
     }
 
+    public boolean isActivateStatus() {
+        return activateStatus;
+    }
+
+    public void setActivateStatus(boolean activateStatus) {
+        this.activateStatus = activateStatus;
+    }
+
+    public boolean activateStatus;
+
 
 
     public ModelUser(int userID, String userName, String email, String password, String verifyCode) {
