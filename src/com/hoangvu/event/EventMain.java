@@ -1,13 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.hoangvu.event;
 
-/**
- *
- * @author Admin
- */
-public class EventMain {
-    
+import com.hoangvu.model.ModelUser;
+
+public interface EventMain {
+
+    public void showLoading(boolean show);
+
+    public void initChat();
+
+    public void selectUser(ModelUser user);
+    public void updataUser(ModelUser user);
+
 }
