@@ -1,8 +1,14 @@
 
 package com.hoangvu.form;
 
+import com.hoangvu.event.EventMenuLeft;
+import com.hoangvu.event.PublicEvent;
+import com.hoangvu.model.ModelUser;
 import com.hoangvu.swing.ScrollBar;
 import net.miginfocom.swing.MigLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,22 +19,23 @@ public class MenuLeft extends javax.swing.JPanel {
     /**
      * Creates new form MenuLeft
      */
-    public MenuLeft() {
+    public MenuLeft(ArrayList<ModelUser> listUsers) {
         initComponents();
-        init();
-
+        init(listUsers);
     }
-    private void init(){
+
+    private void init(ArrayList<ModelUser> listUsers){
         sp.setVerticalScrollBar(new ScrollBar());
         this.menuList.setLayout(new MigLayout("fillx","0[]0","0[]0"));
         sp.getVerticalScrollBar().setUnitIncrement(20);
-        showMessage(100);
+
+        showUser(listUsers);
     }
     public void showMessage(int num){
         this.menuList.removeAll();
         // test data
         for(int i = 0; i < num; i++){
-            this.menuList.add(new ItemObject("User "+ (i+1)),"wrap");
+            this.menuList.add(new ItemObject(null),"wrap");
         }
     }
 
@@ -36,7 +43,15 @@ public class MenuLeft extends javax.swing.JPanel {
         this.menuList.removeAll();
         // test data
         for(int i = 0; i < num; i++){
-            this.menuList.add(new ItemObject("User "+ (i+1)),"wrap");
+            this.menuList.add(new ItemObject(null),"wrap");
+        }
+        refreshMenuList();
+    }
+    public void showUser(ArrayList<ModelUser> listUsers){
+        this.menuList.removeAll();
+        // test data
+        for(ModelUser user : listUsers){
+            this.menuList.add(new ItemObject(user),"wrap");
         }
         refreshMenuList();
     }
