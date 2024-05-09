@@ -3,6 +3,7 @@ package com.hoangvu.form;
 
 import com.hoangvu.event.EventChat;
 import com.hoangvu.event.PublicEvent;
+import com.hoangvu.model.ModelUser;
 import com.hoangvu.swing.JIMSendTextPane;
 import com.hoangvu.swing.ScrollBar;
 import net.miginfocom.swing.MigLayout;
@@ -16,6 +17,14 @@ import java.awt.event.KeyEvent;
 import java.util.Objects;
 
 public class ChatBottom extends javax.swing.JPanel {
+    private ModelUser user;
+    public ModelUser getUser() {
+        return user;
+    }
+
+    public void setUser(ModelUser user) {
+        this.user = user;
+    }
     public ChatBottom() {
         initComponents();
         init();
@@ -34,22 +43,23 @@ public class ChatBottom extends javax.swing.JPanel {
         sendTextPane.setHintText("Type a message...");
         scroll.setViewportView(sendTextPane);
         ScrollBar sb = new ScrollBar();
-        scroll.setVerticalScrollBar(sb);
         sb.setPreferredSize(new Dimension(2,10));
+        scroll.setVerticalScrollBar(sb);
         add(sb);
         add(scroll,"w 100%");
+
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout("filly","0[]0","2[bottom]2"));
-        JButton sendMsBt = new JButton();
         panel.setPreferredSize(new Dimension(30,28));
         panel.setBackground(Color.WHITE);
+
+        JButton sendMsBt = new JButton();
         sendMsBt.setBorder(null);
         sendMsBt.setOpaque(false);
         sendMsBt.setContentAreaFilled(false);
         sendMsBt.setCursor(new Cursor(Cursor.HAND_CURSOR));
         sendMsBt.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/send.png"))));
         sendMsBt.setSelectedIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/send_selected.png"))));
-
         sendMsBt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
