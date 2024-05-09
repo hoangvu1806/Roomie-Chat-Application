@@ -1,23 +1,34 @@
 
 package com.hoangvu.form;
+import com.hoangvu.model.ModelUser;
 import net.miginfocom.swing.MigLayout;
+
+import java.util.ArrayList;
 
 public class Home extends javax.swing.JLayeredPane {
 
-    public Home() {
+    public Home(ArrayList<ModelUser> listUsers) {
         initComponents();
-        init();
+        init(listUsers);
     }
-    private void init(){
-        this.menuLeft = new MenuLeft();
+    private void init(ArrayList<ModelUser> listUsers) {
+        this.menuLeft = new MenuLeft(listUsers);
         this.menuRight = new MenuRight();
-        this.toolBar = new ToolBar(this.menuLeft);
+        this.toolBar = new LeftToolBar(this.menuLeft,listUsers);
         this.chat = new Chat();
-        setLayout(new MigLayout("fillx, filly", "0[44!]0[200!]5[fill, 100%]5[150!]5", "0[fill]0"));
+        setLayout(new MigLayout("fillx, filly", "0[44!]2[200!]2[fill, 100%]2[0!]0", "0[fill]0"));
         this.add(this.toolBar);
         this.add(this.menuLeft);
-        this.add(this.chat);
+        this.add(chat);
         this.add(this.menuRight);
+        chat.setVisible(false);
+    }
+    public void setUser(ModelUser user) {
+        chat.setUser(user);
+        chat.setVisible(true);
+    }
+    public void updataUser(ModelUser user) {
+        chat.updateUser(user);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,13 +43,13 @@ public class Home extends javax.swing.JLayeredPane {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private Chat chat;
     private MenuLeft menuLeft;
-    private ToolBar toolBar;
+    private LeftToolBar toolBar;
     private MenuRight menuRight;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
