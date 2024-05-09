@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.hoangvu.form;
+
+import com.hoangvu.event.PublicEvent;
+import com.hoangvu.model.ModelUser;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -14,16 +13,47 @@ import java.awt.event.MouseEvent;
  */
 public class ItemObject extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ItemObject
-     */
-    public ItemObject(String name) {
+    private boolean mouseOver;
+    public ModelUser getUser() {
+        return user;
+    }
+
+    private ModelUser user;
+    public ItemObject(ModelUser user) {
         initComponents();
-        lbUserName.setText(name);
+        this.user = user;
+        if (user != null){
+            lbUserName.setText(user.getUserName());
+            activeStatus.setActive(user.isActivateStatus());
+        }
         init();
+    }
+    public void updataStatus() {
+        activeStatus.setActive(user.isActivateStatus());
     }
 
     private void init() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                setBackground(new Color(230, 230, 230));
+                mouseOver = true;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                setBackground(new Color(242, 242, 242));
+                mouseOver = false;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (mouseOver){
+                    System.out.println("Press");
+                    PublicEvent.getInstance().getEventMain().selectUser(user);
+                }
+            }
+        });
         this.setBackground(new Color(242,242,242));
         addMouseListener(new MouseAdapter() {
             @Override
@@ -49,38 +79,60 @@ public class ItemObject extends javax.swing.JPanel {
 
         imageAvatar1 = new com.hoangvu.swing.ImageAvatar();
         lbUserName = new javax.swing.JLabel();
+        lbStatus = new javax.swing.JLabel();
+        activeStatus = new com.hoangvu.swing.ActiveStatus();
 
         imageAvatar1.setBorderSize(0);
         imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/avatar-45.png"))); // NOI18N
         imageAvatar1.setOpaque(true);
 
         lbUserName.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        lbUserName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbUserName.setText("User name");
+
+        lbStatus.setFont(new java.awt.Font("JetBrains Mono", 2, 10)); // NOI18N
+        lbStatus.setText("User name");
+
+        activeStatus.setMaximumSize(new java.awt.Dimension(8, 8));
+        activeStatus.setMinimumSize(new java.awt.Dimension(8, 8));
+        activeStatus.setPreferredSize(new java.awt.Dimension(8, 8));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imageAvatar1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lbStatus)
+                                                .addGap(2, 2, 2)
+                                                .addComponent(activeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lbUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imageAvatar1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(imageAvatar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lbUserName)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lbStatus)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(1, 1, 1)
+                                                .addComponent(activeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hoangvu.swing.ActiveStatus activeStatus;
     private com.hoangvu.swing.ImageAvatar imageAvatar1;
+    private javax.swing.JLabel lbStatus;
     private javax.swing.JLabel lbUserName;
     // End of variables declaration//GEN-END:variables
 }
