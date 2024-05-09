@@ -9,9 +9,26 @@ import com.hoangvu.model.ModelUser;
 
 public class ChatTittle extends javax.swing.JPanel {
 
+    public void setUserName(ModelUser user) {
+        userName.setText(user.getUserName());
+        if(user.isActivateStatus()){
+            status.setText("Online");
+        }else{
+            status.setText("Offline");
+        }
+    }
+    public void updataUser(ModelUser user) {
+        if(this.user.isActivateStatus()){
+            setStatus("Active now");
+        }else{
+            setStatus("Offline");
+        }
+    }
+
     /**
      * Creates new form ChatTittle
      */
+    private ModelUser user;
     public ChatTittle() {
         initComponents();
 
@@ -37,8 +54,8 @@ public class ChatTittle extends javax.swing.JPanel {
         userName = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
         callLayer = new javax.swing.JLayeredPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        videoCallBt = new javax.swing.JButton();
+        callBt = new javax.swing.JButton();
 
         layer.setLayout(new java.awt.GridLayout(2, 0));
 
@@ -52,26 +69,26 @@ public class ChatTittle extends javax.swing.JPanel {
 
         callLayer.setLayout(new java.awt.GridLayout(0, 2));
 
-        jButton1.setBackground(new java.awt.Color(242, 242, 242));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/video-camera.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        videoCallBt.setBackground(new java.awt.Color(242, 242, 242));
+        videoCallBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/video-camera.png"))); // NOI18N
+        videoCallBt.setBorder(null);
+        videoCallBt.setBorderPainted(false);
+        videoCallBt.setContentAreaFilled(false);
+        videoCallBt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        videoCallBt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                videoCallBtActionPerformed(evt);
             }
         });
-        callLayer.add(jButton1);
+        callLayer.add(videoCallBt);
 
-        jButton2.setBackground(new java.awt.Color(242, 242, 242));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/telephone-call.png"))); // NOI18N
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        callLayer.add(jButton2);
+        callBt.setBackground(new java.awt.Color(242, 242, 242));
+        callBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/telephone-call.png"))); // NOI18N
+        callBt.setBorder(null);
+        callBt.setBorderPainted(false);
+        callBt.setContentAreaFilled(false);
+        callBt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        callLayer.add(callBt);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,17 +108,17 @@ public class ChatTittle extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void videoCallBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videoCallBtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_videoCallBtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton callBt;
     private javax.swing.JLayeredPane callLayer;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLayeredPane layer;
     private javax.swing.JLabel status;
     private javax.swing.JLabel userName;
+    private javax.swing.JButton videoCallBt;
     // End of variables declaration//GEN-END:variables
 }
