@@ -3,10 +3,13 @@ package com.hoangvu.form;
 
 import com.hoangvu.event.EventChat;
 import com.hoangvu.event.PublicEvent;
+import com.hoangvu.model.ModelUser;
 import net.miginfocom.swing.MigLayout;
 
 public class Chat extends javax.swing.JPanel {
-
+    private ChatTittle chatTittle;
+    private ChatBody chatBody;
+    private ChatBottom chatBottom;
 
     public Chat() {
         initComponents();
@@ -14,9 +17,9 @@ public class Chat extends javax.swing.JPanel {
     }
     public void init() {
         setLayout(new MigLayout("fillx","0[fill]0","0[]0[100%, bottom]0[shrink 0]1"));
-        ChatTittle chatTittle = new ChatTittle();
-        ChatBody chatBody = new ChatBody();
-        ChatBottom chatBottom = new ChatBottom();
+        chatTittle = new ChatTittle();
+        chatBody = new ChatBody();
+        chatBottom = new ChatBottom();
         PublicEvent.getInstance().addEventChat(new EventChat(){
             @Override
             public void sendMessage(String message){
@@ -26,6 +29,7 @@ public class Chat extends javax.swing.JPanel {
         add(chatTittle,"wrap");
         add(chatBody,"wrap");
         add(chatBottom,"h ::50%");
+        chatBody.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -45,6 +49,15 @@ public class Chat extends javax.swing.JPanel {
             .addGap(0, 472, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void setUser(ModelUser user) {
+        chatTittle.setUserName(user);
+        chatBottom.setUser(user);
+    }
+    public void updateUser(ModelUser user) {
+        chatTittle.updataUser(user);
+    }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
