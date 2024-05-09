@@ -8,9 +8,14 @@ package com.hoangvu.event;
 public class PublicEvent {
     
     private static PublicEvent instance;
+
+
+
+    private EventMain eventMain;
     public EventLogin eventLogin;
     private EventImageView eventImageView;
     private EventChat eventChat;
+    private EventMenuLeft eventMenuLeft;
 
     public static PublicEvent getInstance() {
         if (instance == null) {
@@ -29,9 +34,8 @@ public class PublicEvent {
     public void addEventChat(EventChat event) {
         this.eventChat = event;
     }
-
-    public EventImageView getEventImageView() {
-        return this.eventImageView;
+    public void addEventMenuLeft(EventMenuLeft event) {
+        this.eventMenuLeft = event;
     }
     public EventChat getEventChat(){
         return this.eventChat;
@@ -39,5 +43,17 @@ public class PublicEvent {
 
     public EventLogin getEventLogin() {
         return eventLogin;
+    }
+    public EventImageView getEventImageView() {
+        return eventImageView;
+    }
+    public EventMenuLeft getEventMenuLeft() {
+        return eventMenuLeft;
+    }
+    public EventMain getEventMain() {
+        return eventMain;
+    }
+    public void addEventMain(EventMain event) {
+        this.eventMain = event;
     }
 }
