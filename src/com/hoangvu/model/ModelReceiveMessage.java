@@ -13,37 +13,51 @@ public class ModelReceiveMessage {
         this.fromUserID = fromUserID;
     }
 
-    public String getText() {
-        return text;
+    public String getMessage() {
+        return message;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    public Object getImage() {
+        return image;
+    }
+    public void setImage(Object image) {
+        this.image = image;
     }
 
-    public ModelReceiveMessage(int fromUserID, String text) {
+
+    public ModelReceiveMessage(int fromUserID, String message) {
         this.fromUserID = fromUserID;
-        this.text = text;
+        this.message = message;
+    }
+    public ModelReceiveMessage(int fromUserID, String message, Object image) {
+        this.fromUserID = fromUserID;
+        this.message = message;
+        this.image = image;
     }
 
-    public ModelReceiveMessage(Object json) {
-        JSONObject obj = (JSONObject) json;
+    public ModelReceiveMessage(String jsonString) {
         try {
+            JSONObject obj = new JSONObject(jsonString);
             fromUserID = obj.getInt("fromUserID");
-            text = obj.getString("text");
+            message = obj.getString("message");
         } catch (JSONException e) {
             System.err.println(e);
         }
     }
 
+    private Object image;
+    private Object file;
     private int fromUserID;
-    private String text;
+    private String message;
 
     public JSONObject toJsonObject() {
         try {
             JSONObject json = new JSONObject();
             json.put("fromUserID", fromUserID);
-            json.put("text", text);
+            json.put("message", message);
             return json;
         } catch (JSONException e) {
             return null;
