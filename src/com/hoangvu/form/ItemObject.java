@@ -15,21 +15,21 @@ public class ItemObject extends javax.swing.JPanel {
 
     private boolean mouseOver;
     public ModelUser getUser() {
-        return user;
+        return toUser;
     }
 
-    private ModelUser user;
-    public ItemObject(ModelUser user) {
+    private ModelUser toUser;
+    public ItemObject(ModelUser toUser) {
         initComponents();
-        this.user = user;
-        if (user != null){
-            lbUserName.setText(user.getUserName());
-            activeStatus.setActive(user.isActivateStatus());
+        this.toUser = toUser;
+        if (toUser != null){
+            lbUserName.setText(toUser.getUserName());
+            activeStatus.setActive(toUser.isActivateStatus());
         }
         init();
     }
     public void updataStatus() {
-        activeStatus.setActive(user.isActivateStatus());
+        activeStatus.setActive(toUser.isActivateStatus());
     }
 
     private void init() {
@@ -49,8 +49,8 @@ public class ItemObject extends javax.swing.JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (mouseOver){
-                    System.out.println("Press");
-                    PublicEvent.getInstance().getEventMain().selectUser(user);
+                    System.out.println("Press "+toUser.getUserName());
+                    PublicEvent.getInstance().getEventMain().selectUser(toUser);
                 }
             }
         });
