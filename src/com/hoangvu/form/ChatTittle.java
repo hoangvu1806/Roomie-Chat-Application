@@ -9,29 +9,46 @@ import com.hoangvu.model.ModelUser;
 
 public class ChatTittle extends javax.swing.JPanel {
 
-    public void setUserName(ModelUser user) {
-        userName.setText(user.getUserName());
-        if(user.isActivateStatus()){
-            status.setText("Online");
+    public void setToUserName(ModelUser toUser) {
+        userName.setText(toUser.getUserName());
+        if(toUser.isActivateStatus()){
+            status.setText("Active Now");
         }else{
             status.setText("Offline");
         }
     }
-    public void updataUser(ModelUser user) {
-        if(this.user.isActivateStatus()){
+    public void updataUser(ModelUser toUser) {
+        if(toUser.isActivateStatus()){
             setStatus("Active now");
         }else{
             setStatus("Offline");
         }
     }
+    public ModelUser getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(ModelUser toUser) {
+        this.toUser = toUser;
+    }
 
     /**
      * Creates new form ChatTittle
      */
-    private ModelUser user;
-    public ChatTittle() {
-        initComponents();
+    private ModelUser toUser;
 
+    public ModelUser getUser() {
+        return user;
+    }
+
+    public void setUser(ModelUser user) {
+        this.user = user;
+    }
+
+    private ModelUser user;
+    public ChatTittle(ModelUser user) {
+        this.user = user;
+        initComponents();
     }
     public void setUsername(String username) {
         this.userName.setText(username);
