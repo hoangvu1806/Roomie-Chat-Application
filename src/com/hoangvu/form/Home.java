@@ -7,15 +7,15 @@ import java.util.ArrayList;
 
 public class Home extends javax.swing.JLayeredPane {
 
-    public Home(ArrayList<ModelUser> listUsers) {
+    public Home(ArrayList<ModelUser> listUsers,ModelUser user) {
         initComponents();
-        init(listUsers);
+        init(listUsers,user);
     }
-    private void init(ArrayList<ModelUser> listUsers) {
+    private void init(ArrayList<ModelUser> listUsers, ModelUser user) {
         this.menuLeft = new MenuLeft(listUsers);
         this.menuRight = new MenuRight();
+        this.chat = new Chat(user);
         this.toolBar = new LeftToolBar(this.menuLeft,listUsers);
-        this.chat = new Chat();
         setLayout(new MigLayout("fillx, filly", "0[44!]2[200!]2[fill, 100%]2[0!]0", "0[fill]0"));
         this.add(this.toolBar);
         this.add(this.menuLeft);

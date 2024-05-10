@@ -3,6 +3,8 @@ package com.hoangvu.form;
 
 import com.hoangvu.event.EventChat;
 import com.hoangvu.event.PublicEvent;
+import com.hoangvu.model.ModelReceiveMessage;
+import com.hoangvu.model.ModelSendMessage;
 import com.hoangvu.model.ModelUser;
 import net.miginfocom.swing.MigLayout;
 
@@ -10,26 +12,33 @@ public class Chat extends javax.swing.JPanel {
     private ChatTittle chatTittle;
     private ChatBody chatBody;
     private ChatBottom chatBottom;
+    private ModelUser user;
+    private ModelUser toUser;
 
-    public Chat() {
+    public Chat(ModelUser user) {
+        this.user = user;
         initComponents();
         init();
     }
     public void init() {
         setLayout(new MigLayout("fillx","0[fill]0","0[]0[100%, bottom]0[shrink 0]1"));
-        chatTittle = new ChatTittle();
+        chatTittle = new ChatTittle(user);
         chatBody = new ChatBody();
-        chatBottom = new ChatBottom();
+        chatBottom = new ChatBottom(user);
         PublicEvent.getInstance().addEventChat(new EventChat(){
             @Override
-            public void sendMessage(String message){
-                chatBody.addItemRight(message);
+            public void sendMessage(ModelSendMessage data){
+                chatBody.addItemRight(data);
+            }
+
+            @Override
+            public void receiveMessage(ModelReceiveMessage data) {
+                chatBody.addItemLeft(data);
             }
         });
         add(chatTittle,"wrap");
         add(chatBody,"wrap");
         add(chatBottom,"h ::50%");
-        chatBody.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,12 +59,12 @@ public class Chat extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setUser(ModelUser user) {
-        chatTittle.setUserName(user);
-        chatBottom.setUser(user);
+    public void setUser(ModelUser toUser) {
+        chatTittle.setToUserName(toUser);
+        chatBottom.setToUser(toUser);
     }
-    public void updateUser(ModelUser user) {
-        chatTittle.updataUser(user);
+    public void updateUser(ModelUser toUser) {
+        chatTittle.updataUser(toUser);
     }
 
 

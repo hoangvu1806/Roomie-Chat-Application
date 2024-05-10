@@ -1,11 +1,15 @@
 package com.hoangvu.form;
 
 
+import com.hoangvu.connection.ServerConnection;
 import com.hoangvu.event.EventChat;
 import com.hoangvu.event.PublicEvent;
+import com.hoangvu.model.ModelSendMessage;
 import com.hoangvu.model.ModelUser;
+import com.hoangvu.service.Service;
 import com.hoangvu.swing.JIMSendTextPane;
 import com.hoangvu.swing.ScrollBar;
+import io.socket.client.Ack;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -18,14 +22,17 @@ import java.util.Objects;
 
 public class ChatBottom extends javax.swing.JPanel {
     private ModelUser user;
+    private ModelUser toUser;
+
     public ModelUser getUser() {
         return user;
     }
 
-    public void setUser(ModelUser user) {
-        this.user = user;
+    public void setToUser(ModelUser toUser) {
+        this.toUser = toUser;
     }
-    public ChatBottom() {
+    public ChatBottom(ModelUser user) {
+        this.user = user;
         initComponents();
         init();
     }
@@ -64,9 +71,12 @@ public class ChatBottom extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String message = sendTextPane.getText().trim();
+                ModelSendMessage data = new ModelSendMessage(user.getUserID(),toUser.getUserID(), message);
                 if (!message.isEmpty()){
                     // add chat items
-                    PublicEvent.getInstance().getEventChat().sendMessage(message);
+                    System.out.println("From "+ user.getUserID()+ "to "+ toUser.getUserID() +"\n");
+                    send(data);
+                    PublicEvent.getInstance().getEventChat().sendMessage(data);
                     sendTextPane.setText("");
                     sendTextPane.grabFocus();
                     refresh();
@@ -75,11 +85,12 @@ public class ChatBottom extends javax.swing.JPanel {
                 }
             }
         });
-
         panel.add(sendMsBt);
         add(panel);
     }
-
+    private void send(ModelSendMessage data) {
+        ServerConnection.getInstance().getClient().emit("send-message", data.toJsonObject());
+    }
     private void refresh() {
         revalidate();
     }
