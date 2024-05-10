@@ -1,11 +1,13 @@
 package com.hoangvu.connection;
 
 import com.hoangvu.event.PublicEvent;
+import com.hoangvu.model.ModelReceiveMessage;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 public class ServerConnection {
     private static ServerConnection instance;
@@ -38,15 +40,33 @@ public class ServerConnection {
             public void call(Object... objects) {
                 int userID = (Integer) objects[0];
                 boolean status = (Boolean) objects[1];
-                if (status) {
-                    //  connect
-                    PublicEvent.getInstance().getEventMenuLeft().userConnect(userID);
-                } else {
-                    //  disconnect
-                    PublicEvent.getInstance().getEventMenuLeft().userDisconnect(userID);
+                try{
+                    if (status) {
+                        //  connect
+                        PublicEvent.getInstance().getEventMenuLeft().userConnect(userID);
+                    } else {
+                        //  disconnect
+                        PublicEvent.getInstance().getEventMenuLeft().userDisconnect(userID);
+                    }
+                } catch (Exception e) {
+                    System.err.println(e);
                 }
             }
         });
+        client.on("receive-message", new Emitter.Listener() {
+            @Override
+            public void call(Object... objects) {
+                System.out.println(Arrays.toString(objects));
+                ModelReceiveMessage data = new ModelReceiveMessage(objects[0].toString());
+                try{
+                    System.out.println(data.getMessage());
+                    PublicEvent.getInstance().getEventChat().receiveMessage(data);
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
+            }
+        });
+
         client.open();
     }
 
