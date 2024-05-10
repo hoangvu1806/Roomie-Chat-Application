@@ -19,15 +19,13 @@ import javax.swing.*;
  */
 public class Client extends javax.swing.JFrame {
     private final ModelUser user;
-    private static ArrayList<ModelUser> listUsers;
     private ServerConnection serverConnection;
     /**
      * Creates new form Home
      */
     public Client(ModelUser user, ArrayList<ModelUser> listUsers) {
-        System.out.println("Starting");
-        initComponents(listUsers);
         this.user = user;
+        initComponents(listUsers);
         init();
         setTitle("Roomie - " + user.getUserName());
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logoBase.png");
@@ -58,14 +56,12 @@ public class Client extends javax.swing.JFrame {
             public void initChat() {}
 
             @Override
-            public void selectUser(ModelUser user) {
-                home.setUser(user);
-
+            public void selectUser(ModelUser toUser) {
+                home.setUser(toUser);
             }
-
             @Override
-            public void updataUser(ModelUser user) {
-                home.updataUser(user);
+            public void updataUser(ModelUser toUser) {
+                home.updataUser(toUser);
             }
         });
         PublicEvent.getInstance().addEventImageView(new EventImageView() {
@@ -79,7 +75,6 @@ public class Client extends javax.swing.JFrame {
                 System.out.println("Save Image next update");
             }
         });
-
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -92,7 +87,8 @@ public class Client extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         closeBt = new javax.swing.JButton();
         body = new javax.swing.JLayeredPane();
-        home = new com.hoangvu.form.Home(listUsers);
+        System.out.println(user.getUserID());
+        home = new com.hoangvu.form.Home(listUsers,user);
         viewImage = new com.hoangvu.form.ViewImage();
 
         lbUserName.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
