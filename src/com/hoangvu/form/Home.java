@@ -23,8 +23,8 @@ public class Home extends javax.swing.JLayeredPane {
         this.add(this.menuRight);
         chat.setVisible(false);
     }
-    public void setUser(ModelUser user) {
-        chat.setUser(user);
+    public void setToUser(ModelUser toUser) {
+        chat.setToUser(toUser);
         chat.setVisible(true);
     }
     public void updataUser(ModelUser user) {
