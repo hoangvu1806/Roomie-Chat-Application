@@ -57,7 +57,7 @@ public class Client extends javax.swing.JFrame {
 
             @Override
             public void selectUser(ModelUser toUser) {
-                home.setUser(toUser);
+                home.setToUser(toUser);
             }
             @Override
             public void updataUser(ModelUser toUser) {
