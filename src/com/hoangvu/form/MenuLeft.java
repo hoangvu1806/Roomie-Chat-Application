@@ -28,7 +28,6 @@ public class MenuLeft extends javax.swing.JPanel {
         sp.setVerticalScrollBar(new ScrollBar());
         this.menuList.setLayout(new MigLayout("fillx","0[]0","0[]0"));
         sp.getVerticalScrollBar().setUnitIncrement(20);
-
         showUser(listUsers);
     }
     public void showMessage(int num){
