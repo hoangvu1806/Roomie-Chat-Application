@@ -1,13 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.hoangvu.swing;
 
-/**
- *
- * @author Admin
- */
-public class ActiveStatus {
-    
+import java.awt.*;
+
+public class ActiveStatus extends Component {
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+        repaint();
+    }
+
+    private boolean active;
+
+    public ActiveStatus() {
+        setPreferredSize(new Dimension(8,8));
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        if (active){
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setColor(new Color(1, 196, 41, 165));
+            g2d.fillOval(0, (getHeight()/2) - 4, 8, 8);
+        }
+    }
 }
