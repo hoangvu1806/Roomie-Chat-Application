@@ -10,6 +10,7 @@ import com.hoangvu.model.ModelUser;
 public class ChatTittle extends javax.swing.JPanel {
 
     public void setToUserName(ModelUser toUser) {
+        setToUser(toUser);
         userName.setText(toUser.getUserName());
         if(toUser.isActivateStatus()){
             status.setText("Active Now");
