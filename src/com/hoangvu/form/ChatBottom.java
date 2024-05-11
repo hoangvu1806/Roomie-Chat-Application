@@ -27,7 +27,9 @@ public class ChatBottom extends javax.swing.JPanel {
     public ModelUser getUser() {
         return user;
     }
-
+    public void setUser(ModelUser user) {
+        this.user = user;
+    }
     public void setToUser(ModelUser toUser) {
         this.toUser = toUser;
     }
