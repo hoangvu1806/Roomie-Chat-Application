@@ -59,8 +59,8 @@ public class ChatBody extends javax.swing.JPanel {
         itemLeft.setText(data.getMessage());
         itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
         body.add(itemLeft,"wrap, w ::75%");
-        body.repaint();
-        body.revalidate();
+        repaint();
+        revalidate();
         scrollToBottom();
     }
 
@@ -71,8 +71,8 @@ public class ChatBody extends javax.swing.JPanel {
         itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
         itemLeft.setUserProfile(user);
         body.add(itemLeft,"wrap, w ::75%");
-        body.repaint();
-        body.revalidate();
+        repaint();
+        revalidate();
         scrollToBottom();
     }
     public void addItemRight(ModelSendMessage data){
@@ -198,6 +198,12 @@ public class ChatBody extends javax.swing.JPanel {
             }
         };
         verticalBar.addAdjustmentListener(downScroller);
+    }
+    public void clearChat(){
+        body.removeAll();
+        repaint();
+        revalidate();
+        scrollToBottom();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
