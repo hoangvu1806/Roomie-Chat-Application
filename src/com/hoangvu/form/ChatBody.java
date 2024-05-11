@@ -1,5 +1,7 @@
 package com.hoangvu.form;
 
+import com.hoangvu.model.ModelReceiveMessage;
+import com.hoangvu.model.ModelSendMessage;
 import com.hoangvu.swing.ScrollBar;
 import net.miginfocom.swing.MigLayout;
 
@@ -13,13 +15,17 @@ public class ChatBody extends javax.swing.JPanel {
     public ChatBody() {
         initComponents();
         init();
+        showChat();
     }
 
     private void init(){
         body.setLayout(new MigLayout("fillx","5[]5"));
         sp.setVerticalScrollBar(new ScrollBar());
         sp.getVerticalScrollBar().setBackground(new Color(255,255,255));
-        addItemRight("qưueyhsbasadnjas");
+    }
+
+    private void showChat(){
+//        addItemRight("Hello, what up?");
 //        addDate("-- 04/12/2024 --");
 //        addItemLeft("adwaiwbawjwna","Thanh Trà");
 //        String img[] = {"LRMj,K-:?G9G_JIon}WqD~ITRPs,", "LCGlO@00.R~o.9DOO[%L02?aJ7D*"};
@@ -34,8 +40,7 @@ public class ChatBody extends javax.swing.JPanel {
 //        addItemLeft("adwaiwbawdaibbbbbbbbbbbbbbbbbbbbbbbwydgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajwna","Thanh Trà");
 //        addItemFile("","Thanh Trà","game.exe","10 MB");
 //        addItemFile("Tải về mà sài","Máy lạnh.exe","2 GB");
-//        addItemFile(" ","Bếp Từ.exe","1.2 GB");
-
+//        addItemFile(" ","gameduaxelan.exe","1.2 GB");
     }
 
     public void addItemLeft(String text,String user, Icon... image){
@@ -44,6 +49,15 @@ public class ChatBody extends javax.swing.JPanel {
         itemLeft.setImage(image);
         itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
         itemLeft.setUserProfile(user);
+        body.add(itemLeft,"wrap, w ::75%");
+        body.repaint();
+        body.revalidate();
+        scrollToBottom();
+    }
+    public void addItemLeft(ModelReceiveMessage data){
+        ChatLeft itemLeft = new ChatLeft();
+        itemLeft.setText(data.getMessage());
+        itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
         body.add(itemLeft,"wrap, w ::75%");
         body.repaint();
         body.revalidate();
@@ -61,6 +75,15 @@ public class ChatBody extends javax.swing.JPanel {
         body.revalidate();
         scrollToBottom();
     }
+    public void addItemRight(ModelSendMessage data){
+        ChatRight itemRight = new ChatRight();
+        itemRight.setText(data.getMessage());
+        itemRight.setTime("10:00 PM",new Color(0, 79, 131, 255));
+        body.add(itemRight,"wrap, al right,w ::75%");
+        body.repaint();
+        body.revalidate();
+        scrollToBottom();
+    }
     public void addItemRight(String text, Icon ... image){
         ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
@@ -71,6 +94,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.revalidate();
         scrollToBottom();
     }
+
     public void addItemRight(String text, String user, String [] image){
         ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
