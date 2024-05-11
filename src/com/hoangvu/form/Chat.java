@@ -33,7 +33,9 @@ public class Chat extends javax.swing.JPanel {
 
             @Override
             public void receiveMessage(ModelReceiveMessage data) {
-                chatBody.addItemLeft(data);
+                if(chatTittle.getToUser().getUserID() == data.getFromUserID()) {
+                    chatBody.addItemLeft(data);
+                }
             }
         });
         add(chatTittle,"wrap");
@@ -59,9 +61,10 @@ public class Chat extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setUser(ModelUser toUser) {
+    public void setToUser(ModelUser toUser) {
         chatTittle.setToUserName(toUser);
         chatBottom.setToUser(toUser);
+        chatBody.clearChat();
     }
     public void updateUser(ModelUser toUser) {
         chatTittle.updataUser(toUser);
