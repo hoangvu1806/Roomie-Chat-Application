@@ -28,6 +28,7 @@ public class ItemObject extends javax.swing.JPanel {
         }
         init();
     }
+    
     public void updataStatus() {
         activeStatus.setActive(toUser.isActivateStatus());
     }
