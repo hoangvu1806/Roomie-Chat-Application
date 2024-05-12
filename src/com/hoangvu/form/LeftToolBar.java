@@ -17,13 +17,16 @@ import java.util.Objects;
  * @author Admin
  */
 public class LeftToolBar extends javax.swing.JPanel {
+
     private MenuLeft menuLeft ;
     private ArrayList<ModelUser> listUsers;
+    
     public LeftToolBar(MenuLeft menuLeft, ArrayList<ModelUser> listUsers) {
         initComponents();
         init(menuLeft);
         this.listUsers = listUsers;
     }
+
     private void init(MenuLeft menuLeft){
         this.menuLeft = menuLeft;
         messageBt.setSelected(true);
