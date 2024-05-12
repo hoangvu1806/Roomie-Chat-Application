@@ -21,6 +21,7 @@ public class ChatTittle extends javax.swing.JPanel {
     public void updataUser(ModelUser toUser) {
         if(toUser.isActivateStatus()){
             setStatus("Active now");
+            this.status.setForeground(new Color(2,2,2));
         }else{
             setStatus("Offline");
         }
