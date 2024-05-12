@@ -11,6 +11,7 @@ public class Home extends javax.swing.JLayeredPane {
         initComponents();
         init(listUsers,user);
     }
+
     private void init(ArrayList<ModelUser> listUsers, ModelUser user) {
         this.menuLeft = new MenuLeft(listUsers);
         this.menuRight = new MenuRight();
@@ -23,10 +24,12 @@ public class Home extends javax.swing.JLayeredPane {
         this.add(this.menuRight);
         chat.setVisible(false);
     }
+
     public void setToUser(ModelUser toUser) {
         chat.setToUser(toUser);
         chat.setVisible(true);
     }
+    
     public void updataUser(ModelUser user) {
         chat.updateUser(user);
     }
