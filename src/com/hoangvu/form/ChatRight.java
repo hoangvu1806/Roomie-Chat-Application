@@ -16,8 +16,8 @@ public class ChatRight extends javax.swing.JLayeredPane {
         txt.seen();
     }
 
-    public void setTime(String time, Color color) {
-        txt.setTime(time, color);
+    public void showTime(Color color) {
+        txt.showTime(color);
     }
 
     @SuppressWarnings("unchecked")
