@@ -1,7 +1,10 @@
 
 package com.hoangvu.form;
 
+import com.hoangvu.model.GetTime;
+
 import java.awt.*;
+import java.util.Timer;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -12,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 public class ChatItem extends javax.swing.JLayeredPane {
 
     private JLabel label;
+
     public ChatItem() {
         initComponents();
         txt.setEditable(false);
@@ -38,11 +42,11 @@ public class ChatItem extends javax.swing.JLayeredPane {
         txt.setText(text);
     }
 
-    public void setTime(String time, Color color) {
+    public void showTime(Color color) {
         JLayeredPane layer = new JLayeredPane();
         layer.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         layer.setBorder(new EmptyBorder(0, 5, 10, 5));
-        this.label = new JLabel(time);
+        this.label = new JLabel(GetTime.getCurrentTime());
         this.label.setForeground(color);
         this.label.setHorizontalTextPosition(JLabel.LEFT);
         layer.add(this.label);
@@ -50,7 +54,7 @@ public class ChatItem extends javax.swing.JLayeredPane {
     }
     
     public void setImage(boolean right, Icon... image) {
-        if(image.length<0){
+        if(image.length>0){
             JLayeredPane layer = new JLayeredPane();
             layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
             layer.setBorder(new EmptyBorder(0, 5, 0, 5));
