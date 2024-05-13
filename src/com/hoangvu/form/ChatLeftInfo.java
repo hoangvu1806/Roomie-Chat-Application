@@ -20,8 +20,8 @@ public class ChatLeftInfo extends javax.swing.JLayeredPane {
     public void setImageProfile(Icon img){
         this.image.setImage(img);
     }
-    public void setTime(String time, Color color) {
-        txt.setTime(time,color);
+    public void showTime( Color color) {
+        txt.showTime(color);
     }
     public void setImage(Icon... image) {
         txt.setImage(false, image);
