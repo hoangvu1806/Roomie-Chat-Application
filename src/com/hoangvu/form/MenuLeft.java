@@ -66,7 +66,7 @@ public class MenuLeft extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         sp = new javax.swing.JScrollPane();
-        this.menuList = new javax.swing.JLayeredPane();
+        menuList = new javax.swing.JLayeredPane();
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono", 1, 16)); // NOI18N
         jLabel1.setText("Chats");
@@ -75,11 +75,11 @@ public class MenuLeft extends javax.swing.JPanel {
         sp.setBorder(null);
         sp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        this.menuList.setBackground(new java.awt.Color(255, 255, 255));
-        this.menuList.setOpaque(true);
+        menuList.setBackground(new java.awt.Color(242, 242, 242));
+        menuList.setOpaque(true);
 
-        javax.swing.GroupLayout menuListLayout = new javax.swing.GroupLayout(this.menuList);
-        this.menuList.setLayout(menuListLayout);
+        javax.swing.GroupLayout menuListLayout = new javax.swing.GroupLayout(menuList);
+        menuList.setLayout(menuListLayout);
         menuListLayout.setHorizontalGroup(
             menuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
@@ -89,7 +89,7 @@ public class MenuLeft extends javax.swing.JPanel {
             .addGap(0, 527, Short.MAX_VALUE)
         );
 
-        sp.setViewportView(this.menuList);
+        sp.setViewportView(menuList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -113,7 +113,7 @@ public class MenuLeft extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    public javax.swing.JLayeredPane menuList;
+    javax.swing.JLayeredPane menuList;
     private javax.swing.JScrollPane sp;
     // End of variables declaration//GEN-END:variables
 }
