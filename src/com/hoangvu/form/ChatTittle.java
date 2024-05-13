@@ -7,6 +7,8 @@ package com.hoangvu.form;
 
 import com.hoangvu.model.ModelUser;
 
+import java.awt.*;
+
 public class ChatTittle extends javax.swing.JPanel {
 
     public void setToUserName(ModelUser toUser) {
@@ -14,16 +16,19 @@ public class ChatTittle extends javax.swing.JPanel {
         userName.setText(toUser.getUserName());
         if(toUser.isActivateStatus()){
             status.setText("Active Now");
+            this.status.setForeground(new Color(3, 178, 53));
         }else{
             status.setText("Offline");
+            this.status.setForeground(new Color(126, 126, 126));
         }
     }
     public void updataUser(ModelUser toUser) {
         if(toUser.isActivateStatus()){
             setStatus("Active now");
-            this.status.setForeground(new Color(2,2,2));
+            this.status.setForeground(new Color(3, 178, 53));
         }else{
             setStatus("Offline");
+            this.status.setForeground(new Color(126, 126, 126));
         }
     }
     public ModelUser getToUser() {
