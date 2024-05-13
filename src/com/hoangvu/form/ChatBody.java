@@ -1,5 +1,6 @@
 package com.hoangvu.form;
 
+import com.hoangvu.model.GetTime;
 import com.hoangvu.model.ModelReceiveMessage;
 import com.hoangvu.model.ModelSendMessage;
 import com.hoangvu.swing.ScrollBar;
@@ -12,6 +13,7 @@ import java.awt.event.AdjustmentListener;
 import java.util.Objects;
 
 public class ChatBody extends javax.swing.JPanel {
+
     public ChatBody() {
         initComponents();
         init();
@@ -30,12 +32,11 @@ public class ChatBody extends javax.swing.JPanel {
 //        addItemLeft("adwaiwbawjwna","Thanh Trà");
 //        String img[] = {"LRMj,K-:?G9G_JIon}WqD~ITRPs,", "LCGlO@00.R~o.9DOO[%L02?aJ7D*"};
 //        addItemLeft("hello\nerererew\newewe", "Dara", img);
-//        addItemRight("qưueyhsbasadnjas",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/logoAI.png"))));
+        addItemRight("hey!",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/logoAI.png"))));
 //        addItemRight("qưueyhsbasadnjas");
 //        addDate("Today");
 //        addItemLeft("adwaiwbawjwna","Thanh Trà");
 //        addItemLeft("  ","Thanh Trà",new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/bb.png"))));
-//        addDate("-- 04/12/2024 --");
 //        addItemLeft("\t\n\t\n  ","Thanh Trà");
 //        addItemLeft("adwaiwbawdaibbbbbbbbbbbbbbbbbbbbbbbwydgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajwna","Thanh Trà");
 //        addItemFile("","Thanh Trà","game.exe","10 MB");
@@ -47,7 +48,7 @@ public class ChatBody extends javax.swing.JPanel {
         ChatLeftInfo itemLeft = new ChatLeftInfo();
         itemLeft.setText(text);
         itemLeft.setImage(image);
-        itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
+        itemLeft.showTime(new Color(98, 0, 56) );
         itemLeft.setUserProfile(user);
         body.add(itemLeft,"wrap, w ::75%");
         body.repaint();
@@ -57,7 +58,7 @@ public class ChatBody extends javax.swing.JPanel {
     public void addItemLeft(ModelReceiveMessage data){
         ChatLeft itemLeft = new ChatLeft();
         itemLeft.setText(data.getMessage());
-        itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
+        itemLeft.showTime(new Color(98, 0, 56) );
         body.add(itemLeft,"wrap, w ::75%");
         repaint();
         revalidate();
@@ -68,7 +69,7 @@ public class ChatBody extends javax.swing.JPanel {
         ChatLeftInfo itemLeft = new ChatLeftInfo();
         itemLeft.setText(text);
         itemLeft.setImage(image);
-        itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
+        itemLeft.showTime(new Color(98, 0, 56) );
         itemLeft.setUserProfile(user);
         body.add(itemLeft,"wrap, w ::75%");
         repaint();
@@ -78,7 +79,7 @@ public class ChatBody extends javax.swing.JPanel {
     public void addItemRight(ModelSendMessage data){
         ChatRight itemRight = new ChatRight();
         itemRight.setText(data.getMessage());
-        itemRight.setTime("10:00 PM",new Color(0, 79, 131, 255));
+        itemRight.showTime(new Color(0, 79, 131, 255));
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
         body.revalidate();
@@ -88,7 +89,7 @@ public class ChatBody extends javax.swing.JPanel {
         ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
         itemRight.setImage(image);
-        itemRight.setTime("10:00 PM",new Color(0, 79, 131, 255));
+        itemRight.showTime(new Color(0, 79, 131, 255));
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
         body.revalidate();
@@ -99,7 +100,7 @@ public class ChatBody extends javax.swing.JPanel {
         ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
         itemRight.setImage(image);
-        itemRight.setTime("10:00 PM",new Color(0, 79, 131, 255));
+        itemRight.showTime(new Color(0, 79, 131, 255));
         itemRight.setUserProfile(user);
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
@@ -111,7 +112,7 @@ public class ChatBody extends javax.swing.JPanel {
         ChatLeftInfo itemLeft = new ChatLeftInfo();
         itemLeft.setText(text);
         itemLeft.setFile(fileName,fileSize);
-        itemLeft.setTime("10:00 PM",new Color(98, 0, 56) );
+        itemLeft.showTime(new Color(98, 0, 56) );
         itemLeft.setUserProfile(user);
         body.add(itemLeft,"wrap, w 100::75%");
         body.repaint();
@@ -123,7 +124,7 @@ public class ChatBody extends javax.swing.JPanel {
         ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
         itemRight.setFile(fileName,fileSize);
-        itemRight.setTime("10:00 PM",new Color(0, 79, 131, 255));
+        itemRight.showTime(new Color(0, 79, 131, 255));
         body.add(itemRight,"wrap, al right,w ::75%");
         body.repaint();
         body.revalidate();
@@ -204,6 +205,7 @@ public class ChatBody extends javax.swing.JPanel {
         repaint();
         revalidate();
         scrollToBottom();
+        addDate("----------------------- "+ GetTime.getCurrentTimeDay() +" -----------------------");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
