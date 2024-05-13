@@ -15,8 +15,8 @@ public class ChatRightInfo extends javax.swing.JLayeredPane {
         txt.setUserProfile(user);
     }
 
-    public void setTime(String time, Color color) {
-        txt.setTime(time,color);
+    public void showTime(Color color) {
+        txt.showTime(color);
     }
     public void setImage(String [] image) {
         txt.setImage(false, image);
