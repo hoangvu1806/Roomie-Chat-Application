@@ -64,7 +64,7 @@ public class Chat extends javax.swing.JPanel {
     public void setToUser(ModelUser toUser) {
         chatTittle.setToUserName(toUser);
         chatBottom.setToUser(toUser);
-        chatBody.clearChat();
+//        chatBody.clearChat();
     }
     public void updateUser(ModelUser toUser) {
         chatTittle.updataUser(toUser);
