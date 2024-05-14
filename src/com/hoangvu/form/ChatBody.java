@@ -1,6 +1,7 @@
 package com.hoangvu.form;
 
 import com.hoangvu.model.GetTime;
+import com.hoangvu.model.ImageHandler;
 import com.hoangvu.model.ModelReceiveMessage;
 import com.hoangvu.model.ModelSendMessage;
 import com.hoangvu.swing.ScrollBar;
@@ -10,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.io.IOException;
 import java.util.Objects;
 
 public class ChatBody extends javax.swing.JPanel {
@@ -44,7 +46,7 @@ public class ChatBody extends javax.swing.JPanel {
 //        addItemFile(" ","gameduaxelan.exe","1.2 GB");
     }
 
-    public void addItemLeft(String text,String user, Icon... image){
+    public void addItemLeft(String text,String user, Icon image){
         ChatLeftInfo itemLeft = new ChatLeftInfo();
         itemLeft.setText(text);
         itemLeft.setImage(image);
@@ -53,6 +55,15 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(itemLeft,"wrap, w ::75%");
         body.repaint();
         body.revalidate();
+        scrollToBottom();
+    }
+    public void addItemRight(ModelSendMessage data){
+        ChatRight itemRight = new ChatRight();
+        itemRight.setText(data.getMessage());
+        itemRight.showTime(new Color(0, 79, 131, 255));
+        body.add(itemRight,"wrap, al right,w ::75%");
+        repaint();
+        revalidate();
         scrollToBottom();
     }
     public void addItemLeft(ModelReceiveMessage data){
@@ -64,28 +75,29 @@ public class ChatBody extends javax.swing.JPanel {
         revalidate();
         scrollToBottom();
     }
-
-    public void addItemLeft(String text,String user, String [] image){
-        ChatLeftInfo itemLeft = new ChatLeftInfo();
-        itemLeft.setText(text);
+    public void addImageRight(ModelSendMessage data) throws IOException {
+        Icon image = ImageHandler.decodeImage(data.getImage());
+        ChatRight itemRight = new ChatRight();
+        itemRight.setText("ảnh");
+        itemRight.setImage(image);
+        itemRight.showTime(new Color(0, 79, 131, 255));
+        body.add(itemRight,"wrap, al right,w ::75%");
+        repaint();
+        revalidate();
+        scrollToBottom();
+    }
+    public void addImageLeft(ModelReceiveMessage data) throws IOException {
+        ChatLeft itemLeft = new ChatLeft();
+        Icon image = ImageHandler.decodeImage(data.getImage());
+        itemLeft.setText(data.getMessage());
         itemLeft.setImage(image);
         itemLeft.showTime(new Color(98, 0, 56) );
-        itemLeft.setUserProfile(user);
         body.add(itemLeft,"wrap, w ::75%");
         repaint();
         revalidate();
         scrollToBottom();
     }
-    public void addItemRight(ModelSendMessage data){
-        ChatRight itemRight = new ChatRight();
-        itemRight.setText(data.getMessage());
-        itemRight.showTime(new Color(0, 79, 131, 255));
-        body.add(itemRight,"wrap, al right,w ::75%");
-        body.repaint();
-        body.revalidate();
-        scrollToBottom();
-    }
-    public void addItemRight(String text, Icon ... image){
+    public void addItemRight(String text, Icon image){
         ChatRightInfo itemRight = new ChatRightInfo();
         itemRight.setText(text);
         itemRight.setImage(image);
@@ -95,19 +107,6 @@ public class ChatBody extends javax.swing.JPanel {
         body.revalidate();
         scrollToBottom();
     }
-
-    public void addItemRight(String text, String user, String [] image){
-        ChatRightInfo itemRight = new ChatRightInfo();
-        itemRight.setText(text);
-        itemRight.setImage(image);
-        itemRight.showTime(new Color(0, 79, 131, 255));
-        itemRight.setUserProfile(user);
-        body.add(itemRight,"wrap, al right,w ::75%");
-        body.repaint();
-        body.revalidate();
-        scrollToBottom();
-    }
-
     public void addItemFile(String text, String user, String fileName,String fileSize){
         ChatLeftInfo itemLeft = new ChatLeftInfo();
         itemLeft.setText(text);
