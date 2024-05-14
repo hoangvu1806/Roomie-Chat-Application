@@ -105,6 +105,7 @@ public class ChatBottom extends javax.swing.JPanel {
         moreBt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                morePanel.setToUser(toUser);
                 if (morePanel.isVisible()) {
                     moreBt.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/dis_more.png"))));
                     morePanel.setVisible(false);
@@ -116,14 +117,13 @@ public class ChatBottom extends javax.swing.JPanel {
                     mig.setComponentConstraints(morePanel, "dock south, h 125!");
                     revalidate();
                 }
-
             }
         });
 
         panel.add(moreBt);
         panel.add(sendMsBt);
         add(panel,"wrap");
-        morePanel = new PanelMore();
+        morePanel = new PanelMore(this.user);
         morePanel.setVisible(false);
         add(morePanel,"dock south, h 0!");
     }
