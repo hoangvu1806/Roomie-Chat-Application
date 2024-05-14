@@ -21,11 +21,12 @@ public class ItemObject extends javax.swing.JPanel {
     private ModelUser toUser;
     public ItemObject(ModelUser toUser) {
         initComponents();
-        this.toUser = toUser;
         if (toUser != null){
             lbUserName.setText(toUser.getUserName());
+            lbStatus.setForeground(new Color(126, 126, 126));
             activeStatus.setActive(toUser.isActivateStatus());
         }
+        this.toUser = toUser;
         init();
     }
     
@@ -50,6 +51,7 @@ public class ItemObject extends javax.swing.JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (mouseOver){
+//                    chat.setToUser(toUser);
                     System.out.println("Press "+toUser.getUserName());
                     PublicEvent.getInstance().getEventMain().selectUser(toUser);
                 }
@@ -78,21 +80,21 @@ public class ItemObject extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageAvatar1 = new com.hoangvu.swing.ImageAvatar();
+        imageAvatar = new com.hoangvu.swing.ImageAvatar();
         lbUserName = new javax.swing.JLabel();
         lbStatus = new javax.swing.JLabel();
         activeStatus = new com.hoangvu.swing.ActiveStatus();
 
-        imageAvatar1.setBorderSize(0);
-        imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/avatar-45.png"))); // NOI18N
-        imageAvatar1.setOpaque(true);
+        imageAvatar.setBorderSize(0);
+        imageAvatar.setImage(new javax.swing.ImageIcon(getClass().getResource("/com/hoangvu/icon/avatar-45.png"))); // NOI18N
+        imageAvatar.setOpaque(true);
 
         lbUserName.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
         lbUserName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbUserName.setText("User name");
 
         lbStatus.setFont(new java.awt.Font("JetBrains Mono", 2, 10)); // NOI18N
-        lbStatus.setText("User name");
+        lbStatus.setText("Active status");
 
         activeStatus.setMaximumSize(new java.awt.Dimension(8, 8));
         activeStatus.setMinimumSize(new java.awt.Dimension(8, 8));
@@ -104,19 +106,19 @@ public class ItemObject extends javax.swing.JPanel {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(imageAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(lbStatus)
                                                 .addGap(2, 2, 2)
                                                 .addComponent(activeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(lbUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lbUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(imageAvatar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(imageAvatar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(lbUserName)
@@ -132,7 +134,7 @@ public class ItemObject extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hoangvu.swing.ActiveStatus activeStatus;
-    private com.hoangvu.swing.ImageAvatar imageAvatar1;
+    private com.hoangvu.swing.ImageAvatar imageAvatar;
     private javax.swing.JLabel lbStatus;
     private javax.swing.JLabel lbUserName;
     // End of variables declaration//GEN-END:variables
