@@ -1,6 +1,7 @@
 
 package com.hoangvu.form;
 
+import javax.swing.*;
 import java.awt.Color;
 
 public class ChatRight extends javax.swing.JLayeredPane {
@@ -19,6 +20,10 @@ public class ChatRight extends javax.swing.JLayeredPane {
     public void showTime(Color color) {
         txt.showTime(color);
     }
+    public void setImage(Icon image) {
+        txt.setImage(false, image);
+    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
