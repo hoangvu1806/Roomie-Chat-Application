@@ -1,6 +1,7 @@
 
 package com.hoangvu.form;
 
+import javax.swing.*;
 import java.awt.Color;
 
 public class ChatLeft extends javax.swing.JLayeredPane {
@@ -20,6 +21,9 @@ public class ChatLeft extends javax.swing.JLayeredPane {
     }
     public void showTime(Color color) {
         txt.showTime(color);
+    }
+    public void setImage(Icon image) {
+        txt.setImage(false, image);
     }
 
     @SuppressWarnings("unchecked")
