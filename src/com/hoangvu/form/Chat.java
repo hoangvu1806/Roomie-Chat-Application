@@ -8,6 +8,8 @@ import com.hoangvu.model.ModelSendMessage;
 import com.hoangvu.model.ModelUser;
 import net.miginfocom.swing.MigLayout;
 
+import java.io.IOException;
+
 public class Chat extends javax.swing.JPanel {
     private ChatTittle chatTittle;
     private ChatBody chatBody;
@@ -37,6 +39,19 @@ public class Chat extends javax.swing.JPanel {
                     chatBody.addItemLeft(data);
                 }
             }
+
+            @Override
+            public void receiveImage(ModelReceiveMessage data) throws IOException {
+                if(chatTittle.getToUser().getUserID() == data.getFromUserID()) {
+                    chatBody.addImageLeft(data);
+                }
+            }
+
+            @Override
+            public void sendImage(ModelSendMessage data) throws IOException {
+                System.out.println(data.getImage());
+                chatBody.addImageRight(data);
+            }
         });
         add(chatTittle,"wrap");
         add(chatBody,"wrap");
@@ -64,12 +79,11 @@ public class Chat extends javax.swing.JPanel {
     public void setToUser(ModelUser toUser) {
         chatTittle.setToUserName(toUser);
         chatBottom.setToUser(toUser);
-//        chatBody.clearChat();
+        chatBody.clearChat();
     }
     public void updateUser(ModelUser toUser) {
         chatTittle.updataUser(toUser);
     }
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
