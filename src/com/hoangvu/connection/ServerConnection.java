@@ -40,12 +40,10 @@ public class ServerConnection {
             public void call(Object... objects) {
                 int userID = (Integer) objects[0];
                 boolean status = (Boolean) objects[1];
-                try{
+                try {
                     if (status) {
-                        //  connect
                         PublicEvent.getInstance().getEventMenuLeft().userConnect(userID);
                     } else {
-                        //  disconnect
                         PublicEvent.getInstance().getEventMenuLeft().userDisconnect(userID);
                     }
                 } catch (Exception e) {
@@ -58,9 +56,22 @@ public class ServerConnection {
             public void call(Object... objects) {
                 System.out.println(Arrays.toString(objects));
                 ModelReceiveMessage data = new ModelReceiveMessage(objects[0].toString());
-                try{
+                try {
                     System.out.println(data.getMessage());
                     PublicEvent.getInstance().getEventChat().receiveMessage(data);
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
+            }
+        });
+        client.on("receive-images", new Emitter.Listener() {
+            @Override
+            public void call(Object... objects) {
+                System.out.println("Đã nhận " + objects[0].toString());
+                ModelReceiveMessage data = new ModelReceiveMessage(objects[0].toString());
+                try {
+//                    System.out.println(data);
+                    PublicEvent.getInstance().getEventChat().receiveImage(data);
                 } catch (Exception e) {
                     System.err.println(e);
                 }
