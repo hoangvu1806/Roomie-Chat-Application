@@ -9,7 +9,9 @@ import com.hoangvu.connection.ServerConnection;
 import com.hoangvu.event.PublicEvent;
 import com.hoangvu.main.Client;
 import com.hoangvu.model.ImageHandler;
+
 import java.util.concurrent.ExecutionException;
+
 import com.hoangvu.model.ModelSendMessage;
 import com.hoangvu.model.ModelUser;
 import com.hoangvu.swing.OptionButton;
@@ -35,6 +37,7 @@ public class PanelMore extends javax.swing.JPanel {
     }
 
     private ModelUser toUser;
+
     public PanelMore(ModelUser user) {
         this.user = user;
         initComponents();
@@ -56,6 +59,7 @@ public class PanelMore extends javax.swing.JPanel {
         //  test color
         add(ch, "w 100%, h 100%");
     }
+
     private JButton getButtonFile() {
         OptionButton linkBt = new OptionButton();
         linkBt.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/com/hoangvu/icon/link.png"))));
@@ -77,6 +81,7 @@ public class PanelMore extends javax.swing.JPanel {
                             handleSelectedFiles();
                             return null;
                         }
+
                         @Override
                         protected void done() {
                             try {
@@ -124,12 +129,12 @@ public class PanelMore extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 440, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 63, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 63, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
