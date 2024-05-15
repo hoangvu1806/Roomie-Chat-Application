@@ -38,7 +38,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         label.setForeground(new Color(201,1,148));
         register.add(label);
 
-        MyTextField txtUser = new MyTextField();// init textbox user name
+        MyTextField txtUser = new MyTextField();// init textbox username
         txtUser.setColor(new Color(255, 234, 249, 255));
         txtUser.setPrefixIcon(new ImageIcon(getClass().getResource("/com/hoangvu/icon/user.png")));
         txtUser.setForeground(new Color(218, 56, 155, 255));
