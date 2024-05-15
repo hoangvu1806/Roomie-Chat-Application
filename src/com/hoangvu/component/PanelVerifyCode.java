@@ -8,8 +8,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
 public class PanelVerifyCode extends javax.swing.JPanel {
+    public int getUserID() {
+        return userID;
+    }
 
-    public PanelVerifyCode() {
+    public int userID;
+
+    public PanelVerifyCode(int userID) {
         initComponents();
         setOpaque(false);
         setFocusCycleRoot(true);
@@ -17,6 +22,7 @@ public class PanelVerifyCode extends javax.swing.JPanel {
         setFocusCycleRoot(true);
         addMouseListener(new MouseAdapter() {
         });
+        this.userID = userID;
     }
 
 
