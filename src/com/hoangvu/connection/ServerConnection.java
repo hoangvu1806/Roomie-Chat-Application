@@ -47,17 +47,17 @@ public class ServerConnection {
                         PublicEvent.getInstance().getEventMenuLeft().userDisconnect(userID);
                     }
                 } catch (Exception e) {
-                    System.err.println(e);
+//                    System.err.println(e);
                 }
             }
         });
         client.on("receive-message", new Emitter.Listener() {
             @Override
             public void call(Object... objects) {
-                System.out.println(Arrays.toString(objects));
+//                System.out.println(Arrays.toString(objects));
                 ModelReceiveMessage data = new ModelReceiveMessage(objects[0].toString());
                 try {
-                    System.out.println(data.getMessage());
+//                    System.out.println(data.getMessage());
                     PublicEvent.getInstance().getEventChat().receiveMessage(data);
                 } catch (Exception e) {
                     System.err.println(e);
@@ -67,7 +67,7 @@ public class ServerConnection {
         client.on("receive-images", new Emitter.Listener() {
             @Override
             public void call(Object... objects) {
-                System.out.println("Đã nhận " + objects[0].toString());
+//                System.out.println("Đã nhận " + objects[0].toString());
                 ModelReceiveMessage data = new ModelReceiveMessage(objects[0].toString());
                 try {
 //                    System.out.println(data);
