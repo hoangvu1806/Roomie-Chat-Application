@@ -9,7 +9,7 @@ public interface EventMain {
 
     public void initChat();
 
-    public void selectUser(ModelUser user);
-    public void updataUser(ModelUser user);
+    public void selectUser(ModelUser toUser);
+    public void updataUser(ModelUser toUser);
 
 }
