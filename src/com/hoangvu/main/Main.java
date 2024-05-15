@@ -139,11 +139,11 @@ public class Main extends JFrame {
         cover.login(isLogin);
         cover.addEvent(new ActionListener() {
             @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (!animator.isRunning()) {
-                animator.start();
+            public void actionPerformed(ActionEvent ae) {
+                if (!animator.isRunning()) {
+                    animator.start();
+                }
             }
-        }
         });
     }
 
@@ -156,7 +156,7 @@ public class Main extends JFrame {
             public void run() {
                 loading.setVisible(true);
 
-                ModelMessage ms = new ServiceSendMail().sendMain(user.getEmail(), user.getUserName(),user.getVerifyCode());
+                ModelMessage ms = new ServiceSendMail().sendMain(user.getEmail(), user.getUserName(), user.getVerifyCode());
 
                 if (ms.isSuccess()) {
                     loading.setVisible(false);
@@ -175,7 +175,7 @@ public class Main extends JFrame {
                     data.put("userID", verifyCode.getUserID());
                     data.put("verifyCode", verifyCode.getInputCode());
                     System.out.println(data);
-                    serverConnection.getClient().emit("authentication", data.toString(),new Ack(){
+                    serverConnection.getClient().emit("authentication", data.toString(), new Ack() {
                         @Override
                         public void call(Object... args) {
                             if (args[0].equals("success")) {
@@ -197,7 +197,7 @@ public class Main extends JFrame {
         ModelUser user = loginAndRegister.getUser();
         if (!user.isValidUsername()) {
             showMessage(Notification.MessageType.ERROR, "The username is invalid");
-        } else if (!user.isValidEmail()){
+        } else if (!user.isValidEmail()) {
             showMessage(Notification.MessageType.ERROR, "The email is invalid");
         } else if (!user.isValidPassword()) {
             showMessage(Notification.MessageType.ERROR, "Passwords need uppercase, lowercase, and digits!");
@@ -222,7 +222,7 @@ public class Main extends JFrame {
                             }
                         } catch (Exception e) {
                             System.out.println(e);
-                            showMessage(Notification.MessageType.ERROR,"Error Register!");
+                            showMessage(Notification.MessageType.ERROR, "Error Register!");
                         }
                     } else {
                         System.out.println("No response from server");
@@ -279,7 +279,8 @@ public class Main extends JFrame {
                 ArrayList<ModelUser> listUser = null;
                 try {
                     ObjectMapper mapper = new ObjectMapper();
-                    listUser = mapper.readValue(jsonUserList, new TypeReference<ArrayList<ModelUser>>() {});
+                    listUser = mapper.readValue(jsonUserList, new TypeReference<ArrayList<ModelUser>>() {
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -330,6 +331,7 @@ public class Main extends JFrame {
                     ms.setShow(true);
                 }
             }
+
             @Override
             public void repeat() {
             }
