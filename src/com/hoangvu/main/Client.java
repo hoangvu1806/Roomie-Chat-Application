@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /**
- *
  * @author Admin
  */
 public class Client extends javax.swing.JFrame {
     private final ModelUser user;
     private ServerConnection serverConnection;
+
     /**
      * Creates new form Home
      */
@@ -30,18 +30,19 @@ public class Client extends javax.swing.JFrame {
         setTitle("Roomie - " + user.getUserName());
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logoBase.png");
         setIconImage(icon.getImage());
-        jLabel1.setText("Roomie - "+user.getUserName());
+        jLabel1.setText("Roomie - " + user.getUserName());
 
     }
-    public void init(){
+
+    public void init() {
         serverConnection = ServerConnection.getInstance();
         Socket client = serverConnection.getClient();
-        client.emit("connect","Hello server, From: " + user.getUserName());
+        client.emit("connect", "Hello server, From: " + user.getUserName());
         ComponentResizer comr = new ComponentResizer();
         comr.registerComponent(this);
-        comr.setMinimumSize(new Dimension(800,500));
+        comr.setMinimumSize(new Dimension(800, 500));
         comr.setMaximumSize(Toolkit.getDefaultToolkit().getScreenSize());
-        comr.setSnapSize(new Dimension(10,10));
+        comr.setSnapSize(new Dimension(10, 10));
         GradientPaint gradient = new GradientPaint(0, 0, Color.RED, getWidth(), getHeight(), Color.BLUE);
         viewImage.setVisible(false);
         home.setVisible(true);
@@ -51,14 +52,18 @@ public class Client extends javax.swing.JFrame {
     public void initEvent() {
         PublicEvent.getInstance().addEventMain(new EventMain() {
             @Override
-            public void showLoading(boolean show) {}
+            public void showLoading(boolean show) {
+            }
+
             @Override
-            public void initChat() {}
+            public void initChat() {
+            }
 
             @Override
             public void selectUser(ModelUser toUser) {
                 home.setToUser(toUser);
             }
+
             @Override
             public void updataUser(ModelUser toUser) {
                 home.updataUser(toUser);
@@ -70,12 +75,14 @@ public class Client extends javax.swing.JFrame {
                 viewImage.viewImage(image);
                 System.out.println("Event running...");
             }
+
             @Override
             public void saveImage(Icon image) {
                 System.out.println("Save Image next update");
             }
         });
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents(ArrayList<ModelUser> listUsers) {
@@ -88,7 +95,7 @@ public class Client extends javax.swing.JFrame {
         closeBt = new javax.swing.JButton();
         body = new javax.swing.JLayeredPane();
         System.out.println(user.getUserID());
-        home = new com.hoangvu.form.Home(listUsers,user);
+        home = new com.hoangvu.form.Home(listUsers, user);
         viewImage = new com.hoangvu.form.ViewImage();
 
         lbUserName.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
@@ -126,6 +133,7 @@ public class Client extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 minimizeBtMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 minimizeBtMouseExited(evt);
             }
@@ -152,6 +160,7 @@ public class Client extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 closeBtMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 closeBtMouseExited(evt);
             }
@@ -165,21 +174,21 @@ public class Client extends javax.swing.JFrame {
         javax.swing.GroupLayout tittlePanelLayout = new javax.swing.GroupLayout(tittlePanel);
         tittlePanel.setLayout(tittlePanelLayout);
         tittlePanelLayout.setHorizontalGroup(
-            tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittlePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
-                .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(closeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittlePanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
+                                .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(closeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         tittlePanelLayout.setVerticalGroup(
-            tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(closeBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(tittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(minimizeBt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(closeBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         body.setPreferredSize(new java.awt.Dimension(900, 600));
@@ -191,31 +200,31 @@ public class Client extends javax.swing.JFrame {
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
-            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tittlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tittlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
-            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgroundLayout.createSequentialGroup()
-                .addComponent(tittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 591, Short.MAX_VALUE))
-            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                    .addGap(27, 27, 27)
-                    .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(backgroundLayout.createSequentialGroup()
+                                .addComponent(tittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 591, Short.MAX_VALUE))
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -257,13 +266,12 @@ public class Client extends javax.swing.JFrame {
 
     private void tittlePanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tittlePanelMouseDragged
         this.setLocation(this.getLocation().x + evt.getX() - this.pX,
-            this.getLocation().y + evt.getY() - this.pY);
+                this.getLocation().y + evt.getY() - this.pY);
     }//GEN-LAST:event_tittlePanelMouseDragged
 
 
-
     private int pX;
-    private int pY;                                
+    private int pY;
 
     /**
      * @param args      the command line arguments
@@ -273,7 +281,7 @@ public class Client extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
