@@ -14,6 +14,7 @@ import io.socket.client.Ack;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +52,31 @@ public class ChatBottom extends javax.swing.JPanel {
         JIMSendTextPane sendTextPane = new JIMSendTextPane();
         sendTextPane.addKeyListener(new KeyAdapter() {
             @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER && e.isShiftDown()) {
+                    // Nếu nhấn Shift+Enter, thêm dòng mới
+                    try {
+                        sendTextPane.getDocument().insertString(sendTextPane.getCaretPosition(), "\n", null);
+                    } catch (BadLocationException ex) {
+                        ex.printStackTrace();
+                    }
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Nếu chỉ nhấn Enter, gửi tin nhắn
+                    e.consume(); // Ngăn chặn sự kiện Enter được xử lý bởi JTextPane
+                    String message = sendTextPane.getText().trim();
+                    ModelSendMessage data = new ModelSendMessage(user.getUserID(), toUser.getUserID(), message);
+                    if (!message.isEmpty()) {
+                        send(data);
+                        PublicEvent.getInstance().getEventChat().sendMessage(data);
+                        sendTextPane.setText("");
+                        sendTextPane.grabFocus();
+                        refresh();
+                    } else {
+                        sendTextPane.grabFocus();
+                    }
+                }
+            }
+            @Override
             public void keyTyped(KeyEvent e) {
                 refresh();
             }
@@ -81,8 +107,6 @@ public class ChatBottom extends javax.swing.JPanel {
                 String message = sendTextPane.getText().trim();
                 ModelSendMessage data = new ModelSendMessage(user.getUserID(), toUser.getUserID(), message);
                 if (!message.isEmpty()) {
-                    // add chat items
-                    System.out.println("From " + user.getUserID() + "to " + toUser.getUserID() + "\n");
                     send(data);
                     PublicEvent.getInstance().getEventChat().sendMessage(data);
                     sendTextPane.setText("");
