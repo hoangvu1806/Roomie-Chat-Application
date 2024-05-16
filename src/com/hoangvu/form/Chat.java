@@ -49,7 +49,6 @@ public class Chat extends javax.swing.JPanel {
 
             @Override
             public void sendImage(ModelSendMessage data) throws IOException {
-                System.out.println(data.getImage());
                 chatBody.addImageRight(data);
             }
         });
