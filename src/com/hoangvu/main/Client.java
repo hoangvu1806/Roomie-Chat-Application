@@ -13,16 +13,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-/**
- * @author Admin
- */
+
 public class Client extends javax.swing.JFrame {
     private final ModelUser user;
     private ServerConnection serverConnection;
 
-    /**
-     * Creates new form Home
-     */
     public Client(ModelUser user, ArrayList<ModelUser> listUsers) {
         this.user = user;
         initComponents(listUsers);
