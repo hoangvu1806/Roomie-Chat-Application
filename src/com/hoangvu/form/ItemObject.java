@@ -52,7 +52,7 @@ public class ItemObject extends javax.swing.JPanel {
             public void mouseReleased(MouseEvent e) {
                 if (mouseOver){
 //                    chat.setToUser(toUser);
-                    System.out.println("Press "+toUser.getUserName());
+//                    System.out.println("Press "+toUser.getUserName());
                     PublicEvent.getInstance().getEventMain().selectUser(toUser);
                 }
             }

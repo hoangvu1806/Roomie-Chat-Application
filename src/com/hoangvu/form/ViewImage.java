@@ -67,8 +67,8 @@ public class ViewImage extends javax.swing.JComponent {
 
     private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSaveActionPerformed
 //        PublicEvent.getInstance().getEventImageView().saveImage(image);
-        JFrame frame = new JFrame("Dialog Example");
-        JOptionPane.showMessageDialog(frame, "Pay $ 10 to download photos");
+        JFrame frame = new JFrame("Save Image");
+        JOptionPane.showMessageDialog(frame, "This feature will be supported in the upcoming version!");
     }//GEN-LAST:event_cmdSaveActionPerformed
 
     @Override
