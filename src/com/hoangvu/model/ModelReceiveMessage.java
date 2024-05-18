@@ -1,8 +1,11 @@
 package com.hoangvu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class ModelReceiveMessage {
 
     public int getFromUserID() {
@@ -20,10 +23,10 @@ public class ModelReceiveMessage {
     public void setMessage(String message) {
         this.message = message;
     }
-    public Object getImage() {
+    public byte[] getImage() {
         return image;
     }
-    public void setImage(Object image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -32,7 +35,13 @@ public class ModelReceiveMessage {
         this.fromUserID = fromUserID;
         this.message = message;
     }
-    public ModelReceiveMessage(int fromUserID, String message, Object image) {
+
+    public ModelReceiveMessage(int fromUserID, byte[] image) {
+        this.fromUserID = fromUserID;
+        this.message = "";
+        this.image = image;
+    }
+    public ModelReceiveMessage(int fromUserID, String message, byte[] image) {
         this.fromUserID = fromUserID;
         this.message = message;
         this.image = image;
@@ -43,12 +52,22 @@ public class ModelReceiveMessage {
             JSONObject obj = new JSONObject(jsonString);
             fromUserID = obj.getInt("fromUserID");
             message = obj.getString("message");
+            // Chuyển đổi JSONArray thành mảng byte
+            if (obj.has("image") && obj.get("image") instanceof JSONArray) {
+                JSONArray jsonArray = obj.getJSONArray("image");
+                image = new byte[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    image[i] = (byte) jsonArray.getInt(i);
+                }
+            } else {
+                image = null; // hoặc xử lý phù hợp nếu không có dữ liệu hình ảnh
+            }
         } catch (JSONException e) {
             System.err.println(e);
         }
     }
 
-    private Object image;
+    private byte[] image;
     private Object file;
     private int fromUserID;
     private String message;
@@ -58,6 +77,7 @@ public class ModelReceiveMessage {
             JSONObject json = new JSONObject();
             json.put("fromUserID", fromUserID);
             json.put("message", message);
+            json.put("image", image);
             return json;
         } catch (JSONException e) {
             return null;
