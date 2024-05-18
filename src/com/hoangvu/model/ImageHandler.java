@@ -10,13 +10,15 @@ import java.io.*;
 public class ImageHandler {
 
     // Phương thức mã hóa mảng byte thành ImageIcon
-    public static ImageIcon decodeImage(byte[] imageData) throws IOException {
+    public static Icon decodeImage(byte[] imageData) throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
         BufferedImage bufferedImage = ImageIO.read(bis);
         bis.close();
-
-        // Chuyển đổi BufferedImage thành ImageIcon
-        return new ImageIcon(bufferedImage);
+        // Tạo ImageIcon từ BufferedImage
+        ImageIcon imageIcon = new ImageIcon(bufferedImage);
+        // Chuyển đổi ImageIcon thành Icon
+        return new ImageIcon(imageIcon.getImage().getScaledInstance(
+                bufferedImage.getWidth(), bufferedImage.getHeight(), Image.SCALE_SMOOTH));
     }
 
     // Phương thức giải mã ImageIcon thành mảng byte
@@ -58,7 +60,7 @@ public class ImageHandler {
         byte[] imageData = readImageFile(filePath);
         System.out.println(imageData);
         // Mã hóa dữ liệu hình ảnh thành ImageIcon
-        ImageIcon imageIcon = decodeImage(imageData);
+        Icon imageIcon = decodeImage(imageData);
         // Hiển thị ImageIcon trong một JFrame
         JFrame frame = new JFrame("Decoded Image");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
