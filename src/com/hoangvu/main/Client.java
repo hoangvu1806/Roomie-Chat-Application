@@ -26,7 +26,6 @@ public class Client extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon("E:/Roomie Project/src/com/hoangvu/icon/logoBase.png");
         setIconImage(icon.getImage());
         jLabel1.setText("Roomie - " + user.getUserName());
-
     }
 
     public void init() {
